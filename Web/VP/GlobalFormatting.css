@@ -1,0 +1,206 @@
+/* XHTML Predefined Tags */
+body {
+	font-family: Trebuchet MS, sans-serif;
+	font-size: 0.9em;
+	background-color: #CCCCCC; /* Used to create the sidebar impression */
+}
+a {
+	text-decoration: none;
+	cursor: hand;
+	color: #F63E0C;
+	/*border-bottom: 1px dotted blue;*/
+}
+a:hover {
+	/*border-bottom: 1px solid blue;*/
+}
+a:visited {
+	color: #157AF6;
+	/*border-bottom: 1px solid blue;*/
+}
+
+h1 {
+	font-size: 3.0em;
+}
+h2 {
+	font-size: 1.5em;
+	border-bottom: 1px solid #CCCCCC;
+	margin-bottom: 0.2em;
+}
+h3 {
+	margin-left: 2em;
+	margin-bottom: 0;
+	font-size: 1.2em;
+}
+h4 {
+	padding-left: 3em;
+	color: #999999;
+	background-color: white;
+	margin-top: 0em;
+}
+
+p {
+	margin-left: 4em;
+}
+ul {
+	margin-left: 4em;
+}
+#Body {
+	background-color: white;
+	border-left: 1px solid black;
+	border-right: 1px solid black;
+	text-align: justify;
+}
+#Logo {
+	text-align: center;
+	vertical-align: middle;
+}
+#Footer {
+	border: 2px solid black;
+	padding: 0.5em;
+}
+#FooterPadder {
+	padding-bottom: 0.5em;
+}
+
+/* Classes */
+.colorlabel {
+	color: #F63E0C;
+}
+
+.blacklabel {
+	color: #000000;
+}
+.DateSub {
+	border-bottom: 0px solid black;
+	margin: 0;
+	padding: 0;
+	font-size: 1em;
+	margin-left: 0.5em;
+}
+.Term {
+	border-bottom: 1px dotted black;
+	cursor: help;
+}
+.Code {
+	margin-left: 5.5em;
+	margin-right: 1em;
+	padding-left: 1em;
+	border-left: 1px solid black;
+	font-family: Courier;
+}
+.Quote {
+	margin-left: 5.5em;
+	margin-right: 1em;
+	padding-left: 1em;
+	border-left: 1px solid black;
+}
+.Top {
+  font-size: 90%;
+  font-weight: bold;
+  font-variant: small-caps;
+  text-decoration: none;
+  padding-left: 1ex;
+  padding-right: 1ex;
+  float: right;
+  border: 0px solid black;
+}
+
+lfloat {
+	float: left;
+	margin-right: 1em;
+}
+
+rfloat {
+	float: right;
+	margin-right: 1em;
+}
+
+
+/****************** LEFT BAR ******************/
+#LeftBar {
+	text-align: right;
+	font-family: Tahoma, sans-serif;
+}
+#LeftBar ul {
+	margin-left: 0;
+}
+#LeftBar a {
+	border-bottom: 0px solid black;
+}
+#LeftBar a:hover {
+	border-bottom: 0px solid black;
+}
+#LeftBar p {
+	text-align: center;
+}
+#LeftBar img {
+	margin-bottom: 1em;
+	margin-right: 1em;
+	border: 0px solid black;
+	margin-left: 0.5em;
+}
+
+
+
+/****************** MENU on the LEFT BAR ******************/
+
+#MenuHeader {
+	padding-right: 1em;
+	margin: 0;
+	background-color: transparent;
+	color: black;
+	margin-top: 1em;
+}
+#menu {
+  	margin-bottom: 3ex;
+  	font-size: 14px;
+  	font-weight: bold;
+	list-style-type: none;
+	padding-right: 1em;
+}
+#menu a {
+  	margin-right: 3px;
+  	border-right-width: 1px;
+  	border-right-style: solid;
+  	border-color: #00007f;
+  	padding-right: 5px;
+  	text-decoration: none;
+  	background-color: inherit;
+  	color: #00007f;
+}
+#menu a:hover {
+  	margin-right: 0;
+  	border-right-width: 4px;
+}
+#menu a.current {
+  	margin-right: 0;
+  	border-right-width: 4px;
+}
+#menu .highlight {
+  	padding-left: 0.5ex;
+  	padding-right: 0.5ex;
+  	background-color: #1f1f9f;
+  	color: #ffffdf;
+}
+#menu ul.submenu {
+  margin-right: 3px;
+  border-right-width: 1px;
+  border-right-style: solid;
+  border-color: #00007f;
+  padding-right: 0;
+}
+
+#menu ul.submenu a {
+  margin-right: 0;
+  border-right-width: 4px;
+  border-color: #5f7f9f;
+  padding-right: 5px;
+  color: #5f7f9f;
+}
+#menu ul.submenu a:hover {
+  margin-right: 0;
+  border-color: #00007f;
+}
+#menu ul.submenu a.current {
+  border-color: #00007f;
+}

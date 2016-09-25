@@ -1,0 +1,237 @@
+<?xml version="1.0"?>
+<rdf:RDF
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+    xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+    xmlns:owl="http://www.w3.org/2002/07/owl#"
+    xmlns="http://www.owl-ontologies.com/2007/1/22/Ontology1169475311.owl#"
+    xmlns:p1="http://www.owl-ontologies.com/assert.owl#"
+  xml:base="http://www.owl-ontologies.com/2007/1/22/Ontology1169475311.owl">
+  <owl:Ontology rdf:about=""/>
+  <owl:Class rdf:ID="serie_animate">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="serie_tv"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="commedia_e_comico">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="film"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="cultura">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="tipologia_di_contenuto"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="intrattenimento_e_didattica">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="bambini_e_ragazzi"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="film_e_telefilm">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#bambini_e_ragazzi"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="informazione">
+    <rdfs:subClassOf rdf:resource="#tipologia_di_contenuto"/>
+  </owl:Class>
+  <owl:Class rdf:ID="musica">
+    <rdfs:subClassOf rdf:resource="#tipologia_di_contenuto"/>
+  </owl:Class>
+  <owl:Class rdf:ID="dibattiti_e_talk_show">
+    <rdfs:subClassOf rdf:resource="#informazione"/>
+  </owl:Class>
+  <owl:Class rdf:ID="televendite">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="intrattenimento"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="teledidattica">
+    <rdfs:subClassOf rdf:resource="#cultura"/>
+  </owl:Class>
+  <owl:Class rdf:ID="informazione_grandi_eventi">
+    <rdfs:subClassOf rdf:resource="#informazione"/>
+  </owl:Class>
+  <owl:Class rdf:ID="sport_grandi_eventi">
+    <rdfs:subClassOf>
+      <owl:Class rdf:ID="sport"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="serie_tv_novita">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#serie_tv"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="argomento"/>
+  <owl:Class rdf:about="#sport">
+    <rdfs:subClassOf rdf:resource="#tipologia_di_contenuto"/>
+  </owl:Class>
+  <owl:Class rdf:ID="sport_individuali">
+    <rdfs:subClassOf rdf:resource="#sport"/>
+  </owl:Class>
+  <owl:Class rdf:ID="thriller_e_noir">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#film"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="calcio">
+    <rdfs:subClassOf rdf:resource="#sport"/>
+  </owl:Class>
+  <owl:Class rdf:ID="telefilm">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#serie_tv"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="giochi_a_premi">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#intrattenimento"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="telenovelas">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#serie_tv"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="manifestazioni_culturali">
+    <rdfs:subClassOf rdf:resource="#cultura"/>
+  </owl:Class>
+  <owl:Class rdf:ID="guerra_e_western">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#film"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:about="#film">
+    <rdfs:subClassOf rdf:resource="#tipologia_di_contenuto"/>
+  </owl:Class>
+  <owl:Class rdf:ID="drammatico">
+    <rdfs:subClassOf rdf:resource="#film"/>
+  </owl:Class>
+  <owl:Class rdf:ID="talk_show">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#intrattenimento"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="horror">
+    <rdfs:subClassOf rdf:resource="#film"/>
+  </owl:Class>
+  <owl:Class rdf:ID="scienza_e_tecnologia">
+    <rdfs:subClassOf rdf:resource="#cultura"/>
+  </owl:Class>
+  <owl:Class rdf:ID="reality">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#intrattenimento"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="durata"/>
+  <owl:Class rdf:ID="infotainment">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#intrattenimento"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="animazione">
+    <rdfs:subClassOf rdf:resource="#film"/>
+  </owl:Class>
+  <owl:Class rdf:ID="approfondimenti_e_inchieste">
+    <rdfs:subClassOf rdf:resource="#informazione"/>
+  </owl:Class>
+  <owl:Class rdf:ID="fiction">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#serie_tv"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="sport_ora_in_onda">
+    <rdfs:subClassOf rdf:resource="#sport"/>
+  </owl:Class>
+  <owl:Class rdf:ID="notizie">
+    <rdfs:subClassOf rdf:resource="#informazione"/>
+  </owl:Class>
+  <owl:Class rdf:ID="ora_in_onda">
+    <rdfs:subClassOf rdf:resource="#tipologia_di_contenuto"/>
+  </owl:Class>
+  <owl:Class rdf:ID="storia">
+    <rdfs:subClassOf rdf:resource="#cultura"/>
+  </owl:Class>
+  <owl:Class rdf:ID="interviste_e_speciali">
+    <rdfs:subClassOf rdf:resource="#musica"/>
+  </owl:Class>
+  <owl:Class rdf:ID="varieta_e_comici">
+    <rdfs:subClassOf>
+      <owl:Class rdf:about="#intrattenimento"/>
+    </rdfs:subClassOf>
+  </owl:Class>
+  <owl:Class rdf:ID="film_d_autore">
+    <rdfs:subClassOf rdf:resource="#film"/>
+  </owl:Class>
+  <owl:Class rdf:ID="luogo"/>
+  <owl:Class rdf:ID="adulti">
+    <rdfs:subClassOf rdf:resource="#film"/>
+  </owl:Class>
+  <owl:Class rdf:ID="natura">
+    <rdfs:subClassOf rdf:resource="#cultura"/>
+  </owl:Class>
+  <owl:Class rdf:ID="azione_e_avventura">
+    <rdfs:subClassOf rdf:resource="#film"/>
+  </owl:Class>
+  <owl:Class rdf:ID="orario_di_programmazione"/>
+  <owl:Class rdf:about="#bambini_e_ragazzi">
+    <rdfs:subClassOf rdf:resource="#tipologia_di_contenuto"/>
+  </owl:Class>
+  <owl:Class rdf:about="#intrattenimento">
+    <rdfs:subClassOf rdf:resource="#tipologia_di_contenuto"/>
+  </owl:Class>
+  <owl:Class rdf:ID="grandi_eventi_musicali">
+    <rdfs:subClassOf rdf:resource="#musica"/>
+  </owl:Class>
+  <owl:Class rdf:ID="programmi_musicali">
+    <rdfs:subClassOf rdf:resource="#musica"/>
+  </owl:Class>
+  <owl:Class rdf:ID="novita">
+    <rdfs:subClassOf rdf:resource="#tipologia_di_contenuto"/>
+  </owl:Class>
+  <owl:Class rdf:ID="notizie_e_approfondimenti">
+    <rdfs:subClassOf rdf:resource="#sport"/>
+  </owl:Class>
+  <owl:Class rdf:about="#serie_tv">
+    <rdfs:subClassOf rdf:resource="#tipologia_di_contenuto"/>
+  </owl:Class>
+  <owl:Class rdf:ID="musical">
+    <rdfs:subClassOf rdf:resource="#film"/>
+  </owl:Class>
+  <owl:Class rdf:ID="tempo"/>
+  <owl:Class rdf:ID="religione_e_filosofia">
+    <rdfs:subClassOf rdf:resource="#cultura"/>
+  </owl:Class>
+  <owl:Class rdf:ID="tempo_libero">
+    <rdfs:subClassOf rdf:resource="#cultura"/>
+  </owl:Class>
+  <owl:Class rdf:ID="concerti">
+    <rdfs:subClassOf rdf:resource="#musica"/>
+  </owl:Class>
+  <owl:Class rdf:ID="film_novita">
+    <rdfs:subClassOf rdf:resource="#film"/>
+  </owl:Class>
+  <owl:Class rdf:ID="videoclip">
+    <rdfs:subClassOf rdf:resource="#musica"/>
+  </owl:Class>
+  <owl:Class rdf:ID="cortometraggio">
+    <rdfs:subClassOf rdf:resource="#film"/>
+  </owl:Class>
+  <owl:Class rdf:ID="cartoni_animati">
+    <rdfs:subClassOf rdf:resource="#bambini_e_ragazzi"/>
+  </owl:Class>
+  <owl:Class rdf:ID="documentario">
+    <rdfs:subClassOf rdf:resource="#film"/>
+  </owl:Class>
+  <owl:Class rdf:ID="arte_e_letteratura">
+    <rdfs:subClassOf rdf:resource="#cultura"/>
+  </owl:Class>
+  <owl:Class rdf:ID="fantascienza_e_fantasy">
+    <rdfs:subClassOf rdf:resource="#film"/>
+  </owl:Class>
+  <owl:Class rdf:ID="sport_di_squadra">
+    <rdfs:subClassOf rdf:resource="#sport"/>
+  </owl:Class>
+</rdf:RDF>
+
+<!-- Created with Protege (with OWL Plugin 3.2.1, Build 365)  http://protege.stanford.edu -->

@@ -1,0 +1,324 @@
+Stat Nr;Stat;Specialize0;Support0;Generalize0;Attack0;Specialize1;Support1;Generalize1;Attack1;L = 0;R = 0;L = 1;R = 1;L = 2;R = 2;L = 3;R = 3;L = 4;R = 4;L = 5;R = 5;L = 6;R = 6;L = 7;R = 7;L = 8;R = 8;L = 9;R = 9;L = 10;R = 10;L = 11;R = 11;L = 12;R = 12;L = 13;R = 13;L = 14;R = 14;L = 15;R = 15;L = 16;R = 16;L = 17;R = 17;L = 18;R = 18;L = 19;R = 19;L = 20;R = 20;L = 21;R = 21;L = 22;R = 22;L = 23;R = 23;Tot Gen;Tot Retr
+0;War _ exceptional;2;9;5;74;0;69;0;213;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;372;0
+1;War not effective;2;9;5;65;0;66;0;209;7;0;7;0;1;0;1;0;1;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;356;17
+2;People must not worried;6;7;0;44;7;65;0;100;0;0;2;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;229;2
+3;World _ threatened;2;14;0;56;0;62;0;102;1;0;2;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;236;3
+4;USA _ hated;1;4;0;6;0;1;0;3;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;15;0
+5;Enemies _ collaborating;1;5;0;16;0;23;5;44;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;94;0
+6;Government _ censured;1;6;0;15;0;28;5;57;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;112;0
+7;Supplies _ waste;1;5;0;15;0;8;0;13;1;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;42;1
+8;Bin Laden _ dangerous;1;4;0;11;0;7;0;20;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;43;0
+9;Israel _ secure;1;4;0;11;0;22;0;44;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;82;0
+10;CurrentWorld _ attacked;1;5;6;24;0;50;0;66;1;0;2;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;152;3
+11;Oligarchy _ exploiting;1;6;1;24;19;44;2;74;1;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;171;1
+12;War _ effective;2;9;5;58;0;68;0;185;7;0;4;0;3;0;1;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;327;15
+13;War _ necessary;2;9;5;42;0;35;0;73;0;0;1;0;1;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;166;2
+14;Supplies _ waste;1;5;0;15;0;8;0;13;1;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;42;1
+15;Military Actions _ effective;1;5;1;28;6;59;1;153;2;0;7;0;4;0;2;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;254;15
+16;USA not only attacked;1;1;0;4;0;4;0;6;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;16;0
+17;Wealth not distributed;1;4;0;13;0;1;0;11;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;30;0
+18;War not only effective;2;1;1;12;0;10;0;35;3;0;4;0;1;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;61;8
+19;USA _ greedy;1;4;0;6;0;1;0;3;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;15;0
+20;Groundforces not effective;1;4;0;18;0;6;5;66;1;0;4;0;4;0;1;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;100;10
+21;Americans not fearful;1;7;7;61;109;428;0;958;0;0;0;0;4;0;0;0;1;0;1;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;1571;6
+22;Anthrax _ dangerous;1;4;0;6;0;1;0;3;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;15;0
+23;Terrorism _ solvable;1;5;0;11;0;11;0;18;1;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;46;1
+24;Muslims not reasonable;2;9;5;30;52;44;0;120;1;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;262;1
+25;Terrorism _ solvable;1;5;0;11;0;11;0;18;1;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;46;1
+26;Terrorists _ desperate;1;8;1;33;5;92;16;192;1;0;1;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;348;2
+27;Economic Situation _ worsening;1;4;0;6;0;1;0;3;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;15;0
+28;BlackPeople not muslims;1;4;0;13;0;6;5;32;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;61;0
+29;I _ worried;1;4;5;12;44;17;0;82;1;0;1;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;165;2
+30;Leadership not just;1;6;0;23;0;32;10;56;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;128;0
+31;I not threatened;1;7;8;66;164;245;0;733;1;0;0;0;2;0;1;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;1224;4
+32;AmericanSociety _ selfish;1;4;5;12;0;2;0;6;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;30;0
+33;Bombing _ effective;1;4;5;42;0;34;23;129;2;0;8;0;4;0;1;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;238;15
+34;European more rational;1;0;0;2;0;1;1;8;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;13;0
+35;USA not liked;1;4;0;8;0;1;0;2;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;16;0
+36;War not effective;2;9;5;65;0;66;0;209;7;0;7;0;1;0;1;0;1;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;356;17
+37;Diplomacy not effective;1;4;0;23;5;6;5;98;4;0;5;0;3;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;142;12
+38;Casualties hopefully accidental;1;4;0;10;0;27;1;59;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;102;0
+39;Violence must used;2;5;0;22;6;42;3;90;1;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;170;1
+40;War _ revenging;2;9;5;58;0;100;0;302;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;476;0
+41;War only effective;2;1;1;16;0;28;0;113;7;0;2;0;3;0;2;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;161;14
+42;Military Actions never effective;1;2;1;26;7;47;1;163;0;0;7;0;4;0;5;0;1;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;248;17
+43;War not effective;2;9;5;65;0;66;0;209;7;0;7;0;1;0;1;0;1;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;356;17
+44;Terrorists _ desperate;1;8;1;33;5;92;16;192;1;0;1;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;348;2
+45;USA not secure;1;4;0;13;0;21;0;53;2;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;92;2
+46;CurrentWorld must changed;1;1;2;8;0;8;0;8;0;0;0;0;1;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;28;1
+47;Fundamentalists _ many;1;5;5;28;0;42;23;104;0;0;1;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;208;1
+48;War possibly worsening;2;5;3;15;0;21;0;51;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;97;0
+49;Muslims not educated;2;9;5;30;52;44;0;120;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;262;0
+50;Refugees _ helped;1;4;0;6;0;1;0;3;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;15;0
+51;ForeignMedia only objective;1;0;0;3;0;5;0;16;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;25;0
+52;Distruction _ worsening;1;5;0;10;0;12;0;19;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;47;0
+53;AmericanMedia _ censured;1;5;0;16;0;13;5;50;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;90;0
+54;Arabs _ hated;1;4;0;6;0;1;0;3;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;15;0
+55;Religion _ guilty;1;4;0;6;0;1;0;3;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;15;0
+56;Targets not present;1;4;0;8;0;1;0;2;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;16;0
+57;Anthrax too much scaring;1;0;0;1;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;2;0
+58;Values _ necessary;1;4;0;6;0;1;0;3;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;15;0
+59;DailyLife partially changed;1;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;1;0
+60;USA not secure;1;4;0;13;0;21;0;53;2;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;92;2
+61;Peace _ possible;1;4;0;16;5;14;6;57;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;103;0
+62;Society possibly meaningless;2;4;0;2;0;4;0;12;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;24;0
+63;Economic Situation _ responsible;1;4;0;6;0;1;0;3;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;15;0
+64;Economic Aid _ effective;1;4;0;21;0;14;6;90;2;0;7;0;1;0;1;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;136;11
+65;People _ attentive;6;49;0;257;42;462;0;905;0;0;1;0;2;0;4;0;1;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;1721;8
+66;Poverty _ responsible;1;4;0;11;0;2;0;9;1;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;27;1
+67;Terrorists must eliminated;1;4;1;15;3;36;7;87;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;154;0
+68;Groundforces _ necessary;1;4;0;11;0;2;6;33;0;0;1;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;57;1
+69;Muslims _ reasonable;2;9;5;23;44;39;0;118;0;0;1;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;240;1
+70;Society hopefully open;2;4;0;10;0;34;0;54;0;0;1;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;104;1
+71;UrbanCenters _ dangerous;1;4;0;6;0;1;0;3;1;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;15;1
+72;Violence not necessary;2;11;0;48;13;45;6;103;0;0;1;0;0;0;2;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;228;3
+73;Bombing _ useless;1;5;6;46;0;59;28;133;1;0;1;0;3;0;1;0;5;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;278;11
+74;AmericanMedia _ controlling;1;6;0;29;0;62;6;175;0;0;1;0;0;0;2;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;279;3
+75;UrbanCenters _ dangerous;1;4;0;6;0;1;0;3;1;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;15;1
+76;DailyLife _ normal;1;4;0;11;0;2;0;15;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;33;0
+77;CurrentWorld hopefully changed;1;2;3;4;0;6;0;12;0;0;0;0;0;0;1;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;28;1
+78;Anthrax _ scaring;1;4;0;6;0;1;0;3;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;15;0
+79;Violence must not used;2;5;0;27;7;44;4;98;1;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;187;1
+80;Wealth _ attacked;1;5;0;18;0;32;0;63;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;119;0
+81;War not effective;2;9;5;65;0;66;0;209;7;0;7;0;1;0;1;0;1;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;356;17
+82;Peace not onsale;1;4;0;18;5;11;5;67;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;111;0
+83;Americans same attentive;1;5;5;29;47;40;0;114;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;241;0
+84;Bombing not effective;1;4;5;46;0;30;24;148;5;0;4;0;6;0;2;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;258;17
+85;Politicians not caring;1;7;0;32;0;88;13;254;0;0;0;0;0;0;0;0;1;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;395;1
+86;CurrentWorld _ attacked;1;5;6;24;0;50;0;66;1;0;2;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;152;3
+87;USA must secure;1;1;0;6;0;15;0;33;2;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;56;2
+88;Bombing _ waste;1;5;6;54;0;57;29;139;2;0;3;0;5;0;1;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;291;11
+89;NormalPeople _ controlled;1;5;5;42;34;35;0;86;0;0;0;0;0;0;1;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;208;1
+90;I _ worried;1;4;5;12;44;17;0;82;1;0;1;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;165;2
+91;Leadership _ selfish;1;6;0;19;0;29;10;57;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;122;0
+92;War only effective;2;1;1;16;0;28;0;113;7;0;2;0;3;0;2;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;161;14
+93;NormalPeople _ overwhelmed;1;5;5;42;34;35;0;86;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;208;0
+94;Casualties _ limited;1;7;0;20;0;43;1;71;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;143;0
+95;Foreign Policy _ effective;1;4;0;11;0;7;0;15;1;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;38;1
+96;Society once open;2;2;0;6;0;22;0;34;0;0;1;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;66;1
+97;Casualties _ necessary;1;6;0;15;0;20;1;34;0;0;0;0;0;0;1;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;77;1
+98;People _ threatened;6;43;0;221;36;395;0;806;0;0;1;0;3;0;0;0;1;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;1507;5
+99;Fundamentalists must isolated;1;3;3;20;0;41;22;91;0;0;1;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;181;1
+100;Americans possibly guilty;1;3;3;10;14;25;0;60;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;116;0
+101;Bush not controlled;1;5;0;19;0;19;5;61;0;0;0;0;0;0;1;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;110;1
+102;Poverty _ responsible;1;4;0;11;0;2;0;9;1;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;27;1
+103;I not fearful;1;6;7;44;116;395;0;981;1;0;1;0;2;0;0;0;1;0;1;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;1550;6
+104;AmericanMedia _ obsessive;1;6;0;23;0;57;6;152;0;0;1;0;0;0;1;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;245;2
+105;Foreign Policy _ waste;1;5;0;15;0;8;0;13;1;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;42;1
+106;NormalPeople _ worsening;1;5;5;42;34;35;0;86;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;208;0
+107;Kids _ shocked;1;4;0;6;0;1;0;3;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;15;0
+108;Bush not honest;1;5;0;19;0;19;5;61;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;110;0
+109;War not only effective;2;1;1;12;0;10;0;35;3;0;4;0;1;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;61;8
+110;Atmosphere _ fearful;1;6;0;18;0;54;0;75;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;154;0
+111;DailyLife _ changed;1;4;0;6;0;1;0;3;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;15;0
+112;World _ threatened;2;14;0;56;0;62;0;102;1;0;2;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;236;3
+113;NormalPeople can not controlling;1;3;3;43;53;195;0;473;0;0;0;0;0;0;2;0;0;0;2;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;771;4
+114;Victims _ frustrated;1;7;0;27;0;86;7;177;0;0;2;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;305;2
+115;Distruction more easy;1;1;0;2;0;2;0;2;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;8;0
+116;Terrorists not rational;1;7;1;34;6;53;13;94;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;209;0
+117;Threat _ continuous;1;4;0;11;0;2;0;15;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;33;0
+118;Attack _ telegenic;1;4;0;6;0;1;0;3;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;15;0
+119;RichPeople _ exploiting;1;5;5;26;39;18;0;73;1;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;167;1
+
+From;Rel;To;Pos Score;Neg Score;Hit Score;Miss Score
+can not;http://www,cwi,nl/~media/ns/VP/VoxPopuli,rdfs#similar;not;0,75;-99,63333333333397;3;-406
+Violence;http://www,cwi,nl/~media/ns/VP/VoxPopuli,rdfs#similar;Terrorists;0,25;-171,46666666666667;1;-633
+not;http://www,cwi,nl/~media/ns/VP/VoxPopuli,rdfs#similar;must not;1,1666666666666665;-249,89999999999978;3;-816
+not;http://www,cwi,nl/~media/ns/VP/VoxPopuli,rdfs#opposite;must;2,25;-178,8333333333323;3;-666
+Television;http://www,cwi,nl/~media/ns/VP/VoxPopuli,rdfs#opposite;NormalPeople;0,75;-49,516666666666715;3;-189
+not enough;http://www,cwi,nl/~media/ns/VP/VoxPopuli,rdfs#opposite;too much;0,0;0,0;0;0
+Leadership;http://www,cwi,nl/~media/ns/VP/VoxPopuli,rdfs#similar;Government;0,0;-38,95000000000001;0;-119
+never;http://www,cwi,nl/~media/ns/VP/VoxPopuli,rdfs#opposite;once;0,0;-257,76666666666586;0;-985
+Terrorists;http://www,cwi,nl/~media/ns/VP/VoxPopuli,rdfs#similar;Fundamentalists;0,0;-112,46666666666675;0;-394
+_;http://www,cwi,nl/~media/ns/VP/VoxPopuli,rdfs#similar;always;3,8000000000000007;-581,2666666666644;13;-1720
+always;http://www,cwi,nl/~media/ns/VP/VoxPopuli,rdfs#opposite;not;3,6333333333333337;-63,08333333333343;13;-227
+People;http://www,cwi,nl/~media/ns/VP/VoxPopuli,rdfs#specialization;Americans;1,6666666666666667;-289,949999999998;5;-1192
+attentive;http://www,cwi,nl/~media/ns/VP/VoxPopuli,rdfs#opposite;open;0,0;-170,56666666666578;0;-697
+not worst;http://www,cwi,nl/~media/ns/VP/VoxPopuli,rdfs#opposite;worst;0,0;0,0;0;0
+Peace;http://www,cwi,nl/~media/ns/VP/VoxPopuli,rdfs#opposite;Hate;0,0;-52,400000000000055;0;-157
+_;http://www,cwi,nl/~media/ns/VP/VoxPopuli,rdfs#opposite;not;18,499999999999996;-331,89999999999776;40;-1141
+threatened;http://www,cwi,nl/~media/ns/VP/VoxPopuli,rdfs#opposite;revenging;0,0;-182,79999999999882;0;-721
+never;http://www,cwi,nl/~media/ns/VP/VoxPopuli,rdfs#opposite;can;0,0;-75,45000000000014;0;-302
+controlling;http://www,cwi,nl/~media/ns/VP/VoxPopuli,rdfs#similar;attentive;1,3333333333333335;-157,08333333333167;5;-619
+_;http://www,cwi,nl/~media/ns/VP/VoxPopuli,rdfs#similar;best;0,5333333333333333;-695,0833333333383;2;-2186
+Economic Aid;http://www,cwi,nl/~media/ns/VP/VoxPopuli,rdfs#opposite;War;3,75;-20,950000000000006;7;-65
+_;http://www,cwi,nl/~media/ns/VP/VoxPopuli,rdfs#opposite;never;2,6166666666666667;-404,61666666666326;6;-1406
+Diplomacy;http://www,cwi,nl/~media/ns/VP/VoxPopuli,rdfs#opposite;War;6,499999999999999;-22,250000000000007;10;-70
+Diplomacy;http://www,cwi,nl/~media/ns/VP/VoxPopuli,rdfs#opposite;Military Actions;1,0;-10,16666666666666;2;-28
+must not;http://www,cwi,nl/~media/ns/VP/VoxPopuli,rdfs#opposite;always;0,0;-31,733333333333313;0;-116
+once;http://www,cwi,nl/~media/ns/VP/VoxPopuli,rdfs#similar;possibly;0,5;-29,98333333333332;1;-117
+can;http://www,cwi,nl/~media/ns/VP/VoxPopuli,rdfs#opposite;can not;0,25;-94,76666666666675;1;-341
+threatened;http://www,cwi,nl/~media/ns/VP/VoxPopuli,rdfs#similar;frustrated;0,2;-262,34999999999894;1;-1061
+best;http://www,cwi,nl/~media/ns/VP/VoxPopuli,rdfs#opposite;not;0,5333333333333333;-37,983333333333334;2;-137
+Groundforces;http://www,cwi,nl/~media/ns/VP/VoxPopuli,rdfs#opposite;Bombing;5,083333333333333;-29,98333333333332;11;-92
+Government;http://www,cwi,nl/~media/ns/VP/VoxPopuli,rdfs#similar;Politicians;0,0;-29,199999999999992;0;-93
+threatened;http://www,cwi,nl/~media/ns/VP/VoxPopuli,rdfs#similar;attacked;2,0;-187,68333333333206;4;-739
+Society;http://www,cwi,nl/~media/ns/VP/VoxPopuli,rdfs#specialization;AmericanSociety;0,0;-29,616666666666646;0;-97
+more;http://www,cwi,nl/~media/ns/VP/VoxPopuli,rdfs#opposite;less;0,0;-4,25;0;-8
+NormalPeople;http://www,cwi,nl/~media/ns/VP/VoxPopuli,rdfs#opposite;RichPeople;0,0;-39,33333333333334;0;-110
+always;http://www,cwi,nl/~media/ns/VP/VoxPopuli,rdfs#opposite;can not;0,5833333333333333;-99,21666666666692;3;-370
+Peace;http://www,cwi,nl/~media/ns/VP/VoxPopuli,rdfs#opposite;War;0,0;-47,600000000000065;0;-143
+Muslims;http://www,cwi,nl/~media/ns/VP/VoxPopuli,rdfs#generalization;People;0,0;-166,94999999999922;0;-638
+War;http://www,cwi,nl/~media/ns/VP/VoxPopuli,rdfs#specialization;Bombing;20,249999999999996;-272,21666666666636;49;-910
+not best;http://www,cwi,nl/~media/ns/VP/VoxPopuli,rdfs#opposite;best;0,0;-64,96666666666678;0;-256
+Victims;http://www,cwi,nl/~media/ns/VP/VoxPopuli,rdfs#similar;Casualties;0,25;-46,216666666666676;1;-156
+Enemies;http://www,cwi,nl/~media/ns/VP/VoxPopuli,rdfs#similar;Terrorists;0,0;-21,56666666666667;0;-67
+frustrated;http://www,cwi,nl/~media/ns/VP/VoxPopuli,rdfs#similar;desperate;1,0;-79,01666666666681;2;-328
+always;http://www,cwi,nl/~media/ns/VP/VoxPopuli,rdfs#opposite;never;0,25;-67,48333333333345;1;-248
+must not;http://www,cwi,nl/~media/ns/VP/VoxPopuli,rdfs#similar;not;0,0;-69,7000000000002;0;-248
+Bombing;http://www,cwi,nl/~media/ns/VP/VoxPopuli,rdfs#generalization;War;20,333333333333318;-209,2166666666658;47;-772
+RichPeople;http://www,cwi,nl/~media/ns/VP/VoxPopuli,rdfs#similar;Oligarchy;1,0;-120,03333333333387;1;-533
+exceptional;http://www,cwi,nl/~media/ns/VP/VoxPopuli,rdfs#opposite;normal;0,0;-32,93333333333333;0;-109
+Bin Laden;http://www,cwi,nl/~media/ns/VP/VoxPopuli,rdfs#opposite;Bush;0,0;-10,333333333333332;0;-28
+Enemies;http://www,cwi,nl/~media/ns/VP/VoxPopuli,rdfs#opposite;Friends;0,0;-33,63333333333332;0;-114
+secure;http://www,cwi,nl/~media/ns/VP/VoxPopuli,rdfs#opposite;attentive;0,0;-88,75000000000001;0;-261
+controlling;http://www,cwi,nl/~media/ns/VP/VoxPopuli,rdfs#opposite;accidental;0,0;-102,50000000000041;0;-418
+attacked;http://www,cwi,nl/~media/ns/VP/VoxPopuli,rdfs#similar;threatened;2,0;-107,00000000000003;4;-347
+desperate;http://www,cwi,nl/~media/ns/VP/VoxPopuli,rdfs#similar;frustrated;1,0;-84,16666666666693;2;-302
+Casualties;http://www,cwi,nl/~media/ns/VP/VoxPopuli,rdfs#similar;Victims;0,25;-58,250000000000036;1;-182
+AmericanMedia;http://www,cwi,nl/~media/ns/VP/VoxPopuli,rdfs#opposite;ForeignMedia;0,0;-48,866666666666696;0;-155
+threatened;http://www,cwi,nl/~media/ns/VP/VoxPopuli,rdfs#similar;fearful;2,75;-257,91666666666583;6;-1039
+Terrorists;http://www,cwi,nl/~media/ns/VP/VoxPopuli,rdfs#similar;Enemies;0,0;-96,09999999999997;0;-310
+NormalPeople;http://www,cwi,nl/~media/ns/VP/VoxPopuli,rdfs#generalization;People;1,6166666666666667;-197,99999999999676;7;-844
+People;http://www,cwi,nl/~media/ns/VP/VoxPopuli,rdfs#specialization;RichPeople;0,0;-447,69999999999726;0;-1955
+Military Actions;http://www,cwi,nl/~media/ns/VP/VoxPopuli,rdfs#similar;War;11,116666666666667;-98,01666666666699;28;-366
+People;http://www,cwi,nl/~media/ns/VP/VoxPopuli,rdfs#specialization;NormalPeople;1,6833333333333333;-622,4166666666596;8;-2766
+once;http://www,cwi,nl/~media/ns/VP/VoxPopuli,rdfs#opposite;never;0,0;-32,91666666666663;0;-128
+can not;http://www,cwi,nl/~media/ns/VP/VoxPopuli,rdfs#opposite;can;0,0;-83,96666666666698;0;-328
+Military Actions;http://www,cwi,nl/~media/ns/VP/VoxPopuli,rdfs#opposite;Diplomacy;1,3333333333333333;-31,599999999999973;3;-99
+War;http://www,cwi,nl/~media/ns/VP/VoxPopuli,rdfs#opposite;Peace;0,0;-187,14999999999984;0;-571
+attentive;http://www,cwi,nl/~media/ns/VP/VoxPopuli,rdfs#similar;controlling;1,3333333333333333;-200,68333333333263;5;-817
+can;http://www,cwi,nl/~media/ns/VP/VoxPopuli,rdfs#similar;_;0,0;-10,2;0;-36
+not only;http://www,cwi,nl/~media/ns/VP/VoxPopuli,rdfs#opposite;only;8,666666666666666;-21,33333333333333;14;-60
+RichPeople;http://www,cwi,nl/~media/ns/VP/VoxPopuli,rdfs#generalization;People;0,0;-54,85000000000009;0;-197
+least;http://www,cwi,nl/~media/ns/VP/VoxPopuli,rdfs#opposite;most;0,0;0,0;0;0
+Bush;http://www,cwi,nl/~media/ns/VP/VoxPopuli,rdfs#similar;Politicians;0,25;-54,45000000000007;1;-175
+threatened;http://www,cwi,nl/~media/ns/VP/VoxPopuli,rdfs#opposite;threatening;0,0;-190,34999999999886;0;-754
+Bush;http://www,cwi,nl/~media/ns/VP/VoxPopuli,rdfs#opposite;Bin Laden;0,0;-29,616666666666646;0;-94
+People;http://www,cwi,nl/~media/ns/VP/VoxPopuli,rdfs#specialization;I;3,0833333333333335;-170,99999999999883;9;-654
+_;http://www,cwi,nl/~media/ns/VP/VoxPopuli,rdfs#similar;can;0,0;-612,216666666666;0;-1855
+_;http://www,cwi,nl/~media/ns/VP/VoxPopuli,rdfs#opposite;not best;0,0;-275,449999999999;0;-835
+War;http://www,cwi,nl/~media/ns/VP/VoxPopuli,rdfs#generalization;Violence;0,3333333333333333;-441,366666666661;1;-1608
+less;http://www,cwi,nl/~media/ns/VP/VoxPopuli,rdfs#opposite;more;0,0;0,0;0;0
+War;http://www,cwi,nl/~media/ns/VP/VoxPopuli,rdfs#similar;Military Actions;10,200000000000001;-198,21666666666633;25;-614
+War;http://www,cwi,nl/~media/ns/VP/VoxPopuli,rdfs#opposite;Diplomacy;6,083333333333333;-119,84999999999988;9;-379
+useless;http://www,cwi,nl/~media/ns/VP/VoxPopuli,rdfs#similar;waste;3,750000000000001;-41,28333333333345;11;-156
+open;http://www,cwi,nl/~media/ns/VP/VoxPopuli,rdfs#opposite;attentive;0,0;-38,33333333333334;0;-120
+accidental;http://www,cwi,nl/~media/ns/VP/VoxPopuli,rdfs#opposite;controlling;0,0;-15,616666666666665;0;-49
+Hate;http://www,cwi,nl/~media/ns/VP/VoxPopuli,rdfs#opposite;Peace;0,0;-9,333333333333332;0;-32
+Poverty;http://www,cwi,nl/~media/ns/VP/VoxPopuli,rdfs#opposite;Wealth;0,0;-11,333333333333334;0;-24
+NormalPeople;http://www,cwi,nl/~media/ns/VP/VoxPopuli,rdfs#opposite;Politicians;0,8500000000000001;-220,64999999999927;4;-892
+Terrorists;http://www,cwi,nl/~media/ns/VP/VoxPopuli,rdfs#similar;Violence;0,25;-148,33333333333354;1;-521
+many;http://www,cwi,nl/~media/ns/VP/VoxPopuli,rdfs#opposite;isolated;0,5;-29,049999999999997;1;-102
+never;http://www,cwi,nl/~media/ns/VP/VoxPopuli,rdfs#opposite;_;2,916666666666667;-28,816666666666638;11;-116
+exceptional;http://www,cwi,nl/~media/ns/VP/VoxPopuli,rdfs#opposite;continuous;0,0;-33,11666666666666;0;-109
+_;http://www,cwi,nl/~media/ns/VP/VoxPopuli,rdfs#opposite;must not;1,0;-232,78333333333333;2;-754
+_;http://www,cwi,nl/~media/ns/VP/VoxPopuli,rdfs#similar;must;0,75;-389,8333333333309;2;-1069
+Violence;http://www,cwi,nl/~media/ns/VP/VoxPopuli,rdfs#similar;Culprits;0,0;-160,8500000000002;0;-589
+Problem;http://www,cwi,nl/~media/ns/VP/VoxPopuli,rdfs#opposite;Solution;0,0;0,0;0;0
+hopefully;http://www,cwi,nl/~media/ns/VP/VoxPopuli,rdfs#similar;possibly;0,5;-32,216666666666654;1;-116
+Television;http://www,cwi,nl/~media/ns/VP/VoxPopuli,rdfs#similar;AmericanMedia;0,75;-45,950000000000024;3;-181
+not best;http://www,cwi,nl/~media/ns/VP/VoxPopuli,rdfs#similar;not;0,0;0,0;0;0
+too much;http://www,cwi,nl/~media/ns/VP/VoxPopuli,rdfs#opposite;not enough;0,0;-1,0;0;-1
+best;http://www,cwi,nl/~media/ns/VP/VoxPopuli,rdfs#opposite;not best;0,0;-77,83333333333356;0;-291
+NormalPeople;http://www,cwi,nl/~media/ns/VP/VoxPopuli,rdfs#opposite;Oligarchy;0,0;-82,93333333333344;0;-340
+normal;http://www,cwi,nl/~media/ns/VP/VoxPopuli,rdfs#opposite;exceptional;0,0;-7,749999999999997;0;-18
+Bombing;http://www,cwi,nl/~media/ns/VP/VoxPopuli,rdfs#opposite;Economic Aid;1,0833333333333333;-51,516666666666715;3;-161
+Politicians;http://www,cwi,nl/~media/ns/VP/VoxPopuli,rdfs#similar;Bush;0,25;-70,5333333333334;1;-260
+must not;http://www,cwi,nl/~media/ns/VP/VoxPopuli,rdfs#opposite;must;1,0;-59,233333333333405;1;-222
+Americans;http://www,cwi,nl/~media/ns/VP/VoxPopuli,rdfs#generalization;People;1,3666666666666667;-305,5666666666611;5;-1440
+Innocents;http://www,cwi,nl/~media/ns/VP/VoxPopuli,rdfs#opposite;Culprits;0,0;0,0;0;0
+not;http://www,cwi,nl/~media/ns/VP/VoxPopuli,rdfs#opposite;always;0,3333333333333333;-166,56666666666524;2;-668
+RichPeople;http://www,cwi,nl/~media/ns/VP/VoxPopuli,rdfs#opposite;BlackPeople;0,0;-139,21666666666698;0;-611
+Leadership;http://www,cwi,nl/~media/ns/VP/VoxPopuli,rdfs#similar;Oligarchy;0,0;-34,38333333333333;0;-101
+fearful;http://www,cwi,nl/~media/ns/VP/VoxPopuli,rdfs#similar;attentive;2,15;-450,8999999999959;8;-2047
+can not;http://www,cwi,nl/~media/ns/VP/VoxPopuli,rdfs#opposite;always;0,3333333333333333;-57,333333333333336;2;-228
+Government;http://www,cwi,nl/~media/ns/VP/VoxPopuli,rdfs#similar;Leadership;0,0;-14,000000000000002;0;-38
+BlackPeople;http://www,cwi,nl/~media/ns/VP/VoxPopuli,rdfs#opposite;RichPeople;0,0;-15,83333333333334;0;-45
+I;http://www,cwi,nl/~media/ns/VP/VoxPopuli,rdfs#generalization;People;3,45;-613,8666666666396;10;-2775
+not;http://www,cwi,nl/~media/ns/VP/VoxPopuli,rdfs#similar;can not;0,25;-314,3000000000001;1;-1043
+worst;http://www,cwi,nl/~media/ns/VP/VoxPopuli,rdfs#opposite;not worst;0,0;-68,90000000000016;0;-278
+Americans;http://www,cwi,nl/~media/ns/VP/VoxPopuli,rdfs#opposite;European;0,0;-155,56666666666592;0;-625
+always;http://www,cwi,nl/~media/ns/VP/VoxPopuli,rdfs#opposite;must not;0,0;-64,28333333333337;0;-235
+People;http://www,cwi,nl/~media/ns/VP/VoxPopuli,rdfs#specialization;Muslims;0,2;-339,3166666666654;1;-1458
+AmericanSociety;http://www,cwi,nl/~media/ns/VP/VoxPopuli,rdfs#generalization;Society;0,0;-6,499999999999998;0;-15
+not;http://www,cwi,nl/~media/ns/VP/VoxPopuli,rdfs#similar;never;4,883333333333334;-541,0166666666636;14;-1997
+Violence;http://www,cwi,nl/~media/ns/VP/VoxPopuli,rdfs#specialization;War;0,75;-154,6833333333329;2;-560
+same;http://www,cwi,nl/~media/ns/VP/VoxPopuli,rdfs#opposite;not same;0,0;-29,150000000000002;0;-108
+Distruction;http://www,cwi,nl/~media/ns/VP/VoxPopuli,rdfs#similar;Casualties;0,0;-14,75;0;-38
+most;http://www,cwi,nl/~media/ns/VP/VoxPopuli,rdfs#opposite;least;0,0;0,0;0;0
+waste;http://www,cwi,nl/~media/ns/VP/VoxPopuli,rdfs#similar;useless;3,75;-211,26666666666665;11;-766
+CurrentWorld;http://www,cwi,nl/~media/ns/VP/VoxPopuli,rdfs#generalization;World;2,0;-52,46666666666675;4;-178
+attentive;http://www,cwi,nl/~media/ns/VP/VoxPopuli,rdfs#opposite;secure;0,0;-167,116666666666;0;-692
+Politicians;http://www,cwi,nl/~media/ns/VP/VoxPopuli,rdfs#opposite;NormalPeople;0,45;-92,69999999999999;2;-335
+frustrated;http://www,cwi,nl/~media/ns/VP/VoxPopuli,rdfs#similar;threatened;0,0;-59,61666666666671;0;-201
+ForeignMedia;http://www,cwi,nl/~media/ns/VP/VoxPopuli,rdfs#opposite;AmericanMedia;0,0;-4,833333333333333;0;-11
+Casualties;http://www,cwi,nl/~media/ns/VP/VoxPopuli,rdfs#similar;Distruction;0,0;-30,24999999999999;0;-81
+World;http://www,cwi,nl/~media/ns/VP/VoxPopuli,rdfs#specialization;CurrentWorld;2,0;-69,0000000000002;4;-234
+Victims;http://www,cwi,nl/~media/ns/VP/VoxPopuli,rdfs#opposite;Terrorists;1,25;-72,08333333333348;3;-251
+not best;http://www,cwi,nl/~media/ns/VP/VoxPopuli,rdfs#opposite;_;7,616666666666666;-21,14999999999999;24;-84
+NormalPeople;http://www,cwi,nl/~media/ns/VP/VoxPopuli,rdfs#similar;Americans;0,0;-67,93333333333345;0;-221
+Terrorists;http://www,cwi,nl/~media/ns/VP/VoxPopuli,rdfs#opposite;Victims;1,45;-139,58333333333374;4;-534
+isolated;http://www,cwi,nl/~media/ns/VP/VoxPopuli,rdfs#opposite;many;0,5;-20,466666666666672;1;-71
+hopefully;http://www,cwi,nl/~media/ns/VP/VoxPopuli,rdfs#opposite;never;0,0;-24,899999999999984;0;-83
+War;http://www,cwi,nl/~media/ns/VP/VoxPopuli,rdfs#opposite;Economic Aid;3,5833333333333335;-91,41666666666663;8;-297
+can;http://www,cwi,nl/~media/ns/VP/VoxPopuli,rdfs#similar;hopefully;0,0;-133,68333333333348;0;-453
+limited;http://www,cwi,nl/~media/ns/VP/VoxPopuli,rdfs#similar;isolated;0,0;-22,00000000000001;0;-66
+not same;http://www,cwi,nl/~media/ns/VP/VoxPopuli,rdfs#opposite;same;0,0;0,0;0;0
+isolated;http://www,cwi,nl/~media/ns/VP/VoxPopuli,rdfs#similar;limited;0,0;-24,066666666666663;0;-88
+worst;http://www,cwi,nl/~media/ns/VP/VoxPopuli,rdfs#opposite;best;0,0;0,0;0;0
+must;http://www,cwi,nl/~media/ns/VP/VoxPopuli,rdfs#similar;_;0,8333333333333333;-88,50000000000001;2;-286
+Friends;http://www,cwi,nl/~media/ns/VP/VoxPopuli,rdfs#opposite;Enemies;0,0;0,0;0;0
+Leadership;http://www,cwi,nl/~media/ns/VP/VoxPopuli,rdfs#opposite;NormalPeople;0,0;-25,99999999999997;0;-77
+Fundamentalists;http://www,cwi,nl/~media/ns/VP/VoxPopuli,rdfs#similar;Terrorists;0,2;-145,91666666666785;1;-608
+possibly;http://www,cwi,nl/~media/ns/VP/VoxPopuli,rdfs#similar;hopefully;0,5;-27,816666666666645;1;-83
+never;http://www,cwi,nl/~media/ns/VP/VoxPopuli,rdfs#similar;not;4,75;-45,56666666666668;12;-168
+hopefully;http://www,cwi,nl/~media/ns/VP/VoxPopuli,rdfs#similar;can;0,25;-44,650000000000055;1;-146
+effective;http://www,cwi,nl/~media/ns/VP/VoxPopuli,rdfs#opposite;waste;7,666666666666666;-493,5666666666609;21;-1669
+attentive;http://www,cwi,nl/~media/ns/VP/VoxPopuli,rdfs#similar;caring;0,6000000000000001;-152,4833333333335;3;-604
+Oligarchy;http://www,cwi,nl/~media/ns/VP/VoxPopuli,rdfs#similar;Leadership;0,0;-21,249999999999982;0;-72
+Muslims;http://www,cwi,nl/~media/ns/VP/VoxPopuli,rdfs#specialization;Fundamentalists;0,2;-176,23333333333247;1;-759
+only;http://www,cwi,nl/~media/ns/VP/VoxPopuli,rdfs#opposite;not only;9,166666666666666;-83,25000000000021;16;-311
+always;http://www,cwi,nl/~media/ns/VP/VoxPopuli,rdfs#similar;_;0,0;0,0;0;0
+not;http://www,cwi,nl/~media/ns/VP/VoxPopuli,rdfs#opposite;_;9,750000000000002;-162,9666666666654;23;-679
+can;http://www,cwi,nl/~media/ns/VP/VoxPopuli,rdfs#opposite;never;0,0;-61,70000000000012;0;-228
+Americans;http://www,cwi,nl/~media/ns/VP/VoxPopuli,rdfs#similar;NormalPeople;0,3333333333333333;-71,45000000000006;1;-225
+Culprits;http://www,cwi,nl/~media/ns/VP/VoxPopuli,rdfs#opposite;Innocents;0,0;-52,2833333333334;0;-214
+threatening;http://www,cwi,nl/~media/ns/VP/VoxPopuli,rdfs#opposite;threatened;0,0;0,0;0;0
+Terrorism;http://www,cwi,nl/~media/ns/VP/VoxPopuli,rdfs#similar;Hate;0,0;-23,166666666666654;0;-62
+possibly;http://www,cwi,nl/~media/ns/VP/VoxPopuli,rdfs#similar;once;0,5;-38,19999999999996;1;-137
+best;http://www,cwi,nl/~media/ns/VP/VoxPopuli,rdfs#opposite;worst;0,0;-322,6833333333317;0;-1215
+only;http://www,cwi,nl/~media/ns/VP/VoxPopuli,rdfs#opposite;not;17,666666666666668;-71,33333333333343;32;-226
+must;http://www,cwi,nl/~media/ns/VP/VoxPopuli,rdfs#opposite;must not;1,0;-65,53333333333339;1;-226
+Wealth;http://www,cwi,nl/~media/ns/VP/VoxPopuli,rdfs#opposite;Poverty;0,0;-20,583333333333343;0;-57
+best;http://www,cwi,nl/~media/ns/VP/VoxPopuli,rdfs#similar;_;0,0;0,0;0;0
+Economic Aid;http://www,cwi,nl/~media/ns/VP/VoxPopuli,rdfs#opposite;Bombing;2,3333333333333335;-8,916666666666664;4;-25
+fearful;http://www,cwi,nl/~media/ns/VP/VoxPopuli,rdfs#similar;threatened;2,75;-339,700000000001;6;-1525
+not;http://www,cwi,nl/~media/ns/VP/VoxPopuli,rdfs#opposite;best;0,0;-241,03333333333202;0;-930
+Oligarchy;http://www,cwi,nl/~media/ns/VP/VoxPopuli,rdfs#similar;RichPeople;1,0;-40,833333333333336;1;-149
+caring;http://www,cwi,nl/~media/ns/VP/VoxPopuli,rdfs#similar;attentive;0,2;-74,71666666666671;1;-263
+Oligarchy;http://www,cwi,nl/~media/ns/VP/VoxPopuli,rdfs#opposite;NormalPeople;0,0;-16,0;0;-46
+NormalPeople;http://www,cwi,nl/~media/ns/VP/VoxPopuli,rdfs#opposite;Leadership;0,0;-163,0333333333334;0;-658
+waste;http://www,cwi,nl/~media/ns/VP/VoxPopuli,rdfs#opposite;effective;8,166666666666664;-45,733333333333356;21;-150
+obsessive;http://www,cwi,nl/~media/ns/VP/VoxPopuli,rdfs#similar;attentive;0,75;-46,28333333333333;2;-153
+not;http://www,cwi,nl/~media/ns/VP/VoxPopuli,rdfs#similar;not best;7,616666666666666;-282,15000000000043;24;-942
+continuous;http://www,cwi,nl/~media/ns/VP/VoxPopuli,rdfs#opposite;exceptional;0,0;-7,916666666666664;0;-18
+Bombing;http://www,cwi,nl/~media/ns/VP/VoxPopuli,rdfs#opposite;Groundforces;5,833333333333333;-117,7166666666666;14;-397
+RichPeople;http://www,cwi,nl/~media/ns/VP/VoxPopuli,rdfs#opposite;NormalPeople;0,0;-6,749999999999998;0;-19
+Culprits;http://www,cwi,nl/~media/ns/VP/VoxPopuli,rdfs#similar;Violence;0,0;0,0;0;0
+Hate;http://www,cwi,nl/~media/ns/VP/VoxPopuli,rdfs#similar;Terrorism;0,0;-7,583333333333331;0;-24
+must not;http://www,cwi,nl/~media/ns/VP/VoxPopuli,rdfs#opposite;_;2,1666666666666665;-26,783333333333317;5;-89
+Solution;http://www,cwi,nl/~media/ns/VP/VoxPopuli,rdfs#opposite;Problem;0,0;0,0;0;0
+never;http://www,cwi,nl/~media/ns/VP/VoxPopuli,rdfs#opposite;hopefully;0,3333333333333333;-201,4499999999997;1;-804
+Fundamentalists;http://www,cwi,nl/~media/ns/VP/VoxPopuli,rdfs#generalization;Muslims;0,0;-99,26666666666685;0;-389
+not;http://www,cwi,nl/~media/ns/VP/VoxPopuli,rdfs#opposite;only;18,83333333333333;-396,59999999999815;34;-1421
+attentive;http://www,cwi,nl/~media/ns/VP/VoxPopuli,rdfs#similar;obsessive;0,75;-155,2499999999995;2;-616
+revenging;http://www,cwi,nl/~media/ns/VP/VoxPopuli,rdfs#opposite;threatened;0,0;-84,41666666666683;0;-310
+never;http://www,cwi,nl/~media/ns/VP/VoxPopuli,rdfs#opposite;always;0,0;-33,96666666666665;0;-136
+attentive;http://www,cwi,nl/~media/ns/VP/VoxPopuli,rdfs#similar;fearful;1,75;-165,98333333333335;6;-647
+European;http://www,cwi,nl/~media/ns/VP/VoxPopuli,rdfs#opposite;Americans;0,0;-4,833333333333333;0;-11
+must;http://www,cwi,nl/~media/ns/VP/VoxPopuli,rdfs#opposite;not;2,25;-80,38333333333343;3;-276
+Politicians;http://www,cwi,nl/~media/ns/VP/VoxPopuli,rdfs#similar;Government;0,0;-46,716666666666725;0;-164
+AmericanMedia;http://www,cwi,nl/~media/ns/VP/VoxPopuli,rdfs#similar;Television;0,75;-87,60000000000002;3;-292
+Self;;Self;34,0;0,0;34;0
+NormalPeople;http://www,cwi,nl/~media/ns/VP/VoxPopuli,rdfs#opposite;Television;0,75;-206,31666666666587;3;-822

@@ -1,0 +1,23 @@
+START_RULE
+START_AND
+
+
+
+SelectGender http://www.cwi.nl/~media/ns/VP/VoxPopuli.rdfs#Female ,  http://www.cwi.nl/~media/ns/VP/VoxPopuli.rdfs#Female
+
+
+
+
+
+SelectPartecipant  http://www.cwi.nl/~media/ns/IWA/IWA.rdf#IWA_00218
+SelectOpinion  http://www.cwi.nl/~media/ns/VP/VoxPopuli.rdfs#IWA_Instance_8
+CreateArg attack false true 
+GazeClash 
+SelectUnique parallel
+
+CreatePlot
+
+FilmFeatures
+
+END_AND
+END_RULE

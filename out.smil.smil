@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="yes"?>
+<smil   xmlns="http://www.w3.org/2001/SMIL20/Language" >
+<head>
+<layout>
+<regPoint id="middle" top="50%" left="50%" regAlign="center" />
+<root-layout width="640" height="570"/>
+<region id="media-region0" left="0" top="0" width="640" height="480" z-index="0" fit="meet"/>
+<region id="media-region1" left="0" top="0" width="640" height="480" z-index="1" fit="meet"/>
+<region id="media-region2" left="0" top="0" width="640" height="480" z-index="2" fit="meet"/>
+<region id="media-region3" left="0" top="0" width="640" height="480" z-index="3" fit="meet"/>
+<region id="title-region" left="160" top="120" width="320" height="240"/>
+<region id="caption-region0" left="0" top="480" width="640" height="60" z-index="0"/>
+<region id="caption-region1" left="1" top="480" width="640" height="60" z-index="1"/>
+<region id="caption-region2" left="2" top="480" width="640" height="60" z-index="2"/>
+<region id="caption-region3" left="3" top="480" width="640" height="60" z-index="3"/>
+<region id="link-region0" backgroundColor="#000000" left="0" top="540" width="213" height="30" z-index="0"/>
+<region id="link-region1" backgroundColor="#000000" left="213" top="540" width="213" height="30" z-index="0"/>
+<region id="link-region2" backgroundColor="#000000" left="426" top="540" width="213" height="30" z-index="0"/>
+</layout>
+<transition id="trans" type="fade" dur="0.5s" startProgress="0.0" endProgress="1.0" direction="forward"/></head>
+<body>
+<seq>
+<video region="title-region" src="file://C:/Documents and Settings/sbocconi/.netbeans/5.5/apache-tomcat-5.5.17_base/webapps/cocoon/VP/video/Sigla_225.rm" clipBegin="00:00:00.000" clipEnd="00:00:03.000" clip-begin="00:00:00.000" clip-end="00:00:03.000" fill="transition" />
+<par>
+<par>
+<text region="caption-region0" src="file://C:/Documents and Settings/sbocconi/.netbeans/5.5/apache-tomcat-5.5.17_base/webapps/cocoon/VP/video/RealText_Q__What_do_you_think_of_the_Afghanistan_war_29_5.rt" begin="0" dur="29.5" >
+<param name="vAlign" value="center"/>
+</text>
+<video region="media-region0" src="file://C:/Documents and Settings/sbocconi/.netbeans/5.5/apache-tomcat-5.5.17_base/webapps/cocoon/VP/video/IWA1.5_100.rm" clipBegin="00:21:09.802" clipEnd="00:21:39.332" clip-begin="00:21:09.802" clip-end="00:21:39.332" begin="0" dur="29.5"  regPoint="middle"/>
+<a href="url?stage=two&amp;videolocation=videolocation&amp;audiolocation=&amp;stilllocation=stilllocation&amp;textlocation=textlocation&amp;repository=repository&amp;RDFLocation=RDFLocation&amp;domainNS=domainNS&amp;local=local&amp;curlang=44&amp;intercut=intercut&amp;quality=quality&amp;caption=caption&amp;Interviews=http%3A%2F%2Fwww.cwi.nl%2F%7Emedia%2Fns%2FIWA%2FIWA.rdf%23IWA_Instance_80087&amp;strategy=VP" >
+<img region="link-region0" src="file://C:/Documents and Settings/sbocconi/.netbeans/5.5/apache-tomcat-5.5.17_base/webapps/cocoon/VP/video/Yellow.jpg" begin="0" dur="29.5"  regPoint="middle" />
+</a>
+<a href="url?stage=two&amp;videolocation=videolocation&amp;audiolocation=&amp;stilllocation=stilllocation&amp;textlocation=textlocation&amp;repository=repository&amp;RDFLocation=RDFLocation&amp;domainNS=domainNS&amp;local=local&amp;curlang=44&amp;intercut=intercut&amp;quality=quality&amp;caption=caption&amp;Interviews=http%3A%2F%2Fwww.cwi.nl%2F%7Emedia%2Fns%2FIWA%2FIWA.rdf%23IWA_Instance_80087&amp;strategy=attack" >
+<img region="link-region1" src="file://C:/Documents and Settings/sbocconi/.netbeans/5.5/apache-tomcat-5.5.17_base/webapps/cocoon/VP/video/Red.jpg" begin="0" dur="29.5"  regPoint="middle" />
+</a>
+<a href="url?stage=two&amp;videolocation=videolocation&amp;audiolocation=&amp;stilllocation=stilllocation&amp;textlocation=textlocation&amp;repository=repository&amp;RDFLocation=RDFLocation&amp;domainNS=domainNS&amp;local=local&amp;curlang=44&amp;intercut=intercut&amp;quality=quality&amp;caption=caption&amp;Interviews=http%3A%2F%2Fwww.cwi.nl%2F%7Emedia%2Fns%2FIWA%2FIWA.rdf%23IWA_Instance_80087&amp;strategy=support" >
+<img region="link-region2" src="file://C:/Documents and Settings/sbocconi/.netbeans/5.5/apache-tomcat-5.5.17_base/webapps/cocoon/VP/video/Green.jpg" begin="0" dur="29.5"  regPoint="middle" />
+</a>
+</par>
+</par>
+<par>
+<par>
+<text region="caption-region0" src="file://C:/Documents and Settings/sbocconi/.netbeans/5.5/apache-tomcat-5.5.17_base/webapps/cocoon/VP/video/RealText_S__Violence_must_not_used__T__Condition21_6.rt" begin="0" dur="21.6" >
+<param name="vAlign" value="center"/>
+</text>
+<video region="media-region0" src="file://C:/Documents and Settings/sbocconi/.netbeans/5.5/apache-tomcat-5.5.17_base/webapps/cocoon/VP/video/IWA1.5_100.rm" clipBegin="00:09:36.976" clipEnd="00:09:58.531" clip-begin="00:09:36.976" clip-end="00:09:58.531" begin="0" dur="21.6"  regPoint="middle"/>
+<a href="url?stage=two&amp;videolocation=videolocation&amp;audiolocation=&amp;stilllocation=stilllocation&amp;textlocation=textlocation&amp;repository=repository&amp;RDFLocation=RDFLocation&amp;domainNS=domainNS&amp;local=local&amp;curlang=44&amp;intercut=intercut&amp;quality=quality&amp;caption=caption&amp;Interviews=http%3A%2F%2Fwww.cwi.nl%2F%7Emedia%2Fns%2FIWA%2FIWA.rdf%23IWA_Instance_70210&amp;strategy=VP" >
+<img region="link-region0" src="file://C:/Documents and Settings/sbocconi/.netbeans/5.5/apache-tomcat-5.5.17_base/webapps/cocoon/VP/video/Yellow.jpg" begin="0" dur="21.6"  regPoint="middle" />
+</a>
+<a href="url?stage=two&amp;videolocation=videolocation&amp;audiolocation=&amp;stilllocation=stilllocation&amp;textlocation=textlocation&amp;repository=repository&amp;RDFLocation=RDFLocation&amp;domainNS=domainNS&amp;local=local&amp;curlang=44&amp;intercut=intercut&amp;quality=quality&amp;caption=caption&amp;Interviews=http%3A%2F%2Fwww.cwi.nl%2F%7Emedia%2Fns%2FIWA%2FIWA.rdf%23IWA_Instance_70210&amp;strategy=attack" >
+<img region="link-region1" src="file://C:/Documents and Settings/sbocconi/.netbeans/5.5/apache-tomcat-5.5.17_base/webapps/cocoon/VP/video/Red.jpg" begin="0" dur="21.6"  regPoint="middle" />
+</a>
+<a href="url?stage=two&amp;videolocation=videolocation&amp;audiolocation=&amp;stilllocation=stilllocation&amp;textlocation=textlocation&amp;repository=repository&amp;RDFLocation=RDFLocation&amp;domainNS=domainNS&amp;local=local&amp;curlang=44&amp;intercut=intercut&amp;quality=quality&amp;caption=caption&amp;Interviews=http%3A%2F%2Fwww.cwi.nl%2F%7Emedia%2Fns%2FIWA%2FIWA.rdf%23IWA_Instance_70210&amp;strategy=support" >
+<img region="link-region2" src="file://C:/Documents and Settings/sbocconi/.netbeans/5.5/apache-tomcat-5.5.17_base/webapps/cocoon/VP/video/Green.jpg" begin="0" dur="21.6"  regPoint="middle" />
+</a>
+</par>
+</par>
+</seq>
+</body>
+</smil>

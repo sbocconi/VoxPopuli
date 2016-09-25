@@ -1,0 +1,57 @@
+
+
+date > TestIter.log
+echo "******************" >> TestIter.log
+echo "    Here we go    " >> TestIter.log
+echo "******************" >> TestIter.log
+
+echo "******************"
+echo "    Here we go    "
+echo "******************"
+
+for i in 0 1 2 3;
+do
+  for ii in 0 1 2 3;
+  do
+    if [ ! $i = $ii ]
+    then
+      for iii in 0 1 2 3;
+      do
+        if [ ! $iii = $ii ]
+        then
+          if [ ! $iii = $i ]
+          then
+            for iiii in 0 1 2 3;
+            do
+              if [ ! $iiii = $iii ]
+              then
+                if [ ! $iiii = $ii ]
+                then
+                  if [ ! $iiii = $i ]
+                  then
+                    for it in 1 2 3 4
+                    do
+                      date >> TestIter.log
+                      echo "++++++++++++++++++" >> TestIter.log
+                      echo "Iteration ${it} order ${i} ${ii} ${iii} ${iiii}" >> TestIter.log
+                      echo "++++++++++++++++++" >> TestIter.log
+                    
+                      echo "++++++++++++++++++"
+                      echo "Iteration ${it} order ${i} ${ii} ${iii} ${iiii}"
+                      echo "++++++++++++++++++"
+
+
+                      ( time -p make -e ITER=${it} ACT0=${i} ACT1=${ii} ACT2=${iii} ACT3=${iiii} CheckIter ) >> TestIter.log 2>&1
+                      make csv >/dev/null 2>&1 && mv b.csv b_${it}_${i}${ii}${iii}${iiii}.csv >/dev/null 2>&1
+                      
+                    done
+                  fi
+                fi
+              fi
+            done
+          fi
+        fi
+      done
+    fi
+  done
+done

@@ -1,0 +1,28 @@
+/* XHTML Predefined Tags */
+body {
+	margin: 0;
+	padding: 0;
+}
+/* IDs */
+#LeftBar {
+	position: fixed; 	/* Not working in IE */
+	float: left; 			/* Workaround for IE, correctly overridden by "position: fixed" elsewhere */
+	width: 30%;
+	height: 100%; 		/* Partial workaround for IE, which has an ugly bug causing right side main content to unalign vertically */
+	padding-top: 1em;
+	padding-left: 1em;
+	padding-right: 1em;
+	margin-right: 0em;
+	margin-top: 0em;
+}
+#Body {
+	float: right;
+	width: 63%;
+	margin-left: 0em;
+	margin-right: 0em;
+	padding-top: 1em;
+	padding-left: 1em;
+	padding-right: 1em;
+}
+/* Classes *
+

@@ -1,0 +1,16 @@
+Things I should do:
+
+Differentiation in fonts and new line in realtext
+Experiment with switch
+
+Max number of selection on dropdown
+Test the audio extension
+
+
+Calculate number and order of iterations
+Automatic suggesting links
+
+Dependency of computational complexity from thesaurus, iterations and
+statements
+
+

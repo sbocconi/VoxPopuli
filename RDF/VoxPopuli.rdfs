@@ -1,0 +1,1159 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE rdf:RDF [
+	 <!ENTITY MediaClipping 'http://www.w3.org/2001/SMIL20/MediaClipping#'>
+	 <!ENTITY rdf 'http://www.w3.org/1999/02/22-rdf-syntax-ns#'>
+	 <!ENTITY BasicMedia 'http://www.w3.org/2001/SMIL20/BasicMedia#'>
+	 <!ENTITY a 'http://protege.stanford.edu/system#'>
+	 <!ENTITY VoxPopuli_rdfs 'http://www.cwi.nl/~media/ns/VP/VoxPopuli.rdfs#'>
+	 <!ENTITY rdfs 'http://www.w3.org/2000/01/rdf-schema#'>
+]>
+<rdf:RDF xmlns:MediaClipping="&MediaClipping;"
+	 xmlns:rdf="&rdf;"
+	 xmlns:a="&a;"
+	 xmlns:BasicMedia="&BasicMedia;"
+	 xmlns:rdfs="&rdfs;"
+	 xmlns:VoxPopuli_rdfs="&VoxPopuli_rdfs;">
+<a:OverridingProperty rdf:about="&a;Concept_association">
+	<rdfs:range rdf:resource="&VoxPopuli_rdfs;Concept"/>
+	<a:domain rdf:resource="&VoxPopuli_rdfs;Concept"/>
+	<a:overriddenProperty rdf:resource="&VoxPopuli_rdfs;association"/>
+</a:OverridingProperty>
+<a:OverridingProperty rdf:about="&a;Concept_generalization">
+	<a:domain rdf:resource="&VoxPopuli_rdfs;Concept"/>
+	<rdfs:range rdf:resource="&VoxPopuli_rdfs;Concept"/>
+	<a:overriddenProperty rdf:resource="&VoxPopuli_rdfs;generalization"/>
+</a:OverridingProperty>
+<a:OverridingProperty rdf:about="&a;Concept_opposite">
+	<rdfs:range rdf:resource="&VoxPopuli_rdfs;Concept"/>
+	<a:domain rdf:resource="&VoxPopuli_rdfs;Concept"/>
+	<a:overriddenProperty rdf:resource="&VoxPopuli_rdfs;opposite"/>
+</a:OverridingProperty>
+<a:OverridingProperty rdf:about="&a;Concept_similar">
+	<rdfs:range rdf:resource="&VoxPopuli_rdfs;Concept"/>
+	<a:domain rdf:resource="&VoxPopuli_rdfs;Concept"/>
+	<a:overriddenProperty rdf:resource="&VoxPopuli_rdfs;similar"/>
+</a:OverridingProperty>
+<a:OverridingProperty rdf:about="&a;Modifier_association">
+	<rdfs:range rdf:resource="&VoxPopuli_rdfs;Modifier"/>
+	<a:domain rdf:resource="&VoxPopuli_rdfs;Modifier"/>
+	<a:overriddenProperty rdf:resource="&VoxPopuli_rdfs;association"/>
+</a:OverridingProperty>
+<a:OverridingProperty rdf:about="&a;Modifier_generalization">
+	<rdfs:range rdf:resource="&VoxPopuli_rdfs;Modifier"/>
+	<a:domain rdf:resource="&VoxPopuli_rdfs;Modifier"/>
+	<a:overriddenProperty rdf:resource="&VoxPopuli_rdfs;generalization"/>
+</a:OverridingProperty>
+<a:OverridingProperty rdf:about="&a;Modifier_opposite">
+	<a:domain rdf:resource="&VoxPopuli_rdfs;Modifier"/>
+	<rdfs:range rdf:resource="&VoxPopuli_rdfs;Modifier"/>
+	<a:overriddenProperty rdf:resource="&VoxPopuli_rdfs;opposite"/>
+</a:OverridingProperty>
+<a:OverridingProperty rdf:about="&a;Modifier_similar">
+	<rdfs:range rdf:resource="&VoxPopuli_rdfs;Modifier"/>
+	<a:domain rdf:resource="&VoxPopuli_rdfs;Modifier"/>
+	<a:overriddenProperty rdf:resource="&VoxPopuli_rdfs;similar"/>
+</a:OverridingProperty>
+<a:OverridingProperty rdf:about="&a;Predicate_association">
+	<rdfs:range rdf:resource="&VoxPopuli_rdfs;Predicate"/>
+	<a:domain rdf:resource="&VoxPopuli_rdfs;Predicate"/>
+	<a:overriddenProperty rdf:resource="&VoxPopuli_rdfs;association"/>
+</a:OverridingProperty>
+<a:OverridingProperty rdf:about="&a;Predicate_generalization">
+	<rdfs:range rdf:resource="&VoxPopuli_rdfs;Predicate"/>
+	<a:domain rdf:resource="&VoxPopuli_rdfs;Predicate"/>
+	<a:overriddenProperty rdf:resource="&VoxPopuli_rdfs;generalization"/>
+</a:OverridingProperty>
+<a:OverridingProperty rdf:about="&a;Predicate_opposite">
+	<a:domain rdf:resource="&VoxPopuli_rdfs;Predicate"/>
+	<rdfs:range rdf:resource="&VoxPopuli_rdfs;Predicate"/>
+	<a:overriddenProperty rdf:resource="&VoxPopuli_rdfs;opposite"/>
+</a:OverridingProperty>
+<a:OverridingProperty rdf:about="&a;Predicate_similar">
+	<a:domain rdf:resource="&VoxPopuli_rdfs;Predicate"/>
+	<rdfs:range rdf:resource="&VoxPopuli_rdfs;Predicate"/>
+	<a:overriddenProperty rdf:resource="&VoxPopuli_rdfs;similar"/>
+</a:OverridingProperty>
+<rdfs:Class rdf:about="&VoxPopuli_rdfs;Africa"
+	 a:role="abstract"
+	 rdfs:label="Africa">
+	<rdfs:subClassOf rdf:resource="&VoxPopuli_rdfs;NotUSA"/>
+</rdfs:Class>
+<rdfs:Class rdf:about="&VoxPopuli_rdfs;Afternoon"
+	 a:role="abstract"
+	 rdfs:label="Afternoon">
+	<rdfs:subClassOf rdf:resource="&VoxPopuli_rdfs;TIme"/>
+</rdfs:Class>
+<rdfs:Class rdf:about="&VoxPopuli_rdfs;Age"
+	 a:role="abstract"
+	 rdfs:label="Age">
+	<rdfs:subClassOf rdf:resource="&VoxPopuli_rdfs;SocialAnnotation"/>
+</rdfs:Class>
+<rdfs:Class rdf:about="&VoxPopuli_rdfs;Agent"
+	 rdfs:label="Agent">
+	<rdfs:subClassOf rdf:resource="&VoxPopuli_rdfs;Concept"/>
+</rdfs:Class>
+<rdfs:Class rdf:about="&VoxPopuli_rdfs;AmericanIndian"
+	 a:role="abstract"
+	 rdfs:label="AmericanIndian">
+	<rdfs:subClassOf rdf:resource="&VoxPopuli_rdfs;Race"/>
+</rdfs:Class>
+<rdfs:Class rdf:about="&VoxPopuli_rdfs;Amsterdam"
+	 rdfs:label="Amsterdam">
+	<rdfs:subClassOf rdf:resource="&VoxPopuli_rdfs;Nederlands"/>
+</rdfs:Class>
+<rdf:Property rdf:about="&VoxPopuli_rdfs;AnswerDutch"
+	 a:maxCardinality="1"
+	 rdfs:label="AnswerDutch">
+	<rdfs:domain rdf:resource="&VoxPopuli_rdfs;InterviewSegment"/>
+	<rdfs:range rdf:resource="&rdfs;Literal"/>
+</rdf:Property>
+<rdf:Property rdf:about="&VoxPopuli_rdfs;AnswerEnglish"
+	 a:maxCardinality="1"
+	 rdfs:label="AnswerEnglish">
+	<rdfs:domain rdf:resource="&VoxPopuli_rdfs;InterviewSegment"/>
+	<rdfs:range rdf:resource="&rdfs;Literal"/>
+</rdf:Property>
+<rdfs:Class rdf:about="&VoxPopuli_rdfs;Argentina"
+	 a:role="abstract"
+	 rdfs:label="Argentina">
+	<rdfs:subClassOf rdf:resource="&VoxPopuli_rdfs;SouthAmerica"/>
+</rdfs:Class>
+<rdfs:Class rdf:about="&VoxPopuli_rdfs;Asia"
+	 a:role="abstract"
+	 rdfs:label="Asia">
+	<rdfs:subClassOf rdf:resource="&VoxPopuli_rdfs;NotUSA"/>
+</rdfs:Class>
+<rdfs:Class rdf:about="&VoxPopuli_rdfs;Asian"
+	 a:role="abstract"
+	 rdfs:label="Asian">
+	<rdfs:subClassOf rdf:resource="&VoxPopuli_rdfs;Race"/>
+</rdfs:Class>
+<rdfs:Class rdf:about="&VoxPopuli_rdfs;Atheist"
+	 a:role="abstract"
+	 rdfs:label="Atheist">
+	<rdfs:subClassOf rdf:resource="&VoxPopuli_rdfs;Religion"/>
+</rdfs:Class>
+<rdfs:Class rdf:about="&VoxPopuli_rdfs;Audio"
+	 rdfs:label="Audio">
+	<rdfs:subClassOf rdf:resource="&VoxPopuli_rdfs;Dynamic"/>
+</rdfs:Class>
+<rdfs:Class rdf:about="&VoxPopuli_rdfs;Backing"
+	 rdfs:label="Backing">
+	<rdfs:subClassOf rdf:resource="&VoxPopuli_rdfs;ToulminPart"/>
+</rdfs:Class>
+<rdfs:Class rdf:about="&VoxPopuli_rdfs;Bar"
+	 a:role="abstract"
+	 rdfs:label="Bar">
+	<rdfs:subClassOf rdf:resource="&VoxPopuli_rdfs;Indoor"/>
+</rdfs:Class>
+<rdfs:Class rdf:about="&VoxPopuli_rdfs;Black"
+	 a:role="abstract"
+	 rdfs:label="Black">
+	<rdfs:subClassOf rdf:resource="&VoxPopuli_rdfs;Race"/>
+</rdfs:Class>
+<rdfs:Class rdf:about="&VoxPopuli_rdfs;Boston"
+	 a:role="abstract"
+	 rdfs:label="Boston">
+	<rdfs:subClassOf rdf:resource="&VoxPopuli_rdfs;Massachusetts"/>
+</rdfs:Class>
+<rdfs:Class rdf:about="&VoxPopuli_rdfs;CameraMotion"
+	 rdfs:label="CameraMotion">
+	<rdfs:subClassOf rdf:resource="&VoxPopuli_rdfs;FilmicAnnotation"/>
+</rdfs:Class>
+<rdfs:Class rdf:about="&VoxPopuli_rdfs;Cameroun"
+	 a:role="abstract"
+	 rdfs:label="Cameroun">
+	<rdfs:subClassOf rdf:resource="&VoxPopuli_rdfs;Africa"/>
+</rdfs:Class>
+<rdfs:Class rdf:about="&VoxPopuli_rdfs;Catholic"
+	 a:role="abstract"
+	 rdfs:label="Catholic">
+	<rdfs:subClassOf rdf:resource="&VoxPopuli_rdfs;Christian"/>
+</rdfs:Class>
+<rdfs:Class rdf:about="&VoxPopuli_rdfs;Center"
+	 rdfs:label="Center">
+	<rdfs:subClassOf rdf:resource="&VoxPopuli_rdfs;Gaze"/>
+</rdfs:Class>
+<rdfs:Class rdf:about="&VoxPopuli_rdfs;CentralAmerica"
+	 a:role="abstract"
+	 rdfs:label="CentralAmerica">
+	<rdfs:subClassOf rdf:resource="&VoxPopuli_rdfs;NotUSA"/>
+</rdfs:Class>
+<rdfs:Class rdf:about="&VoxPopuli_rdfs;Christian"
+	 a:role="abstract"
+	 rdfs:label="Christian">
+	<rdfs:subClassOf rdf:resource="&VoxPopuli_rdfs;Religion"/>
+</rdfs:Class>
+<rdfs:Class rdf:about="&VoxPopuli_rdfs;Claim"
+	 rdfs:label="Claim">
+	<rdfs:subClassOf rdf:resource="&VoxPopuli_rdfs;ToulminPart"/>
+</rdfs:Class>
+<rdfs:Class rdf:about="&VoxPopuli_rdfs;Cleveland"
+	 a:role="abstract"
+	 rdfs:label="Cleveland">
+	<rdfs:subClassOf rdf:resource="&VoxPopuli_rdfs;Ohio"/>
+</rdfs:Class>
+<rdfs:Class rdf:about="&VoxPopuli_rdfs;CloseUp"
+	 rdfs:label="CloseUp">
+	<rdfs:subClassOf rdf:resource="&VoxPopuli_rdfs;Framing"/>
+</rdfs:Class>
+<rdfs:Class rdf:about="&VoxPopuli_rdfs;Concept"
+	 rdfs:label="Concept">
+	<rdfs:subClassOf rdf:resource="&VoxPopuli_rdfs;RhetoricalStatementPart"/>
+</rdfs:Class>
+<rdfs:Class rdf:about="&VoxPopuli_rdfs;Concession"
+	 rdfs:label="Concession">
+	<rdfs:subClassOf rdf:resource="&VoxPopuli_rdfs;ToulminPart"/>
+</rdfs:Class>
+<rdfs:Class rdf:about="&VoxPopuli_rdfs;Condition"
+	 rdfs:label="Condition">
+	<rdfs:subClassOf rdf:resource="&VoxPopuli_rdfs;ToulminPart"/>
+</rdfs:Class>
+<rdfs:Class rdf:about="&VoxPopuli_rdfs;Connecticut"
+	 a:role="abstract"
+	 rdfs:label="Connecticut">
+	<rdfs:subClassOf rdf:resource="&VoxPopuli_rdfs;USA"/>
+</rdfs:Class>
+<rdfs:Class rdf:about="&VoxPopuli_rdfs;ControversialTopic"
+	 rdfs:label="ControversialTopic">
+	<rdfs:subClassOf rdf:resource="&VoxPopuli_rdfs;RhetoricalAnnotation"/>
+</rdfs:Class>
+<rdfs:Class rdf:about="&VoxPopuli_rdfs;Created"
+	 rdfs:label="Created">
+	<rdfs:subClassOf rdf:resource="&VoxPopuli_rdfs;MediaItem"/>
+</rdfs:Class>
+<rdfs:Class rdf:about="&VoxPopuli_rdfs;Data"
+	 rdfs:label="Data">
+	<rdfs:subClassOf rdf:resource="&VoxPopuli_rdfs;ToulminPart"/>
+</rdfs:Class>
+<rdfs:Class rdf:about="&VoxPopuli_rdfs;DescriptiveAnnotation"
+	 a:role="abstract"
+	 rdfs:label="DescriptiveAnnotation">
+	<rdfs:subClassOf rdf:resource="&rdfs;Resource"/>
+</rdfs:Class>
+<rdfs:Class rdf:about="&VoxPopuli_rdfs;Diner"
+	 a:role="abstract"
+	 rdfs:label="Diner">
+	<rdfs:subClassOf rdf:resource="&VoxPopuli_rdfs;Indoor"/>
+</rdfs:Class>
+<rdfs:Class rdf:about="&VoxPopuli_rdfs;Dynamic"
+	 rdfs:label="Dynamic">
+	<rdfs:subClassOf rdf:resource="&VoxPopuli_rdfs;Recorded"/>
+</rdfs:Class>
+<rdfs:Class rdf:about="&VoxPopuli_rdfs;Education"
+	 a:role="abstract"
+	 rdfs:label="Education">
+	<rdfs:subClassOf rdf:resource="&VoxPopuli_rdfs;SocialAnnotation"/>
+</rdfs:Class>
+<rdfs:Class rdf:about="&VoxPopuli_rdfs;Employment"
+	 a:role="abstract"
+	 rdfs:label="Employment">
+	<rdfs:subClassOf rdf:resource="&VoxPopuli_rdfs;SocialAnnotation"/>
+</rdfs:Class>
+<rdfs:Class rdf:about="&VoxPopuli_rdfs;Ethiopia"
+	 a:role="abstract"
+	 rdfs:label="Ethiopia">
+	<rdfs:subClassOf rdf:resource="&VoxPopuli_rdfs;Africa"/>
+</rdfs:Class>
+<rdfs:Class rdf:about="&VoxPopuli_rdfs;Europa"
+	 a:role="abstract"
+	 rdfs:label="Europa">
+	<rdfs:subClassOf rdf:resource="&VoxPopuli_rdfs;NotUSA"/>
+</rdfs:Class>
+<rdfs:Class rdf:about="&VoxPopuli_rdfs;Evening"
+	 a:role="abstract"
+	 rdfs:label="Evening">
+	<rdfs:subClassOf rdf:resource="&VoxPopuli_rdfs;TIme"/>
+</rdfs:Class>
+<rdfs:Class rdf:about="&VoxPopuli_rdfs;Event"
+	 rdfs:label="Event">
+	<rdfs:subClassOf rdf:resource="&VoxPopuli_rdfs;Concept"/>
+</rdfs:Class>
+<rdfs:Class rdf:about="&VoxPopuli_rdfs;Example"
+	 rdfs:label="Example">
+	<rdfs:subClassOf rdf:resource="&VoxPopuli_rdfs;ToulminPart"/>
+</rdfs:Class>
+<rdfs:Class rdf:about="&VoxPopuli_rdfs;ExtremeCloseUp"
+	 rdfs:label="ExtremeCloseUp">
+	<rdfs:subClassOf rdf:resource="&VoxPopuli_rdfs;Framing"/>
+</rdfs:Class>
+<rdfs:Class rdf:about="&VoxPopuli_rdfs;ExtremeWideShot"
+	 rdfs:label="ExtremeWideShot">
+	<rdfs:subClassOf rdf:resource="&VoxPopuli_rdfs;Framing"/>
+</rdfs:Class>
+<rdfs:Class rdf:about="&VoxPopuli_rdfs;Female"
+	 a:role="abstract"
+	 rdfs:label="Female">
+	<rdfs:subClassOf rdf:resource="&VoxPopuli_rdfs;Gender"/>
+</rdfs:Class>
+<rdfs:Class rdf:about="&VoxPopuli_rdfs;FilmicAnnotation"
+	 a:role="abstract"
+	 rdfs:label="FilmicAnnotation">
+	<rdfs:subClassOf rdf:resource="&VoxPopuli_rdfs;DescriptiveAnnotation"/>
+</rdfs:Class>
+<rdfs:Class rdf:about="&VoxPopuli_rdfs;Framing"
+	 rdfs:label="Framing">
+	<rdfs:subClassOf rdf:resource="&VoxPopuli_rdfs;FilmicAnnotation"/>
+</rdfs:Class>
+<rdfs:Class rdf:about="&VoxPopuli_rdfs;Garden"
+	 a:role="abstract"
+	 rdfs:label="Garden">
+	<rdfs:subClassOf rdf:resource="&VoxPopuli_rdfs;Outdoor"/>
+</rdfs:Class>
+<rdfs:Class rdf:about="&VoxPopuli_rdfs;Gaze"
+	 rdfs:label="Gaze">
+	<rdfs:subClassOf rdf:resource="&VoxPopuli_rdfs;FilmicAnnotation"/>
+</rdfs:Class>
+<rdfs:Class rdf:about="&VoxPopuli_rdfs;Gender"
+	 a:role="abstract"
+	 rdfs:label="Gender">
+	<rdfs:subClassOf rdf:resource="&VoxPopuli_rdfs;SocialAnnotation"/>
+</rdfs:Class>
+<rdfs:Class rdf:about="&VoxPopuli_rdfs;GeoLocation"
+	 a:role="abstract"
+	 rdfs:label="GeoLocation">
+	<rdfs:subClassOf rdf:resource="&VoxPopuli_rdfs;SocialAnnotation"/>
+</rdfs:Class>
+<rdfs:Class rdf:about="&VoxPopuli_rdfs;Germany"
+	 rdfs:label="Germany">
+	<rdfs:subClassOf rdf:resource="&VoxPopuli_rdfs;Europa"/>
+</rdfs:Class>
+<rdfs:Class rdf:about="&VoxPopuli_rdfs;HighEducated"
+	 a:role="abstract"
+	 rdfs:label="HighEducated">
+	<rdfs:subClassOf rdf:resource="&VoxPopuli_rdfs;Education"/>
+</rdfs:Class>
+<rdfs:Class rdf:about="&VoxPopuli_rdfs;HighIncomeJob"
+	 a:role="abstract"
+	 rdfs:label="HighIncomeJob">
+	<rdfs:subClassOf rdf:resource="&VoxPopuli_rdfs;Employment"/>
+</rdfs:Class>
+<rdfs:Class rdf:about="&VoxPopuli_rdfs;Hispanic"
+	 a:role="abstract"
+	 rdfs:label="Hispanic">
+	<rdfs:subClassOf rdf:resource="&VoxPopuli_rdfs;Race"/>
+</rdfs:Class>
+<rdfs:Class rdf:about="&VoxPopuli_rdfs;Image"
+	 rdfs:label="Image">
+	<rdfs:subClassOf rdf:resource="&VoxPopuli_rdfs;Static"/>
+</rdfs:Class>
+<rdfs:Class rdf:about="&VoxPopuli_rdfs;Indoor"
+	 a:role="abstract"
+	 rdfs:label="Indoor">
+	<rdfs:subClassOf rdf:resource="&VoxPopuli_rdfs;Place"/>
+</rdfs:Class>
+<rdfs:Class rdf:about="&VoxPopuli_rdfs;InternetCafe"
+	 rdfs:label="InternetCafe">
+	<rdfs:subClassOf rdf:resource="&VoxPopuli_rdfs;Bar"/>
+</rdfs:Class>
+<rdfs:Class rdf:about="&VoxPopuli_rdfs;InterviewSegment"
+	 rdfs:label="InterviewSegment">
+	<rdfs:subClassOf rdf:resource="&VoxPopuli_rdfs;Material"/>
+</rdfs:Class>
+<rdfs:Class rdf:about="&VoxPopuli_rdfs;InterviewedPerson"
+	 rdfs:label="InterviewedPerson">
+	<rdfs:subClassOf rdf:resource="&VoxPopuli_rdfs;Person"/>
+</rdfs:Class>
+<rdfs:Class rdf:about="&VoxPopuli_rdfs;Left"
+	 rdfs:label="Left">
+	<rdfs:subClassOf rdf:resource="&VoxPopuli_rdfs;Gaze"/>
+</rdfs:Class>
+<rdfs:Class rdf:about="&VoxPopuli_rdfs;LeftCenter"
+	 rdfs:label="LeftCenter">
+	<rdfs:subClassOf rdf:resource="&VoxPopuli_rdfs;Gaze"/>
+</rdfs:Class>
+<rdf:Property rdf:about="&VoxPopuli_rdfs;LogicType"
+	 a:maxCardinality="1"
+	 a:range="cls"
+	 rdfs:label="LogicType">
+	<a:allowedParents rdf:resource="&VoxPopuli_rdfs;RhetoricalLink"/>
+	<rdfs:domain rdf:resource="&VoxPopuli_rdfs;ToulminPart"/>
+	<rdfs:range rdf:resource="&rdfs;Class"/>
+</rdf:Property>
+<rdfs:Class rdf:about="&VoxPopuli_rdfs;LowEducated"
+	 a:role="abstract"
+	 rdfs:label="LowEducated">
+	<rdfs:subClassOf rdf:resource="&VoxPopuli_rdfs;Education"/>
+</rdfs:Class>
+<rdfs:Class rdf:about="&VoxPopuli_rdfs;LowIncomeJob"
+	 a:role="abstract"
+	 rdfs:label="LowIncomeJob">
+	<rdfs:subClassOf rdf:resource="&VoxPopuli_rdfs;Employment"/>
+</rdfs:Class>
+<rdfs:Class rdf:about="&VoxPopuli_rdfs;MainSubject"
+	 rdfs:label="MainSubject">
+	<rdfs:subClassOf rdf:resource="&VoxPopuli_rdfs;DescriptiveAnnotation"/>
+</rdfs:Class>
+<rdfs:Class rdf:about="&VoxPopuli_rdfs;Male"
+	 a:role="abstract"
+	 rdfs:label="Male">
+	<rdfs:subClassOf rdf:resource="&VoxPopuli_rdfs;Gender"/>
+</rdfs:Class>
+<rdfs:Class rdf:about="&VoxPopuli_rdfs;Market"
+	 a:role="abstract"
+	 rdfs:label="Market">
+	<rdfs:subClassOf rdf:resource="&VoxPopuli_rdfs;Indoor"/>
+</rdfs:Class>
+<rdfs:Class rdf:about="&VoxPopuli_rdfs;Massachusetts"
+	 a:role="abstract"
+	 rdfs:label="Massachusetts">
+	<rdfs:subClassOf rdf:resource="&VoxPopuli_rdfs;USA"/>
+</rdfs:Class>
+<rdfs:Class rdf:about="&VoxPopuli_rdfs;Material"
+	 rdfs:label="Material">
+	<rdfs:subClassOf rdf:resource="&rdfs;Resource"/>
+</rdfs:Class>
+<rdfs:Class rdf:about="&VoxPopuli_rdfs;MediaItem"
+	 a:role="abstract"
+	 rdfs:label="MediaItem">
+	<rdfs:subClassOf rdf:resource="&rdfs;Resource"/>
+</rdfs:Class>
+<rdfs:Class rdf:about="&VoxPopuli_rdfs;MediumCloseUp"
+	 rdfs:label="MediumCloseUp">
+	<rdfs:subClassOf rdf:resource="&VoxPopuli_rdfs;Framing"/>
+</rdfs:Class>
+<rdfs:Class rdf:about="&VoxPopuli_rdfs;MediumEducated"
+	 a:role="abstract"
+	 rdfs:label="MediumEducated">
+	<rdfs:subClassOf rdf:resource="&VoxPopuli_rdfs;Education"/>
+</rdfs:Class>
+<rdfs:Class rdf:about="&VoxPopuli_rdfs;MidShot"
+	 rdfs:label="MidShot">
+	<rdfs:subClassOf rdf:resource="&VoxPopuli_rdfs;Framing"/>
+</rdfs:Class>
+<rdfs:Class rdf:about="&VoxPopuli_rdfs;MiddleEast"
+	 a:role="abstract"
+	 rdfs:label="MiddleEast">
+	<rdfs:subClassOf rdf:resource="&VoxPopuli_rdfs;NotUSA"/>
+</rdfs:Class>
+<rdfs:Class rdf:about="&VoxPopuli_rdfs;MiddleIncomeJob"
+	 a:role="abstract"
+	 rdfs:label="MiddleIncomeJob">
+	<rdfs:subClassOf rdf:resource="&VoxPopuli_rdfs;Employment"/>
+</rdfs:Class>
+<rdfs:Class rdf:about="&VoxPopuli_rdfs;Middleage"
+	 a:role="abstract"
+	 rdfs:label="Middleage">
+	<rdfs:subClassOf rdf:resource="&VoxPopuli_rdfs;Age"/>
+</rdfs:Class>
+<rdfs:Class rdf:about="&VoxPopuli_rdfs;Mixed"
+	 rdfs:label="Mixed">
+	<rdfs:subClassOf rdf:resource="&VoxPopuli_rdfs;Gaze"/>
+</rdfs:Class>
+<rdfs:Class rdf:about="&VoxPopuli_rdfs;Modifier"
+	 rdfs:label="Modifier">
+	<rdfs:subClassOf rdf:resource="&VoxPopuli_rdfs;RhetoricalStatementPart"/>
+</rdfs:Class>
+<rdfs:Class rdf:about="&VoxPopuli_rdfs;Morning"
+	 a:role="abstract"
+	 rdfs:label="Morning">
+	<rdfs:subClassOf rdf:resource="&VoxPopuli_rdfs;TIme"/>
+</rdfs:Class>
+<rdfs:Class rdf:about="&VoxPopuli_rdfs;Muslim"
+	 a:role="abstract"
+	 rdfs:label="Muslim">
+	<rdfs:subClassOf rdf:resource="&VoxPopuli_rdfs;Religion"/>
+</rdfs:Class>
+<rdfs:Class rdf:about="&VoxPopuli_rdfs;Nederlands"
+	 rdfs:label="Nederlands">
+	<rdfs:subClassOf rdf:resource="&VoxPopuli_rdfs;Europa"/>
+</rdfs:Class>
+<rdfs:Class rdf:about="&VoxPopuli_rdfs;NewYork"
+	 a:role="abstract"
+	 rdfs:label="NewYork">
+	<rdfs:subClassOf rdf:resource="&VoxPopuli_rdfs;USA"/>
+</rdfs:Class>
+<rdfs:Class rdf:about="&VoxPopuli_rdfs;NewYorkCity"
+	 a:role="abstract"
+	 rdfs:label="NewYorkCity">
+	<rdfs:subClassOf rdf:resource="&VoxPopuli_rdfs;NewYork"/>
+</rdfs:Class>
+<rdfs:Class rdf:about="&VoxPopuli_rdfs;Night"
+	 a:role="abstract"
+	 rdfs:label="Night">
+	<rdfs:subClassOf rdf:resource="&VoxPopuli_rdfs;TIme"/>
+</rdfs:Class>
+<rdfs:Class rdf:about="&VoxPopuli_rdfs;Noddy Shot"
+	 rdfs:label="Noddy Shot">
+	<rdfs:subClassOf rdf:resource="&VoxPopuli_rdfs;Framing"/>
+</rdfs:Class>
+<rdfs:Class rdf:about="&VoxPopuli_rdfs;None"
+	 rdfs:label="None">
+	<rdfs:subClassOf rdf:resource="&VoxPopuli_rdfs;CameraMotion"/>
+</rdfs:Class>
+<rdfs:Class rdf:about="&VoxPopuli_rdfs;NorthAmerica"
+	 a:role="abstract"
+	 rdfs:label="NorthAmerica">
+	<rdfs:subClassOf rdf:resource="&VoxPopuli_rdfs;NotUSA"/>
+</rdfs:Class>
+<rdfs:Class rdf:about="&VoxPopuli_rdfs;NotUSA"
+	 a:role="abstract"
+	 rdfs:label="NotUSA">
+	<rdfs:subClassOf rdf:resource="&VoxPopuli_rdfs;GeoLocation"/>
+</rdfs:Class>
+<rdfs:Class rdf:about="&VoxPopuli_rdfs;Object"
+	 rdfs:label="Object">
+	<rdfs:subClassOf rdf:resource="&VoxPopuli_rdfs;Concept"/>
+</rdfs:Class>
+<rdfs:Class rdf:about="&VoxPopuli_rdfs;Oceania"
+	 a:role="abstract"
+	 rdfs:label="Oceania">
+	<rdfs:subClassOf rdf:resource="&VoxPopuli_rdfs;NotUSA"/>
+</rdfs:Class>
+<rdfs:Class rdf:about="&VoxPopuli_rdfs;Ohio"
+	 a:role="abstract"
+	 rdfs:label="Ohio">
+	<rdfs:subClassOf rdf:resource="&VoxPopuli_rdfs;USA"/>
+</rdfs:Class>
+<rdfs:Class rdf:about="&VoxPopuli_rdfs;Old"
+	 a:role="abstract"
+	 rdfs:label="Old">
+	<rdfs:subClassOf rdf:resource="&VoxPopuli_rdfs;Age"/>
+</rdfs:Class>
+<rdfs:Class rdf:about="&VoxPopuli_rdfs;Opinion"
+	 rdfs:label="Opinion">
+	<rdfs:subClassOf rdf:resource="&VoxPopuli_rdfs;RhetoricalAnnotation"/>
+</rdfs:Class>
+<rdfs:Class rdf:about="&VoxPopuli_rdfs;Outdoor"
+	 a:role="abstract"
+	 rdfs:label="Outdoor">
+	<rdfs:subClassOf rdf:resource="&VoxPopuli_rdfs;Place"/>
+</rdfs:Class>
+<rdfs:Class rdf:about="&VoxPopuli_rdfs;PanLeft"
+	 rdfs:label="PanLeft">
+	<rdfs:subClassOf rdf:resource="&VoxPopuli_rdfs;CameraMotion"/>
+</rdfs:Class>
+<rdfs:Class rdf:about="&VoxPopuli_rdfs;PanRight"
+	 rdfs:label="PanRight">
+	<rdfs:subClassOf rdf:resource="&VoxPopuli_rdfs;CameraMotion"/>
+</rdfs:Class>
+<rdfs:Class rdf:about="&VoxPopuli_rdfs;ParkingPlace"
+	 a:role="abstract"
+	 rdfs:label="ParkingPlace">
+	<rdfs:subClassOf rdf:resource="&VoxPopuli_rdfs;Outdoor"/>
+</rdfs:Class>
+<rdfs:Class rdf:about="&VoxPopuli_rdfs;Person"
+	 rdfs:label="Person">
+	<rdfs:subClassOf rdf:resource="&VoxPopuli_rdfs;MainSubject"/>
+</rdfs:Class>
+<rdfs:Class rdf:about="&VoxPopuli_rdfs;Place"
+	 a:role="abstract"
+	 rdfs:label="Place">
+	<rdfs:subClassOf rdf:resource="&VoxPopuli_rdfs;FilmicAnnotation"/>
+</rdfs:Class>
+<rdfs:Class rdf:about="&VoxPopuli_rdfs;Position"
+	 rdfs:label="Position">
+	<rdfs:subClassOf rdf:resource="&VoxPopuli_rdfs;RhetoricalAnnotation"/>
+</rdfs:Class>
+<rdfs:Class rdf:about="&VoxPopuli_rdfs;Predicate"
+	 rdfs:label="Predicate">
+	<rdfs:subClassOf rdf:resource="&VoxPopuli_rdfs;RhetoricalStatementPart"/>
+</rdfs:Class>
+<rdfs:Class rdf:about="&VoxPopuli_rdfs;Question"
+	 rdfs:label="Question">
+	<rdfs:subClassOf rdf:resource="&VoxPopuli_rdfs;DescriptiveAnnotation"/>
+</rdfs:Class>
+<rdfs:Class rdf:about="&VoxPopuli_rdfs;Race"
+	 a:role="abstract"
+	 rdfs:label="Race">
+	<rdfs:comment>This Exhibit provides standard classifications for record keeping, collection, and presentation of data on race and ethnicity in Federal program administrative reporting and statistical activities. These classifications should not be interpreted as being scientific or anthropological in nature, nor should they be viewed as determinants of eligibility for participation in any Federal program. They have been developed in response to needs expressed by both executive branch and the Congress to provide for the collection and use of compatible, nonduplicated, exchangeable racial and ethnic data by Federal agencies.</rdfs:comment>
+	<rdfs:subClassOf rdf:resource="&VoxPopuli_rdfs;SocialAnnotation"/>
+</rdfs:Class>
+<rdfs:Class rdf:about="&VoxPopuli_rdfs;Recorded"
+	 a:role="abstract"
+	 rdfs:label="Recorded">
+	<rdfs:subClassOf rdf:resource="&VoxPopuli_rdfs;MediaItem"/>
+</rdfs:Class>
+<rdfs:Class rdf:about="&VoxPopuli_rdfs;Religion"
+	 a:role="abstract"
+	 rdfs:label="Religion">
+	<rdfs:comment>Christians 32.79% (of which Roman Catholics 17.33%, Protestants 5.62%, Orthodox 3.51%, Anglicans 1.31%), Muslims 19.6%, Hindus 13.31%, Buddhists 5.88%, Sikhs 0.38%, Jews 0.24%, other religions 12.83%, non-religious 12.53%, atheists 2.44% (2001 est.)</rdfs:comment>
+	<rdfs:subClassOf rdf:resource="&VoxPopuli_rdfs;SocialAnnotation"/>
+</rdfs:Class>
+<rdfs:Class rdf:about="&VoxPopuli_rdfs;Retired"
+	 a:role="abstract"
+	 rdfs:label="Retired">
+	<rdfs:subClassOf rdf:resource="&VoxPopuli_rdfs;Employment"/>
+</rdfs:Class>
+<rdfs:Class rdf:about="&VoxPopuli_rdfs;RhetoricalAnnotation"
+	 a:role="abstract"
+	 rdfs:label="RhetoricalAnnotation">
+	<rdfs:subClassOf rdf:resource="&rdfs;Resource"/>
+</rdfs:Class>
+<rdfs:Class rdf:about="&VoxPopuli_rdfs;RhetoricalForm"
+	 rdfs:label="RhetoricalForm">
+	<rdfs:subClassOf rdf:resource="&VoxPopuli_rdfs;RhetoricalAnnotation"/>
+</rdfs:Class>
+<rdfs:Class rdf:about="&VoxPopuli_rdfs;RhetoricalLink"
+	 rdfs:label="RhetoricalLink">
+	<rdfs:subClassOf rdf:resource="&VoxPopuli_rdfs;RhetoricalAnnotation"/>
+</rdfs:Class>
+<rdfs:Class rdf:about="&VoxPopuli_rdfs;RhetoricalStatementPart"
+	 a:role="abstract"
+	 rdfs:label="RhetoricalStatementPart">
+	<rdfs:subClassOf rdf:resource="&VoxPopuli_rdfs;RhetoricalAnnotation"/>
+</rdfs:Class>
+<rdfs:Class rdf:about="&VoxPopuli_rdfs;Right"
+	 rdfs:label="Right">
+	<rdfs:subClassOf rdf:resource="&VoxPopuli_rdfs;Gaze"/>
+</rdfs:Class>
+<rdfs:Class rdf:about="&VoxPopuli_rdfs;RightCenter"
+	 rdfs:label="RightCenter">
+	<rdfs:subClassOf rdf:resource="&VoxPopuli_rdfs;Gaze"/>
+</rdfs:Class>
+<rdfs:Class rdf:about="&VoxPopuli_rdfs;Shaking"
+	 rdfs:label="Shaking">
+	<rdfs:subClassOf rdf:resource="&VoxPopuli_rdfs;CameraMotion"/>
+</rdfs:Class>
+<rdfs:Class rdf:about="&VoxPopuli_rdfs;Shop"
+	 rdfs:label="Shop">
+	<rdfs:subClassOf rdf:resource="&VoxPopuli_rdfs;Indoor"/>
+</rdfs:Class>
+<rdfs:Class rdf:about="&VoxPopuli_rdfs;SocialAnnotation"
+	 a:role="abstract"
+	 rdfs:label="SocialAnnotation">
+	<rdfs:subClassOf rdf:resource="&VoxPopuli_rdfs;DescriptiveAnnotation"/>
+</rdfs:Class>
+<rdfs:Class rdf:about="&VoxPopuli_rdfs;SouthAmerica"
+	 a:role="abstract"
+	 rdfs:label="SouthAmerica">
+	<rdfs:subClassOf rdf:resource="&VoxPopuli_rdfs;NotUSA"/>
+</rdfs:Class>
+<rdfs:Class rdf:about="&VoxPopuli_rdfs;Stamford"
+	 a:role="abstract"
+	 rdfs:label="Stamford">
+	<rdfs:subClassOf rdf:resource="&VoxPopuli_rdfs;Connecticut"/>
+</rdfs:Class>
+<rdfs:Class rdf:about="&VoxPopuli_rdfs;Static"
+	 rdfs:label="Static">
+	<rdfs:subClassOf rdf:resource="&VoxPopuli_rdfs;Recorded"/>
+</rdfs:Class>
+<rdfs:Class rdf:about="&VoxPopuli_rdfs;Street"
+	 a:role="abstract"
+	 rdfs:label="Street">
+	<rdfs:subClassOf rdf:resource="&VoxPopuli_rdfs;Outdoor"/>
+</rdfs:Class>
+<rdfs:Class rdf:about="&VoxPopuli_rdfs;Student"
+	 a:role="abstract"
+	 rdfs:label="Student">
+	<rdfs:subClassOf rdf:resource="&VoxPopuli_rdfs;Employment"/>
+</rdfs:Class>
+<rdfs:Class rdf:about="&VoxPopuli_rdfs;Time"
+	 a:role="abstract"
+	 rdfs:label="Time">
+	<rdfs:subClassOf rdf:resource="&VoxPopuli_rdfs;FilmicAnnotation"/>
+</rdfs:Class>
+<rdfs:Class rdf:about="&VoxPopuli_rdfs;Teenager"
+	 a:role="abstract"
+	 rdfs:label="Teenager">
+	<rdfs:subClassOf rdf:resource="&VoxPopuli_rdfs;Age"/>
+</rdfs:Class>
+<rdfs:Class rdf:about="&VoxPopuli_rdfs;Text"
+	 rdfs:label="Text">
+	<rdfs:subClassOf rdf:resource="&VoxPopuli_rdfs;Created"/>
+</rdfs:Class>
+<rdfs:Class rdf:about="&VoxPopuli_rdfs;TiltDown"
+	 rdfs:label="TiltDown">
+	<rdfs:subClassOf rdf:resource="&VoxPopuli_rdfs;CameraMotion"/>
+</rdfs:Class>
+<rdfs:Class rdf:about="&VoxPopuli_rdfs;TiltUp"
+	 rdfs:label="TiltUp">
+	<rdfs:subClassOf rdf:resource="&VoxPopuli_rdfs;CameraMotion"/>
+</rdfs:Class>
+<rdfs:Class rdf:about="&VoxPopuli_rdfs;ToulminPart"
+	 a:role="abstract"
+	 rdfs:label="ToulminPart">
+	<rdfs:subClassOf rdf:resource="&VoxPopuli_rdfs;RhetoricalAnnotation"/>
+</rdfs:Class>
+<rdf:Property rdf:about="&VoxPopuli_rdfs;Transcript"
+	 a:maxCardinality="1"
+	 rdfs:label="Transcript">
+	<rdfs:domain rdf:resource="&VoxPopuli_rdfs;MediaItem"/>
+	<rdfs:range rdf:resource="&rdfs;Literal"/>
+</rdf:Property>
+<rdfs:Class rdf:about="&VoxPopuli_rdfs;TwoShot"
+	 rdfs:label="TwoShot">
+	<rdfs:subClassOf rdf:resource="&VoxPopuli_rdfs;Framing"/>
+</rdfs:Class>
+<rdfs:Class rdf:about="&VoxPopuli_rdfs;USA"
+	 a:role="abstract"
+	 rdfs:label="USA">
+	<rdfs:subClassOf rdf:resource="&VoxPopuli_rdfs;GeoLocation"/>
+</rdfs:Class>
+<rdfs:Class rdf:about="&VoxPopuli_rdfs;UniversityPark"
+	 a:role="abstract"
+	 rdfs:label="UniversityPark">
+	<rdfs:subClassOf rdf:resource="&VoxPopuli_rdfs;Garden"/>
+</rdfs:Class>
+<rdfs:Class rdf:about="&VoxPopuli_rdfs;UserModel"
+	 rdfs:label="UserModel">
+	<rdfs:subClassOf rdf:resource="&rdfs;Resource"/>
+</rdfs:Class>
+<rdfs:Class rdf:about="&VoxPopuli_rdfs;VerbalStatement"
+	 rdfs:label="VerbalStatement">
+	<rdfs:subClassOf rdf:resource="&VoxPopuli_rdfs;Material"/>
+</rdfs:Class>
+<rdfs:Class rdf:about="&VoxPopuli_rdfs;VeryWideShot"
+	 rdfs:label="VeryWideShot">
+	<rdfs:subClassOf rdf:resource="&VoxPopuli_rdfs;Framing"/>
+</rdfs:Class>
+<rdfs:Class rdf:about="&VoxPopuli_rdfs;Video"
+	 rdfs:label="Video">
+	<rdfs:subClassOf rdf:resource="&VoxPopuli_rdfs;Dynamic"/>
+</rdfs:Class>
+<rdfs:Class rdf:about="&VoxPopuli_rdfs;VisualStatement"
+	 rdfs:label="VisualStatement">
+	<rdfs:subClassOf rdf:resource="&VoxPopuli_rdfs;Material"/>
+</rdfs:Class>
+<rdfs:Class rdf:about="&VoxPopuli_rdfs;Warrant"
+	 rdfs:label="Warrant">
+	<rdfs:subClassOf rdf:resource="&VoxPopuli_rdfs;ToulminPart"/>
+</rdfs:Class>
+<rdfs:Class rdf:about="&VoxPopuli_rdfs;White"
+	 a:role="abstract"
+	 rdfs:label="White">
+	<rdfs:subClassOf rdf:resource="&VoxPopuli_rdfs;Race"/>
+</rdfs:Class>
+<rdfs:Class rdf:about="&VoxPopuli_rdfs;WideShot"
+	 rdfs:label="WideShot">
+	<rdfs:subClassOf rdf:resource="&VoxPopuli_rdfs;Framing"/>
+</rdfs:Class>
+<rdfs:Class rdf:about="&VoxPopuli_rdfs;Willington"
+	 a:role="abstract"
+	 rdfs:label="Willington">
+	<rdfs:subClassOf rdf:resource="&VoxPopuli_rdfs;Connecticut"/>
+</rdfs:Class>
+<rdfs:Class rdf:about="&VoxPopuli_rdfs;Young"
+	 a:role="abstract"
+	 rdfs:label="Young">
+	<rdfs:subClassOf rdf:resource="&VoxPopuli_rdfs;Age"/>
+</rdfs:Class>
+<rdfs:Class rdf:about="&VoxPopuli_rdfs;ZoomIn"
+	 rdfs:label="ZoomIn">
+	<rdfs:subClassOf rdf:resource="&VoxPopuli_rdfs;CameraMotion"/>
+</rdfs:Class>
+<rdfs:Class rdf:about="&VoxPopuli_rdfs;ZoomOut"
+	 rdfs:label="ZoomOut">
+	<rdfs:subClassOf rdf:resource="&VoxPopuli_rdfs;CameraMotion"/>
+</rdfs:Class>
+<rdf:Property rdf:about="&VoxPopuli_rdfs;association"
+	 rdfs:label="association">
+	<rdfs:domain rdf:resource="&VoxPopuli_rdfs;RhetoricalStatementPart"/>
+	<rdfs:range rdf:resource="&VoxPopuli_rdfs;RhetoricalStatementPart"/>
+</rdf:Property>
+<rdf:Property rdf:about="&VoxPopuli_rdfs;atTime"
+	 a:maxCardinality="1"
+	 a:minCardinality="1"
+	 a:range="cls"
+	 rdfs:label="atTime">
+	<rdfs:domain rdf:resource="&VoxPopuli_rdfs;Recorded"/>
+	<a:allowedParents rdf:resource="&VoxPopuli_rdfs;Time"/>
+	<rdfs:range rdf:resource="&rdfs;Class"/>
+</rdf:Property>
+<rdf:Property rdf:about="&VoxPopuli_rdfs;claimer"
+	 a:maxCardinality="1"
+	 a:minCardinality="1"
+	 rdfs:label="claimer">
+	<rdfs:range rdf:resource="&VoxPopuli_rdfs;InterviewedPerson"/>
+	<rdfs:domain rdf:resource="&VoxPopuli_rdfs;VerbalStatement"/>
+</rdf:Property>
+<rdf:Property rdf:about="&VoxPopuli_rdfs;contrTopicDescription"
+	 a:maxCardinality="1"
+	 a:minCardinality="1"
+	 rdfs:label="contrTopicDescription">
+	<rdfs:domain rdf:resource="&VoxPopuli_rdfs;ControversialTopic"/>
+	<rdfs:range rdf:resource="&rdfs;Literal"/>
+</rdf:Property>
+<rdf:Property rdf:about="&VoxPopuli_rdfs;description"
+	 a:maxCardinality="1"
+	 a:minCardinality="1"
+	 rdfs:label="description">
+	<rdfs:domain rdf:resource="&VoxPopuli_rdfs;Person"/>
+	<rdfs:range rdf:resource="&rdfs;Literal"/>
+</rdf:Property>
+<rdf:Property rdf:about="&VoxPopuli_rdfs;emphasisPoints"
+	 rdfs:label="emphasisPoints">
+	<rdfs:domain rdf:resource="&VoxPopuli_rdfs;VerbalStatement"/>
+	<rdfs:range rdf:resource="&rdfs;Literal"/>
+</rdf:Property>
+<rdf:Property rdf:about="&VoxPopuli_rdfs;excludedFactor"
+	 a:range="cls"
+	 rdfs:label="excludedFactor">
+	<a:allowedParents rdf:resource="&VoxPopuli_rdfs;SocialAnnotation"/>
+	<rdfs:domain rdf:resource="&VoxPopuli_rdfs;UserModel"/>
+	<rdfs:range rdf:resource="&rdfs;Class"/>
+</rdf:Property>
+<rdf:Property rdf:about="&VoxPopuli_rdfs;explicit"
+	 a:defaultValues="true"
+	 a:maxCardinality="1"
+	 a:minCardinality="1"
+	 a:range="boolean"
+	 rdfs:label="explicit">
+	<rdfs:domain rdf:resource="&VoxPopuli_rdfs;VerbalStatement"/>
+	<rdfs:range rdf:resource="&rdfs;Literal"/>
+</rdf:Property>
+<rdf:Property rdf:about="&VoxPopuli_rdfs;express"
+	 rdfs:label="express">
+	<rdfs:range rdf:resource="&VoxPopuli_rdfs;Concept"/>
+	<rdfs:domain rdf:resource="&VoxPopuli_rdfs;VisualStatement"/>
+</rdf:Property>
+<rdf:Property rdf:about="&VoxPopuli_rdfs;generalization"
+	 rdfs:label="generalization">
+	<rdfs:range rdf:resource="&VoxPopuli_rdfs;RhetoricalStatementPart"/>
+	<rdfs:domain rdf:resource="&VoxPopuli_rdfs;RhetoricalStatementPart"/>
+</rdf:Property>
+<rdf:Property rdf:about="&VoxPopuli_rdfs;hasAge"
+	 a:maxCardinality="1"
+	 a:range="cls"
+	 rdfs:label="hasAge">
+	<a:allowedParents rdf:resource="&VoxPopuli_rdfs;Age"/>
+	<rdfs:domain rdf:resource="&VoxPopuli_rdfs;Person"/>
+	<rdfs:range rdf:resource="&rdfs;Class"/>
+</rdf:Property>
+<rdf:Property rdf:about="&VoxPopuli_rdfs;hasEducation"
+	 a:maxCardinality="1"
+	 a:range="cls"
+	 rdfs:label="hasEducation">
+	<a:allowedParents rdf:resource="&VoxPopuli_rdfs;Education"/>
+	<rdfs:domain rdf:resource="&VoxPopuli_rdfs;Person"/>
+	<rdfs:range rdf:resource="&rdfs;Class"/>
+</rdf:Property>
+<rdf:Property rdf:about="&VoxPopuli_rdfs;hasEndFraming"
+	 a:maxCardinality="1"
+	 a:minCardinality="1"
+	 a:range="cls"
+	 rdfs:label="hasEndFraming">
+	<a:allowedParents rdf:resource="&VoxPopuli_rdfs;Framing"/>
+	<rdfs:domain rdf:resource="&VoxPopuli_rdfs;Video"/>
+	<rdfs:range rdf:resource="&rdfs;Class"/>
+</rdf:Property>
+<rdf:Property rdf:about="&VoxPopuli_rdfs;hasGaze"
+	 a:maxCardinality="1"
+	 a:minCardinality="1"
+	 a:range="cls"
+	 rdfs:label="hasGaze">
+	<a:allowedParents rdf:resource="&VoxPopuli_rdfs;Gaze"/>
+	<rdfs:domain rdf:resource="&VoxPopuli_rdfs;Video"/>
+	<rdfs:range rdf:resource="&rdfs;Class"/>
+</rdf:Property>
+<rdf:Property rdf:about="&VoxPopuli_rdfs;hasGender"
+	 a:maxCardinality="1"
+	 a:minCardinality="1"
+	 a:range="cls"
+	 rdfs:label="hasGender">
+	<a:allowedParents rdf:resource="&VoxPopuli_rdfs;Gender"/>
+	<rdfs:domain rdf:resource="&VoxPopuli_rdfs;Person"/>
+	<rdfs:range rdf:resource="&rdfs;Class"/>
+</rdf:Property>
+<rdf:Property rdf:about="&VoxPopuli_rdfs;hasJob"
+	 a:maxCardinality="1"
+	 a:range="cls"
+	 rdfs:label="hasJob">
+	<a:allowedParents rdf:resource="&VoxPopuli_rdfs;Employment"/>
+	<rdfs:domain rdf:resource="&VoxPopuli_rdfs;Person"/>
+	<rdfs:range rdf:resource="&rdfs;Class"/>
+</rdf:Property>
+<rdf:Property rdf:about="&VoxPopuli_rdfs;hasLocation"
+	 a:maxCardinality="1"
+	 a:minCardinality="1"
+	 a:range="cls"
+	 rdfs:label="hasLocation">
+	<a:allowedParents rdf:resource="&VoxPopuli_rdfs;GeoLocation"/>
+	<rdfs:domain rdf:resource="&VoxPopuli_rdfs;Recorded"/>
+	<rdfs:range rdf:resource="&rdfs;Class"/>
+</rdf:Property>
+<rdf:Property rdf:about="&VoxPopuli_rdfs;hasMedia"
+	 a:minCardinality="1"
+	 rdfs:label="hasMedia">
+	<rdfs:domain rdf:resource="&VoxPopuli_rdfs;Material"/>
+	<rdfs:range rdf:resource="&VoxPopuli_rdfs;MediaItem"/>
+</rdf:Property>
+<rdf:Property rdf:about="&VoxPopuli_rdfs;hasMotion"
+	 a:maxCardinality="1"
+	 a:minCardinality="1"
+	 a:range="cls"
+	 rdfs:label="hasMotion">
+	<a:allowedParents rdf:resource="&VoxPopuli_rdfs;CameraMotion"/>
+	<rdfs:domain rdf:resource="&VoxPopuli_rdfs;Video"/>
+	<rdfs:range rdf:resource="&rdfs;Class"/>
+</rdf:Property>
+<rdf:Property rdf:about="&VoxPopuli_rdfs;hasOrigin"
+	 a:maxCardinality="1"
+	 a:range="cls"
+	 rdfs:label="hasOrigin">
+	<a:allowedParents rdf:resource="&VoxPopuli_rdfs;GeoLocation"/>
+	<rdfs:domain rdf:resource="&VoxPopuli_rdfs;Person"/>
+	<rdfs:range rdf:resource="&rdfs;Class"/>
+</rdf:Property>
+<rdf:Property rdf:about="&VoxPopuli_rdfs;hasQuestion"
+	 a:maxCardinality="1"
+	 a:minCardinality="1"
+	 rdfs:label="hasQuestion">
+	<rdfs:domain rdf:resource="&VoxPopuli_rdfs;InterviewSegment"/>
+	<rdfs:range rdf:resource="&VoxPopuli_rdfs;Question"/>
+</rdf:Property>
+<rdf:Property rdf:about="&VoxPopuli_rdfs;hasRace"
+	 a:maxCardinality="1"
+	 a:minCardinality="1"
+	 a:range="cls"
+	 rdfs:label="hasRace">
+	<rdfs:domain rdf:resource="&VoxPopuli_rdfs;Person"/>
+	<a:allowedParents rdf:resource="&VoxPopuli_rdfs;Race"/>
+	<rdfs:range rdf:resource="&rdfs;Class"/>
+</rdf:Property>
+<rdf:Property rdf:about="&VoxPopuli_rdfs;hasReligion"
+	 a:maxCardinality="1"
+	 a:range="cls"
+	 rdfs:label="hasReligion">
+	<rdfs:domain rdf:resource="&VoxPopuli_rdfs;Person"/>
+	<a:allowedParents rdf:resource="&VoxPopuli_rdfs;Religion"/>
+	<rdfs:range rdf:resource="&rdfs;Class"/>
+</rdf:Property>
+<rdf:Property rdf:about="&VoxPopuli_rdfs;hasStartFraming"
+	 a:maxCardinality="1"
+	 a:minCardinality="1"
+	 a:range="cls"
+	 rdfs:label="hasStartFraming">
+	<a:allowedParents rdf:resource="&VoxPopuli_rdfs;Framing"/>
+	<rdfs:domain rdf:resource="&VoxPopuli_rdfs;Video"/>
+	<rdfs:range rdf:resource="&rdfs;Class"/>
+</rdf:Property>
+<rdf:Property rdf:about="&VoxPopuli_rdfs;hasSubject"
+	 a:minCardinality="1"
+	 rdfs:label="hasSubject">
+	<rdfs:range rdf:resource="&VoxPopuli_rdfs;MainSubject"/>
+	<rdfs:domain rdf:resource="&VoxPopuli_rdfs;MediaItem"/>
+</rdf:Property>
+<rdf:Property rdf:about="&VoxPopuli_rdfs;importantFactor"
+	 a:range="cls"
+	 rdfs:label="importantFactor">
+	<a:allowedParents rdf:resource="&VoxPopuli_rdfs;SocialAnnotation"/>
+	<rdfs:domain rdf:resource="&VoxPopuli_rdfs;UserModel"/>
+	<rdfs:range rdf:resource="&rdfs;Class"/>
+</rdf:Property>
+<rdf:Property rdf:about="&VoxPopuli_rdfs;language"
+	 a:defaultValues="English"
+	 a:maxCardinality="1"
+	 a:minCardinality="1"
+	 rdfs:label="language">
+	<rdfs:domain rdf:resource="&VoxPopuli_rdfs;MediaItem"/>
+	<rdfs:range rdf:resource="&rdfs;Literal"/>
+</rdf:Property>
+<rdf:Property rdf:about="&VoxPopuli_rdfs;mediaDescription"
+	 a:maxCardinality="1"
+	 rdfs:label="mediaDescription">
+	<rdfs:domain rdf:resource="&VoxPopuli_rdfs;MediaItem"/>
+	<rdfs:range rdf:resource="&rdfs;Literal"/>
+</rdf:Property>
+<rdf:Property rdf:about="&VoxPopuli_rdfs;modifier"
+	 a:maxCardinality="1"
+	 a:minCardinality="1"
+	 rdfs:label="modifier">
+	<rdfs:range rdf:resource="&VoxPopuli_rdfs;Modifier"/>
+	<rdfs:domain rdf:resource="&VoxPopuli_rdfs;VerbalStatement"/>
+</rdf:Property>
+<rdf:Property rdf:about="&VoxPopuli_rdfs;negativeReaction"
+	 rdfs:label="negativeReaction">
+	<rdfs:range rdf:resource="&VoxPopuli_rdfs;Concept"/>
+	<rdfs:domain rdf:resource="&VoxPopuli_rdfs;UserModel"/>
+</rdf:Property>
+<rdf:Property rdf:about="&VoxPopuli_rdfs;nestedRhetoricalForm"
+	 rdfs:label="nestedRhetoricalForm">
+	<rdfs:range rdf:resource="&VoxPopuli_rdfs;RhetoricalForm"/>
+	<rdfs:domain rdf:resource="&VoxPopuli_rdfs;RhetoricalForm"/>
+</rdf:Property>
+<rdf:Property rdf:about="&VoxPopuli_rdfs;opinion"
+	 a:maxCardinality="1"
+	 rdfs:label="opinion">
+	<rdfs:domain rdf:resource="&VoxPopuli_rdfs;InterviewSegment"/>
+	<rdfs:range rdf:resource="&VoxPopuli_rdfs;Opinion"/>
+</rdf:Property>
+<rdf:Property rdf:about="&VoxPopuli_rdfs;opposite"
+	 rdfs:label="opposite">
+	<rdfs:range rdf:resource="&VoxPopuli_rdfs;RhetoricalStatementPart"/>
+	<rdfs:domain rdf:resource="&VoxPopuli_rdfs;RhetoricalStatementPart"/>
+</rdf:Property>
+<rdf:Property rdf:about="&VoxPopuli_rdfs;order"
+	 a:maxCardinality="1"
+	 a:minCardinality="1"
+	 a:range="integer"
+	 rdfs:label="order">
+	<rdfs:domain rdf:resource="&VoxPopuli_rdfs;Question"/>
+	<rdfs:range rdf:resource="&rdfs;Literal"/>
+</rdf:Property>
+<rdf:Property rdf:about="&VoxPopuli_rdfs;partDescription"
+	 a:maxCardinality="1"
+	 a:minCardinality="1"
+	 rdfs:label="partDescription">
+	<rdfs:domain rdf:resource="&VoxPopuli_rdfs;RhetoricalStatementPart"/>
+	<rdfs:range rdf:resource="&rdfs;Literal"/>
+</rdf:Property>
+<rdf:Property rdf:about="&VoxPopuli_rdfs;partecipant"
+	 a:maxCardinality="1"
+	 a:minCardinality="1"
+	 rdfs:label="partecipant">
+	<rdfs:domain rdf:resource="&VoxPopuli_rdfs;InterviewSegment"/>
+	<rdfs:range rdf:resource="&VoxPopuli_rdfs;InterviewedPerson"/>
+</rdf:Property>
+<rdf:Property rdf:about="&VoxPopuli_rdfs;posDescription"
+	 a:maxCardinality="1"
+	 a:minCardinality="1"
+	 rdfs:label="posDescription">
+	<rdfs:domain rdf:resource="&VoxPopuli_rdfs;Position"/>
+	<rdfs:range rdf:resource="&rdfs;Literal"/>
+</rdf:Property>
+<rdf:Property rdf:about="&VoxPopuli_rdfs;position"
+	 a:maxCardinality="1"
+	 a:minCardinality="1"
+	 rdfs:label="position">
+	<rdfs:domain rdf:resource="&VoxPopuli_rdfs;Opinion"/>
+	<rdfs:range rdf:resource="&VoxPopuli_rdfs;Position"/>
+</rdf:Property>
+<rdf:Property rdf:about="&VoxPopuli_rdfs;positiveReaction"
+	 rdfs:label="positiveReaction">
+	<rdfs:range rdf:resource="&VoxPopuli_rdfs;Concept"/>
+	<rdfs:domain rdf:resource="&VoxPopuli_rdfs;UserModel"/>
+</rdf:Property>
+<rdf:Property rdf:about="&VoxPopuli_rdfs;predicate"
+	 a:maxCardinality="1"
+	 a:minCardinality="1"
+	 rdfs:label="predicate">
+	<rdfs:range rdf:resource="&VoxPopuli_rdfs;Predicate"/>
+	<rdfs:domain rdf:resource="&VoxPopuli_rdfs;VerbalStatement"/>
+</rdf:Property>
+<rdf:Property rdf:about="&VoxPopuli_rdfs;quality"
+	 a:defaultValues="good"
+	 a:maxCardinality="1"
+	 a:minCardinality="1"
+	 rdfs:label="quality">
+	<rdfs:domain rdf:resource="&VoxPopuli_rdfs;MediaItem"/>
+	<rdfs:range rdf:resource="&rdfs;Literal"/>
+</rdf:Property>
+<rdf:Property rdf:about="&VoxPopuli_rdfs;rhetoricalForm"
+	 rdfs:label="rhetoricalForm">
+	<rdfs:domain rdf:resource="&VoxPopuli_rdfs;InterviewSegment"/>
+	<rdfs:range rdf:resource="&VoxPopuli_rdfs;RhetoricalForm"/>
+</rdf:Property>
+<rdf:Property rdf:about="&VoxPopuli_rdfs;similar"
+	 rdfs:label="similar">
+	<rdfs:domain rdf:resource="&VoxPopuli_rdfs;RhetoricalStatementPart"/>
+	<rdfs:range rdf:resource="&VoxPopuli_rdfs;RhetoricalStatementPart"/>
+</rdf:Property>
+<rdf:Property rdf:about="&VoxPopuli_rdfs;specialization"
+	 rdfs:label="specialization">
+	<rdfs:range rdf:resource="&VoxPopuli_rdfs;RhetoricalStatementPart"/>
+	<rdfs:domain rdf:resource="&VoxPopuli_rdfs;RhetoricalStatementPart"/>
+</rdf:Property>
+<rdf:Property rdf:about="&VoxPopuli_rdfs;statements"
+	 rdfs:label="statements">
+	<rdfs:domain rdf:resource="&VoxPopuli_rdfs;ToulminPart"/>
+	<rdfs:range rdf:resource="&VoxPopuli_rdfs;VerbalStatement"/>
+</rdf:Property>
+<rdf:Property rdf:about="&VoxPopuli_rdfs;stmtRelation"
+	 a:maxCardinality="1"
+	 rdfs:label="stmtRelation">
+	<rdfs:domain rdf:resource="&VoxPopuli_rdfs;ToulminPart"/>
+	<rdfs:range rdf:resource="&rdfs;Literal"/>
+</rdf:Property>
+<rdf:Property rdf:about="&VoxPopuli_rdfs;subject"
+	 a:maxCardinality="1"
+	 a:minCardinality="1"
+	 rdfs:label="subject">
+	<rdfs:range rdf:resource="&VoxPopuli_rdfs;Concept"/>
+	<rdfs:domain rdf:resource="&VoxPopuli_rdfs;VerbalStatement"/>
+</rdf:Property>
+<rdf:Property rdf:about="&VoxPopuli_rdfs;supportingBArgument"
+	 rdfs:label="supportingBArgument">
+	<rdfs:range rdf:resource="&VoxPopuli_rdfs;VerbalStatement"/>
+</rdf:Property>
+<rdf:Property rdf:about="&VoxPopuli_rdfs;takesPlace"
+	 a:maxCardinality="1"
+	 a:minCardinality="1"
+	 a:range="cls"
+	 rdfs:label="takesPlace">
+	<a:allowedParents rdf:resource="&VoxPopuli_rdfs;Place"/>
+	<rdfs:domain rdf:resource="&VoxPopuli_rdfs;Recorded"/>
+	<rdfs:range rdf:resource="&rdfs;Class"/>
+</rdf:Property>
+<rdf:Property rdf:about="&VoxPopuli_rdfs;text"
+	 a:maxCardinality="1"
+	 a:minCardinality="1"
+	 rdfs:label="text">
+	<rdfs:domain rdf:resource="&VoxPopuli_rdfs;Question"/>
+	<rdfs:range rdf:resource="&rdfs;Literal"/>
+</rdf:Property>
+<rdf:Property rdf:about="&VoxPopuli_rdfs;thesisA"
+	 rdfs:label="thesisA">
+	<rdfs:range rdf:resource="&VoxPopuli_rdfs;RhetoricalForm"/>
+</rdf:Property>
+<rdf:Property rdf:about="&VoxPopuli_rdfs;thesisB"
+	 rdfs:label="thesisB">
+	<rdfs:range rdf:resource="&VoxPopuli_rdfs;RhetoricalForm"/>
+</rdf:Property>
+<rdf:Property rdf:about="&VoxPopuli_rdfs;thesisStatement"
+	 a:maxCardinality="1"
+	 rdfs:label="thesisStatement">
+	<rdfs:range rdf:resource="&VoxPopuli_rdfs;VerbalStatement"/>
+</rdf:Property>
+<rdf:Property rdf:about="&VoxPopuli_rdfs;topic"
+	 a:maxCardinality="1"
+	 a:minCardinality="1"
+	 rdfs:label="topic">
+	<rdfs:range rdf:resource="&VoxPopuli_rdfs;ControversialTopic"/>
+	<rdfs:domain rdf:resource="&VoxPopuli_rdfs;Opinion"/>
+</rdf:Property>
+<rdf:Property rdf:about="&VoxPopuli_rdfs;toulminRole"
+	 a:maxCardinality="1"
+	 a:range="cls"
+	 rdfs:label="toulminRole">
+	<rdfs:domain rdf:resource="&VoxPopuli_rdfs;RhetoricalForm"/>
+	<a:allowedParents rdf:resource="&VoxPopuli_rdfs;ToulminPart"/>
+	<rdfs:range rdf:resource="&rdfs;Class"/>
+</rdf:Property>
+<rdf:Property rdf:about="&VoxPopuli_rdfs;toulminType"
+	 rdfs:label="toulminType">
+	<rdfs:domain rdf:resource="&VoxPopuli_rdfs;RhetoricalForm"/>
+	<rdfs:range rdf:resource="&VoxPopuli_rdfs;ToulminPart"/>
+</rdf:Property>
+<rdf:Property rdf:about="&VoxPopuli_rdfs;type"
+	 a:maxCardinality="1"
+	 rdfs:label="type">
+	<rdfs:range rdf:resource="&VoxPopuli_rdfs;RhetoricalLink"/>
+</rdf:Property>
+<rdf:Property rdf:about="&VoxPopuli_rdfs;userType"
+	 a:maxCardinality="1"
+	 a:minCardinality="1"
+	 rdfs:label="userType">
+	<rdfs:domain rdf:resource="&VoxPopuli_rdfs;UserModel"/>
+	<rdfs:range rdf:resource="&rdfs;Literal"/>
+</rdf:Property>
+<rdf:Property rdf:about="&VoxPopuli_rdfs;veryImportantFactor"
+	 a:range="cls"
+	 rdfs:label="veryImportantFactor">
+	<a:allowedParents rdf:resource="&VoxPopuli_rdfs;SocialAnnotation"/>
+	<rdfs:domain rdf:resource="&VoxPopuli_rdfs;UserModel"/>
+	<rdfs:range rdf:resource="&rdfs;Class"/>
+</rdf:Property>
+<rdf:Property rdf:about="&BasicMedia;src"
+	 a:defaultValues="IWA1.5"
+	 a:maxCardinality="1"
+	 a:minCardinality="1"
+	 rdfs:label="BasicMedia:src">
+	<rdfs:domain rdf:resource="&VoxPopuli_rdfs;MediaItem"/>
+	<rdfs:range rdf:resource="&rdfs;Literal"/>
+</rdf:Property>
+<rdf:Property rdf:about="&MediaClipping;beginFrame"
+	 a:maxCardinality="1"
+	 a:minCardinality="1"
+	 rdfs:label="MediaClipping:beginFrame">
+	<rdfs:domain rdf:resource="&VoxPopuli_rdfs;Dynamic"/>
+	<rdfs:range rdf:resource="&rdfs;Literal"/>
+</rdf:Property>
+<rdf:Property rdf:about="&MediaClipping;endFrame"
+	 a:maxCardinality="1"
+	 a:minCardinality="1"
+	 rdfs:label="MediaClipping:endFrame">
+	<rdfs:domain rdf:resource="&VoxPopuli_rdfs;Dynamic"/>
+	<rdfs:range rdf:resource="&rdfs;Literal"/>
+</rdf:Property>
+</rdf:RDF>

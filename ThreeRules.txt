@@ -1,0 +1,9 @@
+START_RULE
+	START_AND
+                SelectBlackRace
+                GazeClash
+                CreateClash
+                SelectWhiteRace
+	END_AND
+END_RULE
+

@@ -1,0 +1,445 @@
+<?xml version="1.0"?>
+<!DOCTYPE xsp:page [
+
+]>
+<xsp:page language="java"
+  xmlns:xsp="http://apache.org/xsp"
+  xmlns:util="http://apache.org/xsp/util/2.0"
+  xmlns:xsp-request="http://apache.org/xsp/request/2.0">
+
+  <xsp:structure>
+    <xsp:include>voxpopuli.*</xsp:include>
+    <xsp:include>java.io.ByteArrayOutputStream</xsp:include>
+
+  </xsp:structure>
+
+  <xsp:logic>
+    DataContainer theDataContainer;
+    Outputs P;
+    DataBuilder theDataBuilder;
+    VPWeb theVPWeb;
+
+    String[][] parameters1;
+    String[][] parameters2;
+    String[] concepts1;
+    String[] concepts2;
+    String[] questions;
+    String[] opinions;
+    String[] interviewees;
+    String[][] SocClasses;
+    String[] interviews;
+
+  </xsp:logic>
+
+  <page>
+
+    <xsp:logic>
+      <!-- VARIABLES -->
+
+      <!-- General variables  -->
+
+      <!--      String RDFLocation = <xsp-request:get-parameter name="RDFLocation" default="&sesameserver;"/>;-->
+      String RDFLocation = <xsp-request:get-parameter name="RDFLocation" default="C:/Documents and Settings/sbocconi/.netbeans/5.5/apache-tomcat-5.5.17_base/webapps/cocoon/VP/ns/"/>;
+      String repository = <xsp-request:get-parameter name="repository" default="IWA"/>;
+      String domainNS = <xsp-request:get-parameter name="domainNS" default="http://www.cwi.nl/~media/ns/IWA/IWA.rdf#"/>;
+      String local = <xsp-request:get-parameter name="local" default="true"/>;
+      String curlang = <xsp-request:get-parameter name="curlang" default="44"/>;
+      String videolocation = <xsp-request:get-parameter name="videolocation" default="file://C:/Documents and Settings/sbocconi/.netbeans/5.5/apache-tomcat-5.5.17_base/webapps/cocoon/VP/video/"/>;
+      String stilllocation = <xsp-request:get-parameter name="stilllocation" default="file://C:/Documents and Settings/sbocconi/.netbeans/5.5/apache-tomcat-5.5.17_base/webapps/cocoon/VP/video/"/>;
+      String textlocation = <xsp-request:get-parameter name="textlocation" default="file://C:/Documents and Settings/sbocconi/.netbeans/5.5/apache-tomcat-5.5.17_base/webapps/cocoon/VP/video/"/>;
+      String quality = <xsp-request:get-parameter name="quality" default="_100"/>;
+      String caption = <xsp-request:get-parameter name="caption" default="off"/>;
+
+      <!-- IWA specific variables  -->
+      String strategy = <xsp-request:get-parameter name="strategy" default="none"/>;
+      String stage = <xsp-request:get-parameter name="stage" default="one"/>;
+      String intercut = <xsp-request:get-parameter name="intercut" default="false"/>;
+      String url = <xsp-request:get-requested-url default="false"/>;
+
+
+
+    </xsp:logic>
+
+    <selected_values>
+
+      <!-- General variables  -->
+      <RDFLocation><xsp:expr>RDFLocation</xsp:expr></RDFLocation>
+      <repository><xsp:expr>repository</xsp:expr></repository>
+      <domainNS><xsp:expr>domainNS</xsp:expr></domainNS>
+      <local><xsp:expr>local</xsp:expr></local>
+      <curlang><xsp:expr>curlang</xsp:expr></curlang>
+      <videolocation><xsp:expr>videolocation</xsp:expr></videolocation>
+      <stilllocation><xsp:expr>stilllocation</xsp:expr></stilllocation>
+      <textlocation><xsp:expr>textlocation</xsp:expr></textlocation>
+      <quality><xsp:expr>quality</xsp:expr></quality>
+      <caption><xsp:expr>caption</xsp:expr></caption>
+
+      <!-- IWA specific variables  -->
+      <strategy><xsp:expr>strategy</xsp:expr></strategy>
+      <stage><xsp:expr>stage</xsp:expr></stage>
+      <intercut><xsp:expr>intercut</xsp:expr></intercut>
+      <url><xsp:expr>url</xsp:expr></url>
+
+    </selected_values>
+    <xsp:logic>
+
+      try{
+
+      if( theVPWeb == null ){
+      theDataContainer = new DataContainer();
+      P = new Outputs();
+      P.SetOutputStreams( null, null, null, null, null, null, null, System.out, System.out );
+
+      theDataBuilder = new DataBuilder( local, RDFLocation, repository, domainNS, theDataContainer, P );
+      theDataBuilder.SetObject( true, false );
+
+      theVPWeb = new VPWeb( P );
+
+      parameters1 = null;
+
+      parameters2 = null;
+
+      concepts1 = null;
+
+      concepts2 = null;
+
+      questions = null;
+
+      opinions = null;
+
+      interviewees = null;
+
+      interviews = null;
+
+      SocClasses = null;
+      }
+
+
+      if( !theDataBuilder.ReSetObject(local, RDFLocation, repository, domainNS, true, false) ){
+      throw new Exception("Error resetting the object ");
+      }
+
+
+      boolean selected = false;
+
+      SocClasses = theVPWeb.RetrieveSocClass( theDataBuilder );
+
+      int size = SocClasses[0].length;
+
+      parameters1 =  new String[size][];
+
+      parameters2 =  new String[size][];
+
+
+      concepts1 = request.getParameterValues("Concepts1");
+      concepts2 = request.getParameterValues("Concepts2");
+
+      questions = request.getParameterValues("Questions");
+
+      opinions = request.getParameterValues("Opinions");
+
+      interviewees = request.getParameterValues("Interviewees");
+
+      interviews = request.getParameterValues("Interviews");
+
+
+      <SocClassList>
+        <xsp:logic>
+          for( int i=0; i&lt;size; i++ ){
+
+          parameters1[i] = request.getParameterValues(SocClasses[1][i] + "1");
+          parameters2[i] = request.getParameterValues(SocClasses[1][i] + "2");
+
+          <SocClass>
+            <id>
+              <xsp:expr>SocClasses[0][i]</xsp:expr>
+            </id>
+            <label>
+              <xsp:expr>SocClasses[1][i]</xsp:expr>
+            </label>
+            <SocSubClassList>
+              <xsp:logic>
+                String[][] SubSocClasses = theVPWeb.RetrieveSubSocClass( theDataBuilder, SocClasses[0][i] );
+
+                if( SubSocClasses != null ){
+                for( int j=0; j&lt;SubSocClasses[0].length; j++ ){
+                <SocSubClass>
+                  <xsp:logic>
+                    if( parameters1[i] != null ){
+                    for( int z=0; z&lt;parameters1[i].length; z++ ){
+                    if( parameters1[i][z].equals(SubSocClasses[0][j]) ){
+                    <selected>1</selected>
+                    break;
+                    }
+                    }
+                    }
+                    if( parameters2[i] != null ){
+                    for( int z=0; z&lt;parameters2[i].length; z++ ){
+                    if( parameters2[i][z].equals(SubSocClasses[0][j]) ){
+                    <selected>2</selected>
+                    break;
+                    }
+                    }
+                    }
+                  </xsp:logic>
+                  <id>
+                    <xsp:expr>SubSocClasses[0][j]</xsp:expr>
+                  </id>
+                  <label>
+                    <xsp:expr>SubSocClasses[1][j]</xsp:expr>
+                  </label>
+
+                </SocSubClass>
+                }
+                }
+              </xsp:logic>
+            </SocSubClassList>
+
+          </SocClass>
+          }
+        </xsp:logic>
+      </SocClassList>
+
+      <ConceptList>
+        <xsp:logic>
+
+          String[][] Concepts = theVPWeb.RetrieveConcepts( theDataBuilder );
+
+          for( int i=0; i&lt;Concepts[0].length; i++ ){
+          <Concept>
+            <id>
+              <xsp:expr>Concepts[0][i]</xsp:expr>
+            </id>
+            <label>
+              <xsp:expr>Concepts[1][i]</xsp:expr>
+            </label>
+            <xsp:logic>
+              if( concepts1 != null ){
+              for( int z=0; z&lt;concepts1.length; z++ ){
+              if( concepts1[z].equals(Concepts[0][i]) ){
+              <selected>1</selected>
+              break;
+              }
+              }
+              }
+              if( concepts2 != null ){
+              for( int z=0; z&lt;concepts2.length; z++ ){
+              if( concepts2[z].equals(Concepts[0][i]) ){
+              <selected>2</selected>
+              break;
+              }
+              }
+              }
+            </xsp:logic>
+          </Concept>
+          }
+
+        </xsp:logic>
+      </ConceptList>
+
+      <QuestionList>
+        <xsp:logic>
+
+          String[][] Questions = theVPWeb.RetrieveQuestions( theDataContainer, interviewees );
+
+          for( int i=0; i&lt;Questions[0].length; i++ ){
+          <Question>
+            <id>
+              <xsp:expr>Questions[0][i]</xsp:expr>
+            </id>
+            <label>
+              <xsp:expr>Questions[1][i]</xsp:expr>
+            </label>
+            <xsp:logic>
+              if( questions != null ){
+              for( int z=0; z&lt;questions.length; z++ ){
+              if( questions[z].equals(Questions[0][i]) ){
+              <selected>1</selected>
+              break;
+              }
+              }
+              }
+            </xsp:logic>
+          </Question>
+          }
+
+        </xsp:logic>
+      </QuestionList>
+
+      <IntervieweeList>
+        <xsp:logic>
+
+          String[][] Interviewees = theVPWeb.RetrieveInterviewees( theDataContainer, questions, opinions );
+
+
+          for( int i=0; i&lt;Interviewees[0].length; i++ ){
+          <Interviewee>
+            <id>
+              <xsp:expr>Interviewees[0][i]</xsp:expr>
+            </id>
+            <label>
+              <xsp:expr>Interviewees[1][i]</xsp:expr>
+            </label>
+            <xsp:logic>
+              if( interviewees != null ){
+              for( int z=0; z&lt;interviewees.length; z++ ){
+              if( interviewees[z].equals(Interviewees[0][i]) ){
+              <selected>1</selected>
+              break;
+              }
+              }
+              }
+            </xsp:logic>
+          </Interviewee>
+          }
+
+        </xsp:logic>
+      </IntervieweeList>
+
+      <OpinionList>
+        <xsp:logic>
+
+          String[][] Opinions = theVPWeb.RetrieveOpinions( theDataContainer, interviewees );
+
+          for( int i=0; i&lt;Opinions[0].length; i++ ){
+          <Opinion>
+            <id>
+              <xsp:expr>Opinions[0][i]</xsp:expr>
+            </id>
+            <label>
+              <xsp:expr>Opinions[1][i]</xsp:expr>
+            </label>
+            <xsp:logic>
+              if( opinions != null ){
+              for( int z=0; z&lt;opinions.length; z++ ){
+              if( opinions[z].equals(Opinions[0][i]) ){
+              <selected>1</selected>
+              break;
+              }
+              }
+              }
+            </xsp:logic>
+          </Opinion>
+          }
+
+        </xsp:logic>
+      </OpinionList>
+
+
+      <!-- Check to see what color the form submit should be -->
+      if( theDataBuilder.DataOK( local, RDFLocation, repository, domainNS, true)  ){
+      <labelsubmit>blacklabel</labelsubmit>
+      }else{
+      <labelsubmit>colorlabel</labelsubmit>
+      }
+
+
+
+      if( stage.equals("two") ){
+
+
+      String theRules;
+
+      if( ( theRules=theVPWeb.SetRules( SocClasses, parameters1, parameters2, concepts1,
+      concepts2, questions, interviewees, opinions, interviews, strategy, intercut) ) == null ){
+      throw new Exception("Error creating rules ");
+
+      }
+
+      System.err.println("Script\n" + theRules);
+
+      boolean BuildSG = strategy.equals("none") ? false : true;
+
+      if( !theDataBuilder.ReSetObject(local, RDFLocation, repository, domainNS, true, BuildSG ) ){
+      throw new Exception("Error resetting the object ");
+
+      }
+
+      <!---->
+
+      StorySpace theStory = new StorySpace(theDataContainer.Videos, theDataContainer.Audios,
+      theDataContainer.Images,theDataContainer.Texts);
+
+      int goodness = 100; <!--u.StrToInt( args[5] );-->
+
+      RuleInstance theRuleInstance = new RuleInstance( theDataContainer, P );
+
+      Parser R = new Parser( theRuleInstance );
+
+      Scheduler theScheduler = new Scheduler(theStory, P, theRuleInstance);
+
+      Module theModule = new Module( theScheduler );
+
+      theScheduler.AddModule( theModule );
+
+      ScriptNode Node = R.ParseRulesString( theRules );
+
+      theModule.AddStartNode( Node );
+
+      theScheduler.InitGoodness( goodness );
+
+      if( theScheduler.RunScheduler() ){
+      P.PrintLn(P.ResultOut, "Solution found ");
+      } else{
+      P.PrintLn(P.ResultOut, "Solution NOT found ");
+      }
+      ByteArrayOutputStream ba = new ByteArrayOutputStream();
+
+      SMILMedia theSMILMedia = new SMILMedia( quality, videolocation, null, stilllocation, textlocation,
+      repository, null, false, ba, true, P );
+
+      theSMILMedia.SetSMILURL( url, "two", videolocation, "", stilllocation, textlocation, repository,
+      RDFLocation, domainNS, "" + local, "44", "VP", intercut, quality, caption, SocClasses[1], parameters1,
+      parameters2);
+
+
+
+      try{
+      if( theSMILMedia.DoMontage( theStory.GetLastPlot() ) &amp;&amp;
+      theSMILMedia.CreateSMILOutput( caption.equals("on") ) ){
+      <vpoutput>
+        <util:include-expr>
+          <util:expr>ba.toString()</util:expr>
+        </util:include-expr>
+      </vpoutput>
+
+      System.out.println( "Output generated\n" + ba.toString());
+      } else{
+      System.out.println( "Output NOT generated " );
+      }
+      }catch ( Exception e ){
+      System.out.println( "Output NOT generated " + e.toString() );
+      }
+
+      }
+      <!---->
+
+
+
+      }catch( Exception e ){
+      System.out.println( "ERROR: " + e.toString() );
+      System.out.println( "Abnormal Program Termination" );
+      e.printStackTrace( System.out );
+      }
+
+    </xsp:logic>
+  </page>
+</xsp:page>
+
+<!-- Keep this comment at the end of the file
+Local variables:
+mode: xml
+sgml-omittag:nil
+sgml-shorttag:nil
+sgml-namecase-general:nil
+sgml-general-insert-case:lower
+sgml-minimize-attributes:nil
+sgml-always-quote-attributes:t
+sgml-indent-step:2
+sgml-indent-data:t
+sgml-parent-document:nil
+sgml-exposed-tags:nil
+sgml-local-catalogs:("./catalog" "/ufs/media/lib/xml/catalog")
+sgml-local-ecat-files:nil
+End:
+-->

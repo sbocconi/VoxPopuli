@@ -1,0 +1,916 @@
+Time: 21:22:22, Fri 15 07 2005 - Object 26208195 created 
+real 25.14
+user 15.85
+sys 0.69
+Fri Jul 15 21:22:47 CEST 2005
+++++++++++++++++++
+Iteration 2 order 0 1 2 3
+++++++++++++++++++
+Compiling done.
+
+Time: 21:22:47, Fri 15 07 2005 - Object 26208195 created 
+real 122.89
+user 107.95
+sys 5.24
+Fri Jul 15 21:24:50 CEST 2005
+++++++++++++++++++
+Iteration 3 order 0 1 2 3
+++++++++++++++++++
+Compiling done.
+Time: 21:24:50, Fri 15 07 2005 - Object 26208195 created 
+real 432.26
+user 357.48
+sys 17.23
+Fri Jul 15 21:32:02 CEST 2005
+++++++++++++++++++
+Iteration 4 order 0 1 2 3
+++++++++++++++++++
+Compiling done.
+Time: 21:32:03, Fri 15 07 2005 - Object 26208195 created 
+real 868.12
+user 750.73
+sys 30.29
+Fri Jul 15 21:46:30 CEST 2005
+++++++++++++++++++
+Iteration 1 order 0 1 3 2
+++++++++++++++++++
+Compiling done.
+Time: 21:46:31, Fri 15 07 2005 - Object 26208195 created 
+real 15.66
+user 14.71
+sys 0.69
+Fri Jul 15 21:46:46 CEST 2005
+++++++++++++++++++
+Iteration 2 order 0 1 3 2
+++++++++++++++++++
+Compiling done.
+Time: 21:46:46, Fri 15 07 2005 - Object 26208195 created 
+real 98.37
+user 93.41
+sys 4.07
+Fri Jul 15 21:48:25 CEST 2005
+++++++++++++++++++
+Iteration 3 order 0 1 3 2
+++++++++++++++++++
+Compiling done.
+Time: 21:48:25, Fri 15 07 2005 - Object 26208195 created 
+real 332.95
+user 316.95
+sys 13.06
+Fri Jul 15 21:53:58 CEST 2005
+++++++++++++++++++
+Iteration 4 order 0 1 3 2
+++++++++++++++++++
+Compiling done.
+Time: 21:53:58, Fri 15 07 2005 - Object 26208195 created 
+real 738.05
+user 703.37
+sys 28.26
+Fri Jul 15 22:06:16 CEST 2005
+++++++++++++++++++
+Iteration 1 order 0 2 1 3
+++++++++++++++++++
+Compiling done.
+Time: 22:06:16, Fri 15 07 2005 - Object 26208195 created 
+real 14.78
+user 13.84
+sys 0.62
+Fri Jul 15 22:06:30 CEST 2005
+++++++++++++++++++
+Iteration 2 order 0 2 1 3
+++++++++++++++++++
+Compiling done.
+Time: 22:06:31, Fri 15 07 2005 - Object 26208195 created 
+real 106.42
+user 100.98
+sys 4.38
+Fri Jul 15 22:08:17 CEST 2005
+++++++++++++++++++
+Iteration 3 order 0 2 1 3
+++++++++++++++++++
+Compiling done.
+Time: 22:08:17, Fri 15 07 2005 - Object 26208195 created 
+real 358.25
+user 340.69
+sys 14.30
+Fri Jul 15 22:14:15 CEST 2005
+++++++++++++++++++
+Iteration 4 order 0 2 1 3
+++++++++++++++++++
+Compiling done.
+Time: 22:14:15, Fri 15 07 2005 - Object 26208195 created 
+real 738.83
+user 706.27
+sys 26.38
+Fri Jul 15 22:26:34 CEST 2005
+++++++++++++++++++
+Iteration 1 order 0 2 3 1
+++++++++++++++++++
+Compiling done.
+Time: 22:26:34, Fri 15 07 2005 - Object 26208195 created 
+real 12.59
+user 11.80
+sys 0.55
+Fri Jul 15 22:26:47 CEST 2005
+++++++++++++++++++
+Iteration 2 order 0 2 3 1
+++++++++++++++++++
+Compiling done.
+Time: 22:26:47, Fri 15 07 2005 - Object 26208195 created 
+real 92.70
+user 88.02
+sys 3.84
+Fri Jul 15 22:28:19 CEST 2005
+++++++++++++++++++
+Iteration 3 order 0 2 3 1
+++++++++++++++++++
+Compiling done.
+Time: 22:28:19, Fri 15 07 2005 - Object 26208195 created 
+real 318.74
+user 303.80
+sys 12.16
+Fri Jul 15 22:33:38 CEST 2005
+++++++++++++++++++
+Iteration 4 order 0 2 3 1
+++++++++++++++++++
+Compiling done.
+Time: 22:33:38, Fri 15 07 2005 - Object 26208195 created 
+real 730.65
+user 697.83
+sys 26.52
+Fri Jul 15 22:45:49 CEST 2005
+++++++++++++++++++
+Iteration 1 order 0 3 1 2
+++++++++++++++++++
+Compiling done.
+Time: 22:45:49, Fri 15 07 2005 - Object 26208195 created 
+real 13.32
+user 12.56
+sys 0.58
+Fri Jul 15 22:46:02 CEST 2005
+++++++++++++++++++
+Iteration 2 order 0 3 1 2
+++++++++++++++++++
+Compiling done.
+Time: 22:46:02, Fri 15 07 2005 - Object 26208195 created 
+real 86.30
+user 81.78
+sys 3.73
+Fri Jul 15 22:47:28 CEST 2005
+++++++++++++++++++
+Iteration 3 order 0 3 1 2
+++++++++++++++++++
+Compiling done.
+Time: 22:47:29, Fri 15 07 2005 - Object 26208195 created 
+real 306.91
+user 289.18
+sys 12.22
+Fri Jul 15 22:52:35 CEST 2005
+++++++++++++++++++
+Iteration 4 order 0 3 1 2
+++++++++++++++++++
+Compiling done.
+Time: 22:52:36, Fri 15 07 2005 - Object 26208195 created 
+real 716.23
+user 683.62
+sys 26.33
+Fri Jul 15 23:04:32 CEST 2005
+++++++++++++++++++
+Iteration 1 order 0 3 2 1
+++++++++++++++++++
+Compiling done.
+Time: 23:04:32, Fri 15 07 2005 - Object 26208195 created 
+real 11.40
+user 10.55
+sys 0.46
+Fri Jul 15 23:04:43 CEST 2005
+++++++++++++++++++
+Iteration 2 order 0 3 2 1
+++++++++++++++++++
+Compiling done.
+Time: 23:04:43, Fri 15 07 2005 - Object 26208195 created 
+real 76.58
+user 72.56
+sys 3.35
+Fri Jul 15 23:06:00 CEST 2005
+++++++++++++++++++
+Iteration 3 order 0 3 2 1
+++++++++++++++++++
+Compiling done.
+Time: 23:06:00, Fri 15 07 2005 - Object 26208195 created 
+real 277.05
+user 263.89
+sys 10.83
+Fri Jul 15 23:10:37 CEST 2005
+++++++++++++++++++
+Iteration 4 order 0 3 2 1
+++++++++++++++++++
+Compiling done.
+Time: 23:10:37, Fri 15 07 2005 - Object 26208195 created 
+real 661.67
+user 631.55
+sys 24.50
+Fri Jul 15 23:21:38 CEST 2005
+++++++++++++++++++
+Iteration 1 order 1 0 2 3
+++++++++++++++++++
+Compiling done.
+Time: 23:21:39, Fri 15 07 2005 - Object 26208195 created 
+real 16.81
+user 15.85
+sys 0.68
+Fri Jul 15 23:21:55 CEST 2005
+++++++++++++++++++
+Iteration 2 order 1 0 2 3
+++++++++++++++++++
+Compiling done.
+Time: 23:21:55, Fri 15 07 2005 - Object 26208195 created 
+real 111.36
+user 105.67
+sys 4.79
+Fri Jul 15 23:23:47 CEST 2005
+++++++++++++++++++
+Iteration 3 order 1 0 2 3
+++++++++++++++++++
+Compiling done.
+Time: 23:23:47, Fri 15 07 2005 - Object 26208195 created 
+real 377.53
+user 358.43
+sys 16.04
+Fri Jul 15 23:30:04 CEST 2005
+++++++++++++++++++
+Iteration 4 order 1 0 2 3
+++++++++++++++++++
+Compiling done.
+Time: 23:30:04, Fri 15 07 2005 - Object 26208195 created 
+real 806.09
+user 769.53
+sys 30.02
+Fri Jul 15 23:43:30 CEST 2005
+++++++++++++++++++
+Iteration 1 order 1 0 3 2
+++++++++++++++++++
+Compiling done.
+Time: 23:43:30, Fri 15 07 2005 - Object 26208195 created 
+real 15.97
+user 15.08
+sys 0.68
+Fri Jul 15 23:43:46 CEST 2005
+++++++++++++++++++
+Iteration 2 order 1 0 3 2
+++++++++++++++++++
+Compiling done.
+Time: 23:43:46, Fri 15 07 2005 - Object 26208195 created 
+real 100.17
+user 95.21
+sys 4.05
+Fri Jul 15 23:45:26 CEST 2005
+++++++++++++++++++
+Iteration 3 order 1 0 3 2
+++++++++++++++++++
+Compiling done.
+Time: 23:45:27, Fri 15 07 2005 - Object 26208195 created 
+real 335.21
+user 319.28
+sys 13.02
+Fri Jul 15 23:51:02 CEST 2005
+++++++++++++++++++
+Iteration 4 order 1 0 3 2
+++++++++++++++++++
+Compiling done.
+Time: 23:51:02, Fri 15 07 2005 - Object 26208195 created 
+real 737.82
+user 704.72
+sys 26.68
+Sat Jul 16 00:03:19 CEST 2005
+++++++++++++++++++
+Iteration 1 order 1 2 0 3
+++++++++++++++++++
+Compiling done.
+Time: 00:03:20, Sat 16 07 2005 - Object 26208195 created 
+real 14.57
+user 13.59
+sys 0.58
+Sat Jul 16 00:03:34 CEST 2005
+++++++++++++++++++
+Iteration 2 order 1 2 0 3
+++++++++++++++++++
+Compiling done.
+Time: 00:03:34, Sat 16 07 2005 - Object 26208195 created 
+real 91.29
+user 86.63
+sys 3.88
+Sat Jul 16 00:05:05 CEST 2005
+++++++++++++++++++
+Iteration 3 order 1 2 0 3
+++++++++++++++++++
+Compiling done.
+Time: 00:05:06, Sat 16 07 2005 - Object 26208195 created 
+real 317.80
+user 302.91
+sys 12.35
+Sat Jul 16 00:10:23 CEST 2005
+++++++++++++++++++
+Iteration 4 order 1 2 0 3
+++++++++++++++++++
+Compiling done.
+Time: 00:10:23, Sat 16 07 2005 - Object 26208195 created 
+real 725.25
+user 692.18
+sys 27.21
+Sat Jul 16 00:22:28 CEST 2005
+++++++++++++++++++
+Iteration 1 order 1 2 3 0
+++++++++++++++++++
+Compiling done.
+Time: 00:22:29, Sat 16 07 2005 - Object 26208195 created 
+real 12.38
+user 11.65
+sys 0.54
+Sat Jul 16 00:22:41 CEST 2005
+++++++++++++++++++
+Iteration 2 order 1 2 3 0
+++++++++++++++++++
+Compiling done.
+Time: 00:22:41, Sat 16 07 2005 - Object 26208195 created 
+real 87.03
+user 82.69
+sys 3.56
+Sat Jul 16 00:24:08 CEST 2005
+++++++++++++++++++
+Iteration 3 order 1 2 3 0
+++++++++++++++++++
+Compiling done.
+Time: 00:24:08, Sat 16 07 2005 - Object 26208195 created 
+real 307.57
+user 293.40
+sys 11.49
+Sat Jul 16 00:29:15 CEST 2005
+++++++++++++++++++
+Iteration 4 order 1 2 3 0
+++++++++++++++++++
+Compiling done.
+Time: 00:29:16, Sat 16 07 2005 - Object 26208195 created 
+real 727.35
+user 695.27
+sys 25.84
+Sat Jul 16 00:41:23 CEST 2005
+++++++++++++++++++
+Iteration 1 order 1 3 0 2
+++++++++++++++++++
+Compiling done.
+
+Time: 00:41:23, Sat 16 07 2005 - Object 26208195 created 
+real 13.90
+user 13.06
+sys 0.63
+Sat Jul 16 00:41:37 CEST 2005
+++++++++++++++++++
+Iteration 2 order 1 3 0 2
+++++++++++++++++++
+Compiling done.
+
+Time: 00:41:37, Sat 16 07 2005 - Object 26208195 created 
+real 91.29
+user 86.61
+sys 3.86
+Sat Jul 16 00:43:08 CEST 2005
+++++++++++++++++++
+Iteration 3 order 1 3 0 2
+++++++++++++++++++
+Compiling done.
+
+Time: 00:43:08, Sat 16 07 2005 - Object 26208195 created 
+real 323.04
+user 306.96
+sys 13.46
+Sat Jul 16 00:48:31 CEST 2005
+++++++++++++++++++
+Iteration 4 order 1 3 0 2
+++++++++++++++++++
+Compiling done.
+
+Time: 00:48:31, Sat 16 07 2005 - Object 26208195 created 
+real 720.23
+user 686.72
+sys 27.72
+Sat Jul 16 01:00:31 CEST 2005
+++++++++++++++++++
+Iteration 1 order 1 3 2 0
+++++++++++++++++++
+Compiling done.
+
+Time: 01:00:32, Sat 16 07 2005 - Object 26208195 created 
+real 10.93
+user 10.30
+sys 0.48
+Sat Jul 16 01:00:42 CEST 2005
+++++++++++++++++++
+Iteration 2 order 1 3 2 0
+++++++++++++++++++
+Compiling done.
+
+Time: 01:00:43, Sat 16 07 2005 - Object 26208195 created 
+real 74.09
+user 70.18
+sys 3.03
+Sat Jul 16 01:01:56 CEST 2005
+++++++++++++++++++
+Iteration 3 order 1 3 2 0
+++++++++++++++++++
+Compiling done.
+
+Time: 01:01:57, Sat 16 07 2005 - Object 26208195 created 
+real 285.27
+user 271.03
+sys 11.59
+Sat Jul 16 01:06:42 CEST 2005
+++++++++++++++++++
+Iteration 4 order 1 3 2 0
+++++++++++++++++++
+Compiling done.
+
+Time: 01:06:42, Sat 16 07 2005 - Object 26208195 created 
+real 665.18
+user 633.23
+sys 25.14
+Sat Jul 16 01:17:47 CEST 2005
+++++++++++++++++++
+Iteration 1 order 2 0 1 3
+++++++++++++++++++
+Compiling done.
+
+Time: 01:17:47, Sat 16 07 2005 - Object 26208195 created 
+real 13.77
+user 12.95
+sys 0.62
+Sat Jul 16 01:18:01 CEST 2005
+++++++++++++++++++
+Iteration 2 order 2 0 1 3
+++++++++++++++++++
+Compiling done.
+
+Time: 01:18:01, Sat 16 07 2005 - Object 26208195 created 
+real 93.48
+user 88.90
+sys 3.71
+Sat Jul 16 01:19:34 CEST 2005
+++++++++++++++++++
+Iteration 3 order 2 0 1 3
+++++++++++++++++++
+Compiling done.
+
+Time: 01:19:34, Sat 16 07 2005 - Object 26208195 created 
+real 322.40
+user 306.14
+sys 13.44
+Sat Jul 16 01:24:57 CEST 2005
+++++++++++++++++++
+Iteration 4 order 2 0 1 3
+++++++++++++++++++
+Compiling done.
+
+Time: 01:24:57, Sat 16 07 2005 - Object 26208195 created 
+real 693.25
+user 661.58
+sys 25.78
+Sat Jul 16 01:36:30 CEST 2005
+++++++++++++++++++
+Iteration 1 order 2 0 3 1
+++++++++++++++++++
+Compiling done.
+
+Time: 01:36:31, Sat 16 07 2005 - Object 26208195 created 
+real 11.82
+user 10.77
+sys 0.52
+Sat Jul 16 01:36:42 CEST 2005
+++++++++++++++++++
+Iteration 2 order 2 0 3 1
+++++++++++++++++++
+Compiling done.
+
+Time: 01:36:42, Sat 16 07 2005 - Object 26208195 created 
+real 80.95
+user 76.82
+sys 3.30
+Sat Jul 16 01:38:03 CEST 2005
+++++++++++++++++++
+Iteration 3 order 2 0 3 1
+++++++++++++++++++
+Compiling done.
+
+Time: 01:38:03, Sat 16 07 2005 - Object 26208195 created 
+real 297.06
+user 267.27
+sys 10.89
+Sat Jul 16 01:43:00 CEST 2005
+++++++++++++++++++
+Iteration 4 order 2 0 3 1
+++++++++++++++++++
+Compiling done.
+
+Time: 01:43:00, Sat 16 07 2005 - Object 26208195 created 
+real 662.92
+user 633.14
+sys 24.01
+Sat Jul 16 01:54:03 CEST 2005
+++++++++++++++++++
+Iteration 1 order 2 1 0 3
+++++++++++++++++++
+Compiling done.
+
+Time: 01:54:03, Sat 16 07 2005 - Object 26208195 created 
+real 13.79
+user 13.00
+sys 0.58
+Sat Jul 16 01:54:17 CEST 2005
+++++++++++++++++++
+Iteration 2 order 2 1 0 3
+++++++++++++++++++
+Compiling done.
+
+Time: 01:54:17, Sat 16 07 2005 - Object 26208195 created 
+real 92.49
+user 87.86
+sys 3.80
+Sat Jul 16 01:55:49 CEST 2005
+++++++++++++++++++
+Iteration 3 order 2 1 0 3
+++++++++++++++++++
+Compiling done.
+
+Time: 01:55:49, Sat 16 07 2005 - Object 26208195 created 
+real 311.94
+user 297.60
+sys 11.60
+Sat Jul 16 02:01:01 CEST 2005
+++++++++++++++++++
+Iteration 4 order 2 1 0 3
+++++++++++++++++++
+Compiling done.
+
+Time: 02:01:01, Sat 16 07 2005 - Object 26208195 created 
+real 713.02
+user 672.25
+sys 26.15
+Sat Jul 16 02:12:54 CEST 2005
+++++++++++++++++++
+Iteration 1 order 2 1 3 0
+++++++++++++++++++
+Compiling done.
+
+Time: 02:12:54, Sat 16 07 2005 - Object 26208195 created 
+real 12.18
+user 11.44
+sys 0.54
+Sat Jul 16 02:13:06 CEST 2005
+++++++++++++++++++
+Iteration 2 order 2 1 3 0
+++++++++++++++++++
+Compiling done.
+
+Time: 02:13:07, Sat 16 07 2005 - Object 26208195 created 
+real 80.91
+user 76.89
+sys 3.26
+Sat Jul 16 02:14:27 CEST 2005
+++++++++++++++++++
+Iteration 3 order 2 1 3 0
+++++++++++++++++++
+Compiling done.
+
+Time: 02:14:28, Sat 16 07 2005 - Object 26208195 created 
+real 286.74
+user 273.33
+sys 10.84
+Sat Jul 16 02:19:14 CEST 2005
+++++++++++++++++++
+Iteration 4 order 2 1 3 0
+++++++++++++++++++
+Compiling done.
+
+Time: 02:19:14, Sat 16 07 2005 - Object 26208195 created 
+real 680.52
+user 649.96
+sys 24.83
+Sat Jul 16 02:30:35 CEST 2005
+++++++++++++++++++
+Iteration 1 order 2 3 0 1
+++++++++++++++++++
+Compiling done.
+
+Time: 02:30:35, Sat 16 07 2005 - Object 26208195 created 
+real 11.50
+user 10.88
+sys 0.44
+Sat Jul 16 02:30:46 CEST 2005
+++++++++++++++++++
+Iteration 2 order 2 3 0 1
+++++++++++++++++++
+Compiling done.
+
+Time: 02:30:46, Sat 16 07 2005 - Object 26208195 created 
+real 75.23
+user 71.41
+sys 3.08
+Sat Jul 16 02:32:01 CEST 2005
+++++++++++++++++++
+Iteration 3 order 2 3 0 1
+++++++++++++++++++
+Compiling done.
+
+Time: 02:32:02, Sat 16 07 2005 - Object 26208195 created 
+real 276.84
+user 263.06
+sys 11.37
+Sat Jul 16 02:36:38 CEST 2005
+++++++++++++++++++
+Iteration 4 order 2 3 0 1
+++++++++++++++++++
+Compiling done.
+
+Time: 02:36:38, Sat 16 07 2005 - Object 26208195 created 
+real 670.87
+user 639.79
+sys 24.98
+Sat Jul 16 02:47:49 CEST 2005
+++++++++++++++++++
+Iteration 1 order 2 3 1 0
+++++++++++++++++++
+Compiling done.
+
+Time: 02:47:49, Sat 16 07 2005 - Object 26208195 created 
+real 11.46
+user 10.84
+sys 0.47
+Sat Jul 16 02:48:01 CEST 2005
+++++++++++++++++++
+Iteration 2 order 2 3 1 0
+++++++++++++++++++
+Compiling done.
+
+Time: 02:48:01, Sat 16 07 2005 - Object 26208195 created 
+real 74.71
+user 70.95
+sys 3.08
+Sat Jul 16 02:49:15 CEST 2005
+++++++++++++++++++
+Iteration 3 order 2 3 1 0
+++++++++++++++++++
+Compiling done.
+
+Time: 02:49:16, Sat 16 07 2005 - Object 26208195 created 
+real 272.63
+user 259.99
+sys 10.17
+Sat Jul 16 02:53:48 CEST 2005
+++++++++++++++++++
+Iteration 4 order 2 3 1 0
+++++++++++++++++++
+Compiling done.
+
+Time: 02:53:48, Sat 16 07 2005 - Object 26208195 created 
+real 677.94
+user 647.54
+sys 24.59
+Sat Jul 16 03:05:06 CEST 2005
+++++++++++++++++++
+Iteration 1 order 3 0 1 2
+++++++++++++++++++
+Compiling done.
+
+Time: 03:05:06, Sat 16 07 2005 - Object 26208195 created 
+real 13.58
+user 12.71
+sys 0.58
+Sat Jul 16 03:05:20 CEST 2005
+++++++++++++++++++
+Iteration 2 order 3 0 1 2
+++++++++++++++++++
+Compiling done.
+
+Time: 03:05:20, Sat 16 07 2005 - Object 26208195 created 
+real 91.91
+user 87.31
+sys 3.72
+Sat Jul 16 03:06:51 CEST 2005
+++++++++++++++++++
+Iteration 3 order 3 0 1 2
+++++++++++++++++++
+Compiling done.
+
+Time: 03:06:52, Sat 16 07 2005 - Object 26208195 created 
+real 306.32
+user 291.74
+sys 12.11
+Sat Jul 16 03:11:58 CEST 2005
+++++++++++++++++++
+Iteration 4 order 3 0 1 2
+++++++++++++++++++
+Compiling done.
+
+Time: 03:11:58, Sat 16 07 2005 - Object 26208195 created 
+real 688.03
+user 656.48
+sys 26.06
+Sat Jul 16 03:23:26 CEST 2005
+++++++++++++++++++
+Iteration 1 order 3 0 2 1
+++++++++++++++++++
+Compiling done.
+
+Time: 03:23:26, Sat 16 07 2005 - Object 26208195 created 
+real 10.58
+user 9.95
+sys 0.44
+Sat Jul 16 03:23:36 CEST 2005
+++++++++++++++++++
+Iteration 2 order 3 0 2 1
+++++++++++++++++++
+Compiling done.
+
+Time: 03:23:37, Sat 16 07 2005 - Object 26208195 created 
+real 78.55
+user 74.67
+sys 3.18
+Sat Jul 16 03:24:55 CEST 2005
+++++++++++++++++++
+Iteration 3 order 3 0 2 1
+++++++++++++++++++
+Compiling done.
+
+Time: 03:24:55, Sat 16 07 2005 - Object 26208195 created 
+real 280.01
+user 267.28
+sys 10.32
+Sat Jul 16 03:29:35 CEST 2005
+++++++++++++++++++
+Iteration 4 order 3 0 2 1
+++++++++++++++++++
+Compiling done.
+
+Time: 03:29:35, Sat 16 07 2005 - Object 26208195 created 
+real 643.32
+user 614.22
+sys 23.95
+Sat Jul 16 03:40:18 CEST 2005
+++++++++++++++++++
+Iteration 1 order 3 1 0 2
+++++++++++++++++++
+Compiling done.
+
+Time: 03:40:19, Sat 16 07 2005 - Object 26208195 created 
+real 13.28
+user 12.49
+sys 0.57
+Sat Jul 16 03:40:32 CEST 2005
+++++++++++++++++++
+Iteration 2 order 3 1 0 2
+++++++++++++++++++
+Compiling done.
+
+Time: 03:40:32, Sat 16 07 2005 - Object 26208195 created 
+real 88.36
+user 83.89
+sys 3.69
+Sat Jul 16 03:42:00 CEST 2005
+++++++++++++++++++
+Iteration 3 order 3 1 0 2
+++++++++++++++++++
+Compiling done.
+
+Time: 03:42:00, Sat 16 07 2005 - Object 26208195 created 
+real 316.88
+user 300.87
+sys 13.46
+Sat Jul 16 03:47:17 CEST 2005
+++++++++++++++++++
+Iteration 4 order 3 1 0 2
+++++++++++++++++++
+Compiling done.
+
+Time: 03:47:17, Sat 16 07 2005 - Object 26208195 created 
+real 706.40
+user 674.76
+sys 26.00
+Sat Jul 16 03:59:03 CEST 2005
+++++++++++++++++++
+Iteration 1 order 3 1 2 0
+++++++++++++++++++
+Compiling done.
+
+Time: 03:59:04, Sat 16 07 2005 - Object 26208195 created 
+real 10.20
+user 9.60
+sys 0.44
+Sat Jul 16 03:59:14 CEST 2005
+++++++++++++++++++
+Iteration 2 order 3 1 2 0
+++++++++++++++++++
+Compiling done.
+
+Time: 03:59:14, Sat 16 07 2005 - Object 26208195 created 
+real 70.07
+user 66.60
+sys 2.82
+Sat Jul 16 04:00:24 CEST 2005
+++++++++++++++++++
+Iteration 3 order 3 1 2 0
+++++++++++++++++++
+Compiling done.
+
+Time: 04:00:24, Sat 16 07 2005 - Object 26208195 created 
+real 282.29
+user 264.59
+sys 11.42
+Sat Jul 16 04:05:06 CEST 2005
+++++++++++++++++++
+Iteration 4 order 3 1 2 0
+++++++++++++++++++
+Compiling done.
+
+Time: 04:05:06, Sat 16 07 2005 - Object 26208195 created 
+real 654.52
+user 624.15
+sys 24.37
+Sat Jul 16 04:16:01 CEST 2005
+++++++++++++++++++
+Iteration 1 order 3 2 0 1
+++++++++++++++++++
+Compiling done.
+
+Time: 04:16:02, Sat 16 07 2005 - Object 26208195 created 
+real 10.79
+user 9.01
+sys 0.44
+Sat Jul 16 04:16:12 CEST 2005
+++++++++++++++++++
+Iteration 2 order 3 2 0 1
+++++++++++++++++++
+Compiling done.
+
+Time: 04:16:12, Sat 16 07 2005 - Object 26208195 created 
+real 66.13
+user 62.80
+sys 2.61
+Sat Jul 16 04:17:18 CEST 2005
+++++++++++++++++++
+Iteration 3 order 3 2 0 1
+++++++++++++++++++
+Compiling done.
+
+Time: 04:17:19, Sat 16 07 2005 - Object 26208195 created 
+real 257.86
+user 244.82
+sys 10.64
+Sat Jul 16 04:21:36 CEST 2005
+++++++++++++++++++
+Iteration 4 order 3 2 0 1
+++++++++++++++++++
+Compiling done.
+
+Time: 04:21:36, Sat 16 07 2005 - Object 26208195 created 
+real 608.11
+user 574.47
+sys 23.70
+Sat Jul 16 04:31:44 CEST 2005
+++++++++++++++++++
+Iteration 1 order 3 2 1 0
+++++++++++++++++++
+Compiling done.
+
+Time: 04:31:45, Sat 16 07 2005 - Object 26208195 created 
+real 9.92
+user 9.12
+sys 0.42
+Sat Jul 16 04:31:54 CEST 2005
+++++++++++++++++++
+Iteration 2 order 3 2 1 0
+++++++++++++++++++
+Compiling done.
+
+Time: 04:31:55, Sat 16 07 2005 - Object 26208195 created 
+real 65.10
+user 61.73
+sys 2.75
+Sat Jul 16 04:33:00 CEST 2005
+++++++++++++++++++
+Iteration 3 order 3 2 1 0
+++++++++++++++++++
+Compiling done.
+
+Time: 04:33:00, Sat 16 07 2005 - Object 26208195 created 
+real 255.06
+user 242.50
+sys 10.19
+Sat Jul 16 04:37:15 CEST 2005
+++++++++++++++++++
+Iteration 4 order 3 2 1 0
+++++++++++++++++++
+Compiling done.
+
+Time: 04:37:15, Sat 16 07 2005 - Object 26208195 created 
+real 612.88
+user 584.14
+sys 22.71
