@@ -1,5 +1,16 @@
 package nl.cwi.ins2.voxpopuli;
 
+import java.io.File;
+import java.io.FileFilter;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Enumeration;
+import java.util.Hashtable;
+
+import org.openrdf.query.MalformedQueryException;
+import org.openrdf.query.QueryEvaluationException;
+import org.openrdf.query.QueryLanguage;
+
 public class DataBuilder{
 
   /*********************

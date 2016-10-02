@@ -1,5 +1,10 @@
 package nl.cwi.ins2.voxpopuli;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Enumeration;
+import java.util.Hashtable;
 
 //CLASS TO TEST THE WEB INTERFACE
 

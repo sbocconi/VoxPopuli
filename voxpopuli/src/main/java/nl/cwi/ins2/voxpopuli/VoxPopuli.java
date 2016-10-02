@@ -5,15 +5,6 @@ import java.lang.reflect.*;
 import java.net.*;
 import java.util.*;
 
-import org.openrdf.sesame.config.*;
-import org.openrdf.sesame.constants.*;
-import org.openrdf.sesame.query.*;
-import org.openrdf.sesame.repository.*;
-import org.openrdf.sesame.repository.local.*;
-//import org.openrdf.sesame.repository.remote.*;
-import org.openrdf.sesame.sailimpl.memory.*;
-import org.openrdf.sesame.admin.*;
-import org.openrdf.sesame.Sesame;
 import java.util.Hashtable;
 
 public class VoxPopuli{

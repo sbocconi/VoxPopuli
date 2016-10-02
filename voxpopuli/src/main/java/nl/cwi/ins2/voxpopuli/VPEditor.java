@@ -13,11 +13,8 @@
 
 package nl.cwi.ins2.voxpopuli;
 
-import org.openrdf.sesame.constants.RDFFormat;
 import java.io.File;
 import java.io.FileFilter;
-import org.openrdf.sesame.admin.StdOutAdminListener;
-import org.openrdf.sesame.admin.AdminListener;
 
 public class VPEditor
 {

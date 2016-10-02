@@ -1,5 +1,8 @@
 package nl.cwi.ins2.voxpopuli;
 
+import java.io.FileOutputStream;
+import java.io.PrintStream;
+
 public class VPengine{
 
   private static void Usage() throws Exception{

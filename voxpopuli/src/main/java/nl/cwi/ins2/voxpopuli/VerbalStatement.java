@@ -1,7 +1,6 @@
 package nl.cwi.ins2.voxpopuli;
 
 import java.util.Hashtable;
-import voxpopuli.MediaItem;
 
 /**
  * <p>Title: Vox Populi</p>

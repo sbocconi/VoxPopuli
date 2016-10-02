@@ -13,7 +13,6 @@ package nl.cwi.ins2.voxpopuli;
  * @version 1.0
  */
 
-import voxpopuli.Rule;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
