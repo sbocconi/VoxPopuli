@@ -17,7 +17,6 @@ package nl.cwi.ins2.voxpopuli;
 // This class represents a single rule in a module
 
 import java.util.ArrayList;
-import voxpopuli.Rule;
 
 public class ScriptNode{
 

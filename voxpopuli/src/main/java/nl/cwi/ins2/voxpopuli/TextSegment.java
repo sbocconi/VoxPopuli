@@ -14,7 +14,7 @@ package nl.cwi.ins2.voxpopuli;
  */
 
 // single text
-import org.openrdf.model.Value;
+import org.eclipse.rdf4j.model.Value;
 
 public class TextSegment extends Segment{
 

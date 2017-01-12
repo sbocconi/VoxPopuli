@@ -15,7 +15,7 @@ package nl.cwi.ins2.voxpopuli;
 
 // single audio segment
 
-import org.openrdf.model.Value;
+import org.eclipse.rdf4j.model.Value;
 
 public class AudioSegment extends Segment{
   String BeginFrame;

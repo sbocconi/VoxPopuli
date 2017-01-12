@@ -13,7 +13,7 @@ package nl.cwi.ins2.voxpopuli;
  * @version 1.0
  */
 
-import org.openrdf.model.Value;
+import org.eclipse.rdf4j.model.Value;
 
 // single video segment
 public class VideoSegment extends Segment{

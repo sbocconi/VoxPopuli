@@ -3,9 +3,13 @@ package nl.cwi.ins2.voxpopuli;
 import java.io.*;
 import java.lang.reflect.*;
 import java.net.*;
+import java.nio.file.AccessDeniedException;
 import java.util.*;
 
 import java.util.Hashtable;
+
+import org.eclipse.rdf4j.query.MalformedQueryException;
+import org.eclipse.rdf4j.query.QueryEvaluationException;
 
 public class VoxPopuli{
 
@@ -122,13 +126,6 @@ public class VoxPopuli{
     }
   }
 
-  // Sesame repositories
-  private class Repository{
-    public String SesameURL;
-    public String RepositoryId;
-    public String NameSpace;
-    public SesameRepository Client;
-  }
 
   /* Data collected for the interface */
 

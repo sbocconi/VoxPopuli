@@ -2,7 +2,7 @@ package nl.cwi.ins2.voxpopuli;
 
 import java.util.Hashtable;
 import java.util.ArrayList;
-import org.openrdf.model.Value;
+import org.eclipse.rdf4j.model.Value;
 
 /**
  * <p>Title: Vox Populi</p>

@@ -12,7 +12,7 @@ package nl.cwi.ins2.voxpopuli;
  * @author Stefano Bocconi
  * @version 1.0
  */
-import org.openrdf.model.Value;
+import org.eclipse.rdf4j.model.Value;
 
 // single image
 public class StillSegment extends Segment{

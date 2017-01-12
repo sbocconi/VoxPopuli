@@ -1,7 +1,6 @@
 package nl.cwi.ins2.voxpopuli;
 
 import java.util.ArrayList;
-import voxpopuli.RuleException;
 
 /**
  * <p>Title: Vox Populi</p>

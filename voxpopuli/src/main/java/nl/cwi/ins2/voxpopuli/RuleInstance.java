@@ -13,10 +13,8 @@ package nl.cwi.ins2.voxpopuli;
  * @version 1.0
  */
 
-import voxpopuli.Rule;
 import java.util.ArrayList;
 import java.util.Hashtable;
-import voxpopuli.Person;
 import java.util.Enumeration;
 
 public class RuleInstance{
