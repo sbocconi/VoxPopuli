@@ -670,7 +670,7 @@ public class VoxPopuli{
   /*********************
    *  VARIABLES *
    **********************/
-  private Repository theRepository;
+  private RDFRepository theRepository;
   private ArgumentationStructure[] StrictAttack = null;
   private ArgumentationStructure[] StrictSupport = null;
   private ArgumentationStructure[] GeneralAttack = null;
@@ -1435,7 +1435,7 @@ public class VoxPopuli{
                                  String theNameSpaceString, String RDFDirectory ) throws Exception{
     boolean Found = false;
 
-    theRepository = new Repository();
+    theRepository = new RDFRepository();
 
     /*
       FIRST

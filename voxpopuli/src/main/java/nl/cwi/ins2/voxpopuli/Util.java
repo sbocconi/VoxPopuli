@@ -23,10 +23,8 @@ public class Util{
 //  final static String SMALLSTRING = " ";
 //  final static String BIGSTRING = "~~~~~~";
 
-  public Util(){
-  }
-
-  public int StrToInt( String s ){
+  
+  public static int StrToInt( String s ){
     int n = 0;
 
     for( int i = 0; i < s.length(); i++ ){
@@ -35,7 +33,7 @@ public class Util{
     return n;
   }
 
-  public long StrToLong( String s ){
+  public static long StrToLong( String s ){
     long n = 0;
 
     for( int i = 0; i < s.length(); i++ ){
@@ -44,7 +42,7 @@ public class Util{
     return n;
   }
 
-  public int[] Order( double[] values, boolean crescent ){
+  public static int[] Order( double[] values, boolean crescent ){
 
 
     if( values != null ){
@@ -85,7 +83,7 @@ public class Util{
     return null;
   }
 
-  public int[] Order( int[] values, boolean crescent ){
+  public static int[] Order( int[] values, boolean crescent ){
 
 
     if( values != null ){
@@ -127,7 +125,7 @@ public class Util{
   }
 
 
-  public int[] Order( String[] values, boolean crescent ){
+  public static int[] Order( String[] values, boolean crescent ){
 
 
     if( values != null ){
@@ -169,7 +167,7 @@ public class Util{
   }
 
 
-  public String ConvertToDate( long theDSec ){
+  public static String ConvertToDate( long theDSec ){
 
     long Hours = theDSec / 36000;
     long Mins = ( theDSec - 36000 * Hours ) / 600;
@@ -186,11 +184,11 @@ public class Util{
     return SDate;
   }
 
-  public String TimeDifference( String End, String Begin ){
+  public static String TimeDifference( String End, String Begin ){
     return( ConvertToDSec( End ) - ConvertToDSec( Begin ) ) / 10.0 + "";
   }
 
-  public long ConvertToDSec( String TimeString ){
+  public static long ConvertToDSec( String TimeString ){
 
     long DSecs = 0;
 
@@ -212,23 +210,23 @@ public class Util{
     return DSecs;
   }
 
-  public int max( int a, int b ){
+  public static int max( int a, int b ){
     return( a > b ? a : b );
   }
 
-  public int max( int a, int b, int c ){
-    return( this.max( this.max( a, b ), c ) );
+  public static int max( int a, int b, int c ){
+    return( max( max( a, b ), c ) );
   }
 
-  public int min( int a, int b ){
+  public static int min( int a, int b ){
     return( a < b ? a : b );
   }
 
-  public int min( int a, int b, int c ){
-    return( this.min( this.min( a, b ), c ) );
+  public static int min( int a, int b, int c ){
+    return( min(min( a, b ), c ) );
   }
 
-  public long fact( long n ) throws Exception{
+  public static long fact( long n ) throws Exception{
     if( n < 0 )throw new Exception( "Underflow error in factorial" );
     else if( n > 20 )throw new Exception( "Overflow error in factorial" );
     else if( n < 2 )return 1;
@@ -241,7 +239,7 @@ public class Util{
     }
   }
 
-  public boolean even( int a ){
+  public static boolean even( int a ){
     int b = a / 2;
 
     if( a == ( b * 2 ) ){

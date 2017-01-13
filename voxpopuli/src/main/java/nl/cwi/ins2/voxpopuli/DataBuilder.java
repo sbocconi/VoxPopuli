@@ -7,6 +7,8 @@ import java.nio.file.AccessDeniedException;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.Hashtable;
+import java.util.Iterator;
+import java.util.List;
 
 import org.eclipse.rdf4j.query.BindingSet;
 import org.eclipse.rdf4j.query.MalformedQueryException;
@@ -66,16 +68,6 @@ public class DataBuilder {
 	// Number of iterations when connecting the statements
 	static private int IterationsNr = 3;
 
-	static public final String VoxPopuliNamespaces = "http://www.cwi.nl/~media/ns/VP/VoxPopuli.rdfs#";
-	static private final String VoxPopuliString = "VP";
-	static private final String VoxPopuliSesameNamespaces = "VoxPopuli = <" + VoxPopuliNamespaces + ">";
-
-	static private final String FixedNamespaces = VoxPopuliSesameNamespaces + ", "
-			+ "MediaClipping = <http://www.w3.org/2001/SMIL20/MediaClipping#>, "
-			+ "BasicMedia = <http://www.w3.org/2001/SMIL20/BasicMedia#>, "
-			+ "rdfs = <http://www.w3.org/2000/01/rdf-schema#>, "
-			+ "rdf = <http://www.w3.org/1999/02/22-rdf-syntax-ns#> ";
-
 	/*************************
 	 * PSEUDO VARIABLES * set once and forever * with error checking *
 	 *************************/
@@ -87,19 +79,18 @@ public class DataBuilder {
 	Outputs P; // used to print
 	private DataContainer Data; // all data for the repository
 
-	private Repository theRepository;
-
-	private String Namespaces = null;
+	private RDFRepository theRepository;
 
 	private boolean DataBuilt;
 	private boolean SemGraphBuilt;
 
 	/*********************
-	 * FUNCTIONS *
+	 * FUNCTIONS 
+	 * @throws Exception *
 	 **********************/
 
-	public DataBuilder(String local, String RDFLocation, String RepositoryString, String theNameSpaceString,
-			DataContainer a, Outputs p) throws Exception {
+	public DataBuilder(boolean local, String RDFLocation, String RepositoryString, String theNameSpaceString,
+			DataContainer a, Outputs p) throws Exception  {
 
 		(new Outputs()).PrintTemp(System.err, "Object " + this.hashCode() + " created ");
 
@@ -107,16 +98,10 @@ public class DataBuilder {
 
 		Data = a;
 
-		try {
-			// This is required by Sesame
-			System.setProperty("org.xml.sax.driver", "org.apache.xerces.parsers.SAXParser");
+		theRepository = new RDFRepository(local, RDFLocation, RepositoryString, theNameSpaceString);
 
-			SetRepository(local, RDFLocation, RepositoryString, theNameSpaceString);
-
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw new Exception("Error in constructing DataBuilder " + e.toString());
-		}
+		// throw new Exception("Error in constructing DataBuilder " +
+		// e.toString());
 
 		SetDataStructure();
 
@@ -132,14 +117,6 @@ public class DataBuilder {
 		return true;
 	}
 
-	private boolean RDFUpToDate(String local, String RDFLocation, String RepositoryString, String theNameSpaceString) {
-		if (theRepository.data.local.equals(local) && theRepository.data.NameSpace.equals(theNameSpaceString)
-				&& theRepository.data.SesameURL.equals(RDFLocation) && theRepository.data.RepositoryId.equals(RepositoryString)) {
-			return true;
-		}
-
-		return false;
-	}
 
 	// This function reads the data and constructs the Semantic Graph
 	public boolean SetObject(boolean buildData, boolean buildSG) throws Exception {
@@ -166,57 +143,14 @@ public class DataBuilder {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			throw new Exception("Error in constructing DataBuilder " + e.toString());
+			throw new Exception("Error in SetObject DataBuilder " + e.toString());
 		}
 
 		return result;
 
 	}
 
-	// This function has a double role, reread the data structure if that is
-	// changed and
-	// rebuild the Semantic Graph
-	public boolean ReSetObject(String local, String RDFLocation, String RepositoryString, String theNameSpaceString,
-			boolean buildData, boolean buildSG) throws Exception {
 
-		boolean result = true;
-
-		try {
-			if (!RDFUpToDate(local, RDFLocation, RepositoryString, theNameSpaceString)) {
-
-				DataBuilt = false;
-				SemGraphBuilt = false;
-
-				P.PrintLn(P.Locator, "(Re)Setting repository ");
-				if (!SetRepository(local, RDFLocation, RepositoryString, theNameSpaceString)) {
-					return false;
-				}
-			}
-			result = SetObject(buildData, buildSG);
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw new Exception("Error in constructing DataBuilder " + e.toString());
-		}
-
-		return result;
-
-	}
-
-	public boolean DataOK(String local, String RDFLocation, String RepositoryString, String theNameSpaceString,
-			boolean SemGraphReq) {
-		if (RDFUpToDate(local, RDFLocation, RepositoryString, theNameSpaceString)) {
-			if (DataBuilt == true) {
-				if (SemGraphReq == true) {
-					if (SemGraphBuilt == true) {
-						return true;
-					}
-				} else {
-					return true;
-				}
-			}
-		}
-		return false;
-	}
 
 	protected void finalize() throws Throwable {
 		(new Outputs()).PrintTemp(System.err, "Object " + this.hashCode() + " finalized ");
@@ -237,30 +171,12 @@ public class DataBuilder {
 		return true;
 	}
 
-	public TupleQueryResult PerformQuery(String queryString) {
-
-		TupleQueryResult a = null;
-		String b = new String(queryString + " using namespace " + Namespaces);
-
-		try {
-
-			TupleQuery query = theRepository.data.Client.prepareTupleQuery(b);
-			a = query.evaluate();
-
-		} catch (MalformedQueryException e) {
-			P.PrintLn(P.Err, "Error in Query " + e.toString());
-		} catch (QueryEvaluationException e) {
-			P.PrintLn(P.Err, "Error in Query " + e.toString());
-		}
-		return a;
-	}
 
 	// This function tests the length of the video segments
 	// and whether they belong to an interview or Statement
 	public boolean TestVideo(int minsec, int maxsec) {
 
 		boolean result = true;
-		Util u = new Util();
 		long dur;
 
 		// We read all the videos
@@ -272,14 +188,15 @@ public class DataBuilder {
 
 		P.PrintLn(P.Query, "Query: " + queryString1);
 		try {
-			TupleQuery query = theRepository.data.Client.prepareTupleQuery(queryString1);
-			TupleQueryResult Results1 = query.evaluate();
+			
+			List<BindingSet> Results1 = theRepository.executeQuery(queryString1);
+			Iterator<BindingSet> i = Results1.iterator();
 
-			while (Results1.hasNext()) {
-			    BindingSet solution = Results1.next();
+			while (i.hasNext()) {
+				BindingSet solution = i.next();
 
-				dur = (u.ConvertToDSec(solution.getValue(i, 1).toString())
-						- u.ConvertToDSec(solution.getValue(i, 0).toString())) / 10;
+				dur = (Util.ConvertToDSec(solution.getValue(i, 1).toString())
+						- Util.ConvertToDSec(solution.getValue(i, 0).toString())) / 10;
 				if ((dur > maxsec) || (dur < minsec)) {
 					P.PrintLn(P.ResultOut,
 							"Video too " + (dur > maxsec ? "long: " : "short: ") + solution.solution(i, 4).toString()
@@ -301,7 +218,7 @@ public class DataBuilder {
 			TupleQueryResult Results2 = query.evaluate();
 
 			while (Results1.hasNext()) {
-			    BindingSet solution = Results1.next();
+				BindingSet solution = Results1.next();
 				P.PrintLn(P.ResultOut, "Video not contained anywhere: " + solution.getValue(ii, 0).toString() + " - "
 						+ solution.getValue(ii, 1).toString());
 			}
@@ -350,118 +267,6 @@ public class DataBuilder {
 			}
 		}
 
-	}
-
-	private boolean SetRepository(String local, String RDFLocation, String RepositoryString, String theNameSpaceString)
-			throws Exception {
-		boolean Found = false;
-
-		theRepository = new Repository();
-
-		/*
-		 * FIRST File sysConfFile = new File("./IWA.conf"); LocalService service
-		 * = Sesame.getService(sysConfFile); RepositoryList a =
-		 * service.getRepositoryList(); theRepository.Client =
-		 * service.getRepository("IWA"); SECOND RepositoryConfig repConfig = new
-		 * RepositoryConfig("IWA", "Interview with America"); SailConfig
-		 * syncSail = new
-		 * SailConfig("org.openrdf.sesame.sailimpl.sync.SyncRdfSchemaRepository"
-		 * ); SailConfig memSail = new RdfSchemaRepositoryConfig();
-		 * repConfig.addSail(syncSail); repConfig.addSail(memSail);
-		 * repConfig.setWorldReadable(true); repConfig.setWorldWriteable(true);
-		 * LocalService service = Sesame.getService(); theRepository.Client =
-		 * service.createRepository(repConfig);
-		 */
-
-		try {
-			if (local.equals("true")) {
-
-				theRepository.data.local = new String("true");
-
-				RepositoryConfig repConfig = new RepositoryConfig(RepositoryString);
-
-				SailConfig syncSail = new SailConfig("org.openrdf.sesame.sailimpl.sync.SyncRdfSchemaRepository");
-
-				SailConfig memSail = new RdfSchemaRepositoryConfig();
-
-				repConfig.addSail(syncSail);
-				repConfig.addSail(memSail);
-
-				repConfig.setWorldReadable(true);
-				repConfig.setWorldWriteable(true);
-				LocalService service = Sesame.getService();
-				theRepository.data.Client = service.createRepository(repConfig);
-
-				// This filter only returns rdf files
-				FileFilter fileFilter = new FileFilter() {
-					public boolean accept(File file) {
-						return file.isFile() && file.toString().endsWith("rdf");
-					}
-				};
-
-				// Load RDF files
-				File myRDFDir = new File(RDFLocation + RepositoryString);
-
-				File[] RDFfiles = myRDFDir.listFiles(fileFilter);
-
-				if (RDFfiles == null) {
-					throw new java.io.IOException("No RDF files in " + RDFLocation + RepositoryString);
-				}
-
-				boolean verifyData = true;
-				AdminListener myListener = new StdOutAdminListener();
-
-				for (int i = 0; i < RDFfiles.length; i++) {
-					theRepository.data.Client.addData(RDFfiles[i], theNameSpaceString, RDFFormat.RDFXML, verifyData,
-							myListener);
-				}
-
-				// This filter only returns rdfs files
-				fileFilter = new FileFilter() {
-					public boolean accept(File file) {
-						return file.isFile() && file.toString().endsWith("rdfs");
-					}
-				};
-
-				File myRDFSDir = new File(RDFLocation + VoxPopuliString);
-				File[] RDFSfiles = myRDFSDir.listFiles(fileFilter);
-
-				if (RDFSfiles == null) {
-					throw new java.io.IOException("No RDFS files in " + RDFLocation + VoxPopuliString);
-				}
-
-				for (int i = 0; i < RDFSfiles.length; i++) {
-					theRepository.data.Client.addData(RDFSfiles[i], VoxPopuliNamespaces, RDFFormat.RDFXML, verifyData,
-							myListener);
-				}
-
-			} else {
-				theRepository.data.local = new String("false");
-
-				// Set the URL of the Sesame server and create the client to
-				// talk to it
-				java.net.URL sesameServerURL = new java.net.URL(RDFLocation);
-				SesameService service = Sesame.getService(sesameServerURL);
-				// service.login("sbocconi", "Apriti");
-				// RepositoryList a = service.getRepositoryList();
-				theRepository.data.Client = service.getRepository(RepositoryString);
-			}
-
-			theRepository.data.RepositoryId = new String(RepositoryString);
-			theRepository.data.NameSpace = new String(theNameSpaceString);
-			theRepository.data.SesameURL = new String(RDFLocation);
-
-			Namespaces = new String("Instances = <" + theNameSpaceString + ">, " + FixedNamespaces);
-
-			Found = true;
-
-		} catch (java.net.MalformedURLException e) {
-			throw new Exception("Wrong URL" + e.toString());
-		} catch (java.io.IOException e) {
-			throw new Exception("Problem in accessing repository " + e.toString());
-		}
-
-		return Found;
 	}
 
 	// This function reads the data structure for all interviews
@@ -1847,7 +1652,7 @@ public class DataBuilder {
 						+ "VoxPopuli:statements {Statements} " + "using namespace " + Namespaces;
 
 				P.PrintLn(P.Query, "Query: " + queryString);
-				QueryResultsTable StatementsResults = theRepository.data.Client.performTableQuery(QueryLanguage.SERQL,
+				QueryResultsTable StatementsResults = theRepository.Client.performTableQuery(QueryLanguage.SERQL,
 						queryString);
 
 				int ll = StatementsResults.getRowCount();
@@ -1925,7 +1730,7 @@ public class DataBuilder {
 		P.PrintLn(P.Query, "Query: " + queryString);
 
 		try {
-			QueryResultsTable Results = theRepository.data.Client.performTableQuery(QueryLanguage.SERQL, queryString);
+			QueryResultsTable Results = theRepository.Client.performTableQuery(QueryLanguage.SERQL, queryString);
 
 			int count = Results.getRowCount();
 
@@ -2481,7 +2286,8 @@ public class DataBuilder {
 
 		P.PrintLn(P.Query, "Query: " + queryRelated);
 
-		QueryResultsTable RelatedResults = theRepository.data.Client.performTableQuery(QueryLanguage.SERQL, queryRelated);
+		QueryResultsTable RelatedResults = theRepository.data.Client.performTableQuery(QueryLanguage.SERQL,
+				queryRelated);
 
 		for (int ii = 0; ii < RelatedResults.getRowCount(); ii++) {
 			String NextConcept = new String(RelatedResults.getValue(ii, 0).toString());

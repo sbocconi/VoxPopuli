@@ -25,27 +25,27 @@ public class DataContainer{
 
   public Question[] QuestionsArray = null; // List of interviews with data
 
-  public Hashtable Interviewees = null; // List of interviewees
+  public Hashtable<?, ?> Interviewees = null; // List of interviewees
 
   public Interview[] InterviewsArray = null; // List of interviews with topic and position
 
-  public Hashtable Statements = null; // List of all statements
+  public Hashtable<?, ?> Statements = null; // List of all statements
 
-  public Hashtable Concepts = null; // List of all concepts
+  public Hashtable<?, ?> Concepts = null; // List of all concepts
 
-  public Hashtable Modifiers = null; // List of all modifiers
+  public Hashtable<?, ?> Modifiers = null; // List of all modifiers
 
-  public Hashtable Predicates = null; // List of all predicates
+  public Hashtable<?, ?> Predicates = null; // List of all predicates
 
-  public Hashtable Relations = null; // List of all links
+  public Hashtable<?, ?> Relations = null; // List of all links
 
-  public Hashtable Videos = null; // List of all video segments
+  public Hashtable<?, ?> Videos = null; // List of all video segments
 
-  public Hashtable Audios = null; // List of all audio segments
+  public Hashtable<?, ?> Audios = null; // List of all audio segments
 
-  public Hashtable Images = null; // List of all image segments
+  public Hashtable<?, ?> Images = null; // List of all image segments
 
-  public Hashtable Texts = null; // List of all text segments
+  public Hashtable<?, ?> Texts = null; // List of all text segments
 
   public DataContainer() throws Exception{
 
