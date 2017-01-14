@@ -259,9 +259,8 @@ public class Permutation{
 
   public void TestStep( int si, long st ) throws Exception{
 
-    Util u = new Util();
     Permutation A = new Permutation( si );
-    long limit = u.fact( si );
+    long limit = Util.fact( si );
     long steps = limit / st;
 
     System.out.println( "There will be " + steps + " steps" );
@@ -274,8 +273,7 @@ public class Permutation{
 
   public boolean TestRank( int s, long r ) throws Exception{
 
-    Util u = new Util();
-    long limit = u.fact( s );
+    long limit = Util.fact( s );
 
     if( limit < r ){
       System.out.println( "Rank out of limit " );
@@ -294,9 +292,7 @@ public class Permutation{
 
   public void Init( long steps ) throws Exception{
 
-    u = new Util();
-
-    Combinations = u.fact( maxsize );
+    Combinations = Util.fact( maxsize );
 
     for( int i = 0; i < maxsize; i++ ){
       this.Set( i, i );

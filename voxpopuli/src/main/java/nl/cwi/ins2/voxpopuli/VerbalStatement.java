@@ -32,7 +32,7 @@ public class VerbalStatement{
   boolean Explicit;
 
   // This array contains object of type Link, i.e. Id of real statements
-  Hashtable ConnectedStatements;
+  Hashtable<String,Link> ConnectedStatements;
   ToulminNode ParentNode;
   String ClaimerId;
   int EthosRating;
@@ -81,7 +81,7 @@ public class VerbalStatement{
         }
       }
       if( a.ConnectedStatements != null ){
-        this.ConnectedStatements = new Hashtable( a.ConnectedStatements );
+        this.ConnectedStatements = new Hashtable<String, Link>( a.ConnectedStatements );
       }
       if( a.ParentNode != null ){
         this.ParentNode = new ToulminNode( a.ParentNode );

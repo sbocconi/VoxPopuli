@@ -14,7 +14,7 @@ import java.util.ArrayList;
  * @author Stefano Bocconi
  * @version 1.0
  */
-public class MyArrayList extends ArrayList{
+public class MyArrayList extends ArrayList<Object>{
   MyArrayList(){
     super();
   }
@@ -24,7 +24,7 @@ public class MyArrayList extends ArrayList{
   }
 
   MyArrayList( MyArrayList a ){
-    super( ( ArrayList )a );
+    super( ( ArrayList<?> )a );
   }
 
   public MyArrayList invert(){

@@ -146,7 +146,6 @@ public class SMILMedia
             boolean captionToFile, Outputs p ) throws java.io.FileNotFoundException
     {
         
-        u = new Util();
         P = new Outputs();
         Repository = new String( Rep );
         P = p;

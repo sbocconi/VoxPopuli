@@ -85,12 +85,14 @@ public class DataBuilder {
 	private boolean SemGraphBuilt;
 
 	/*********************
-	 * FUNCTIONS 
-	 * @throws Exception *
+	 * FUNCTIONS
+	 * 
+	 * @throws Exception
+	 *             *
 	 **********************/
 
 	public DataBuilder(boolean local, String RDFLocation, String RepositoryString, String theNameSpaceString,
-			DataContainer a, Outputs p) throws Exception  {
+			DataContainer a, Outputs p) throws Exception {
 
 		(new Outputs()).PrintTemp(System.err, "Object " + this.hashCode() + " created ");
 
@@ -110,13 +112,17 @@ public class DataBuilder {
 
 	}
 
+	public RDFRepository getTheRepository() {
+		return theRepository;
+	}
+
+
 	public boolean SetIterations(int iterations) {
 
 		IterationsNr = iterations;
 
 		return true;
 	}
-
 
 	// This function reads the data and constructs the Semantic Graph
 	public boolean SetObject(boolean buildData, boolean buildSG) throws Exception {
@@ -150,27 +156,24 @@ public class DataBuilder {
 
 	}
 
-
-
 	protected void finalize() throws Throwable {
 		(new Outputs()).PrintTemp(System.err, "Object " + this.hashCode() + " finalized ");
 	}
 
 	public boolean PrintStatements() {
 
-		for (Enumeration e = Data.Statements.elements(); e.hasMoreElements();) {
+		for (Enumeration<VerbalStatement> e = Data.Statements.elements(); e.hasMoreElements();) {
 			VerbalStatement aStatement = (VerbalStatement) e.nextElement();
 			P.Print(P.StatementLog, "Statement " + aStatement.Id + " " + aStatement.SubjectDescription + " "
 					+ aStatement.ModifierDescription + " " + aStatement.PredicateDescription);
 			if (aStatement.ConnectedStatements != null) {
-				PrintConnectedStatement(aStatement.ConnectedStatements, true);
+				PrintConnectedLink(aStatement.ConnectedStatements);
 			} else {
 				P.PrintLn(P.StatementLog, "\tNo Link ");
 			}
 		}
 		return true;
 	}
-
 
 	// This function tests the length of the video segments
 	// and whether they belong to an interview or Statement
@@ -182,55 +185,48 @@ public class DataBuilder {
 		// We read all the videos
 		String queryString1 = "select Start, Stop, Lab, File, X, Y, TypeY from " + "{X} rdf:type {VoxPopuli:Video}; "
 				+ "MediaClipping:beginFrame {Start}; " + "MediaClipping:endFrame {Stop}; " + "rdfs:label {Lab}; "
-				+ "BasicMedia:src {File}, " + "[{Y} VoxPopuli:hasMedia {X}, " + "{Y} serql:directType {TypeY}] " +
-
-				"using namespace " + Namespaces;
+				+ "BasicMedia:src {File}, " + "[{Y} VoxPopuli:hasMedia {X}, " + "{Y} serql:directType {TypeY}]";
 
 		P.PrintLn(P.Query, "Query: " + queryString1);
 		try {
-			
+
 			List<BindingSet> Results1 = theRepository.executeQuery(queryString1);
 			Iterator<BindingSet> i = Results1.iterator();
 
 			while (i.hasNext()) {
 				BindingSet solution = i.next();
 
-				dur = (Util.ConvertToDSec(solution.getValue(i, 1).toString())
-						- Util.ConvertToDSec(solution.getValue(i, 0).toString())) / 10;
+				dur = (Util.ConvertToDSec(solution.getValue("Stop").toString())
+						- Util.ConvertToDSec(solution.getValue("Start").toString())) / 10;
 				if ((dur > maxsec) || (dur < minsec)) {
 					P.PrintLn(P.ResultOut,
-							"Video too " + (dur > maxsec ? "long: " : "short: ") + solution.solution(i, 4).toString()
-									+ " - " + solution.getValue(i, 2).toString() + " dur " + dur + " - "
-									+ (solution.solution(i, 5) != null
-											? "Video contained in: " + solution.getValue(i, 5).toString() + " of type "
-													+ solution.getValue(i, 6).toString()
-															.substring(VoxPopuliNamespaces.length())
+							"Video too " + (dur > maxsec ? "long: " : "short: ") + solution.getValue("X").toString()
+									+ " - " + solution.getValue("Lab").toString() + " dur " + dur + " - "
+									+ (solution.getValue("Y") != null
+											? "Video contained in: " + solution.getValue("Y").toString() + " of type "
+													+ solution.getValue("TypeY").toString()
+															.substring(RDFRepository.VoxPopuliNamespaces.length())
 											: " Video NOT contained anywhere"));
 				}
 			}
 			String queryString2 = "select Orp, Lab, Y from " + "{Orp} rdf:type {VoxPopuli:Video}, "
-					+ "{Orp} rdfs:label {Lab}, " + "[{Y} VoxPopuli:hasMedia {Orp}] " + "where " + "Y = null "
-					+ "using namespace " + Namespaces;
+					+ "{Orp} rdfs:label {Lab}, " + "[{Y} VoxPopuli:hasMedia {Orp}] " + "where " + "Y = null";
 
 			P.PrintLn(P.Query, "Query: " + queryString2);
 
-			query = theRepository.data.Client.prepareTupleQuery(queryString2);
-			TupleQueryResult Results2 = query.evaluate();
+			Results1 = theRepository.executeQuery(queryString1);
+			i = Results1.iterator();
 
-			while (Results1.hasNext()) {
-				BindingSet solution = Results1.next();
-				P.PrintLn(P.ResultOut, "Video not contained anywhere: " + solution.getValue(ii, 0).toString() + " - "
-						+ solution.getValue(ii, 1).toString());
+			while (i.hasNext()) {
+				BindingSet solution = i.next();
+				P.PrintLn(P.ResultOut, "Video not contained anywhere: " + solution.getValue("Orp").toString() + " - "
+						+ solution.getValue("Lab").toString());
 			}
 
 		} catch (MalformedQueryException e) {
 			P.PrintLn(P.Err, "Error in Query " + e.toString());
-		} catch (AccessDeniedException e) {
-			P.PrintLn(P.Err, "Error in Query " + e.toString());
 		} catch (QueryEvaluationException e) {
 			P.PrintLn(P.Err, "Error in Query " + e.toString());
-		} catch (IOException e) {
-			P.PrintLn(P.Err, "Error checking Videos" + e.toString());
 		}
 
 		return result;
@@ -278,7 +274,6 @@ public class DataBuilder {
 
 		P.PrintLn(P.Locator, "Reading Data");
 
-		QueryResultsTable Results;
 		boolean result = true;
 
 		try {
@@ -311,38 +306,44 @@ public class DataBuilder {
 					// VerbalStatement
 					// "{Interview} VoxPopuli:partecipant {}, " +
 					"VoxPopuli:hasQuestion {Question}; " + "VoxPopuli:partecipant {Interviewee}, "
-					+ "{Question} VoxPopuli:text {QuestionText}, " + "[{Interview} VoxPopuli:opinion {Opinion}] "
-					+ "using namespace " + Namespaces;
+					+ "{Question} VoxPopuli:text {QuestionText}, " + "[{Interview} VoxPopuli:opinion {Opinion}]";
 
 			P.PrintLn(P.Query, "Query: " + queryString);
 
-			Results = theRepository.data.Client.performTableQuery(QueryLanguage.SERQL, queryString);
+			List<BindingSet> Results = theRepository.executeQuery(queryString);
 
-			Data.InterviewsArray = new Interview[Results.getRowCount()];
+			Data.InterviewsArray = new Interview[Results.size()];
 
-			for (int i = 0; result && (i < Results.getRowCount()); i++) {
+			Iterator<BindingSet> i = Results.iterator();
+			int ii = 0;
+
+			while (i.hasNext()) {
+				BindingSet solution = i.next();
 				Interview aSelectedInterview = new Interview();
-				aSelectedInterview.Id = new String(Results.getValue(i, 0).toString());
-				aSelectedInterview.OpinionId = new String(
-						Results.getValue(i, 1) != null ? Results.getValue(i, 1).toString() : "");
+				aSelectedInterview.Id = solution.getValue("Interview").toString();
+				aSelectedInterview.OpinionId = solution.getValue("Opinion") != null
+						? solution.getValue("Opinion").toString() : "";
 				aSelectedInterview.thequestion = new Question(
-						(Results.getValue(i, 2) != null ? Results.getValue(i, 2).toString() : ""),
-						(Results.getValue(i, 3) != null ? Results.getValue(i, 3).toString() : ""));
+						(solution.getValue("Question") != null ? solution.getValue("Question").toString() : ""),
+						(solution.getValue("QuestionText") != null ? solution.getValue("QuestionText").toString()
+								: ""));
 
-				aSelectedInterview.theInterviewee = new String(Results.getValue(i, 4).toString());
+				aSelectedInterview.theInterviewee = solution.getValue("Interviewee").toString();
 
 				P.PrintLn(P.Query, "Query Result: " + aSelectedInterview.Id + " " + aSelectedInterview.OpinionId + " "
 						+ aSelectedInterview.theInterviewee);
 
-				Data.InterviewsArray[i] = aSelectedInterview;
+				Data.InterviewsArray[ii] = aSelectedInterview;
 
 				// This reads the interviews data structure
-				Data.InterviewsArray[i].MediaItems = ReadMediaID(Data.InterviewsArray[i].Id);
+				Data.InterviewsArray[ii].MediaItems = ReadMediaID(Data.InterviewsArray[ii].Id);
 
-				Data.AddDataToMedia(Data.InterviewsArray[i].MediaItems,
-						"Q: " + Data.InterviewsArray[i].thequestion.QuestionText, Data.InterviewsArray[i].Id, null,
+				Data.AddDataToMedia(Data.InterviewsArray[ii].MediaItems,
+						"Q: " + Data.InterviewsArray[ii].thequestion.QuestionText, Data.InterviewsArray[ii].Id, null,
 						true);
-				Data.InterviewsArray[i].Arguments = ReadRhetoric(Data.InterviewsArray[i].Id, "rhetoricalForm", i);
+				Data.InterviewsArray[ii].Arguments = ReadRhetoric(Data.InterviewsArray[ii].Id, "rhetoricalForm", ii);
+
+				ii++;
 
 			}
 
@@ -367,7 +368,7 @@ public class DataBuilder {
 	private void ReadStatements() throws Exception {
 
 		if (Data.Statements == null) {
-			Data.Statements = new Hashtable();
+			Data.Statements = new Hashtable<String, VerbalStatement>();
 		}
 		VerbalStatement aStatement;
 
@@ -381,42 +382,45 @@ public class DataBuilder {
 				+ "[VoxPopuli:subject {Subject} VoxPopuli:partDescription {SubjectDescription}]; "
 				+ "[VoxPopuli:modifier {Modifier} VoxPopuli:partDescription {ModifierDescription}]; "
 				+ "[VoxPopuli:predicate {Predicate} VoxPopuli:partDescription {PredicateDescription}], "
-				+ "{Interviewee} VoxPopuli:description {Description} " + "using namespace " + Namespaces;
+				+ "{Interviewee} VoxPopuli:description {Description}";
 
 		P.PrintLn(P.Query, "Query: " + queryString);
 
 		try {
-			QueryResultsTable Results = theRepository.data.Client.performTableQuery(QueryLanguage.SERQL, queryString);
+			List<BindingSet> Results = theRepository.executeQuery(queryString);
 
-			for (int i = 0; i < Results.getRowCount(); i++) {
+			Iterator<BindingSet> i = Results.iterator();
+
+			while (i.hasNext()) {
+				BindingSet solution = i.next();
 				aStatement = new VerbalStatement();
 
 				// This will be used as a key
-				aStatement.Id = new String(Results.getValue(i, 0).toString());
+				aStatement.Id = solution.getValue("X").toString();
 
-				aStatement.Subject = new String(
-						Results.getValue(i, 1) != null ? Results.getValue(i, 1).toString() : "");
-				if (Results.getValue(i, 7) != null) {
-					aStatement.Explicit = Results.getValue(i, 7).toString().equals("true") ? true : false;
+				aStatement.Subject = solution.getValue("Subject") != null ? solution.getValue("Subject").toString()
+						: "";
+				if (solution.getValue("Explicit") != null) {
+					aStatement.Explicit = solution.getValue("Explicit").toString().equals("true") ? true : false;
 				}
 
-				aStatement.SubjectDescription = new String(
-						Results.getValue(i, 4) != null ? Results.getValue(i, 4).toString() : "");
-				aStatement.Modifier = new String(
-						Results.getValue(i, 2) != null ? Results.getValue(i, 2).toString() : "");
-				aStatement.ModifierDescription = new String(
-						Results.getValue(i, 6) != null ? Results.getValue(i, 6).toString() : "");
-				aStatement.Predicate = new String(
-						Results.getValue(i, 3) != null ? Results.getValue(i, 3).toString() : "");
-				aStatement.PredicateDescription = new String(
-						Results.getValue(i, 5) != null ? Results.getValue(i, 5).toString() : "");
+				aStatement.SubjectDescription = solution.getValue("SubjectDescription") != null
+						? solution.getValue("SubjectDescription").toString() : "";
+				aStatement.Modifier = solution.getValue("Modifier") != null ? solution.getValue("Modifier").toString()
+						: "";
+				aStatement.ModifierDescription = solution.getValue("ModifierDescription") != null
+						? solution.getValue("ModifierDescription").toString() : "";
+				aStatement.Predicate = solution.getValue("Predicate") != null
+						? solution.getValue("Predicate").toString() : "";
+				aStatement.PredicateDescription = solution.getValue("PredicateDescription") != null
+						? solution.getValue("PredicateDescription").toString() : "";
 				/*
 				 * aStatement.Object = new String( Results.getValue( 0, 3 ) !=
 				 * null ? Results.getValue( 0, 3 ).toString() : "" );
 				 * aStatement.ObjectDescription = new String( Results.getValue(
 				 * 0, 7 ) != null ? Results.getValue( 0, 7 ). toString() : "" );
 				 */
-				aStatement.ClaimerId = new String(Results.getValue(i, 8).toString());
+				aStatement.ClaimerId = solution.getValue("Interviewee").toString();
 
 				String Temp = "S: "
 						+ (!aStatement.SubjectDescription.equals("") ? aStatement.SubjectDescription + " " : "")
@@ -441,10 +445,6 @@ public class DataBuilder {
 			}
 		} catch (MalformedQueryException e) {
 			P.PrintLn(P.Err, "Error in Query " + e.toString());
-		} catch (AccessDeniedException e) {
-			P.PrintLn(P.Err, "Error in Query " + e.toString());
-		} catch (IOException e) {
-			P.PrintLn(P.Err, "Error retrieving Topics " + e.toString());
 		}
 
 		return;
@@ -490,7 +490,7 @@ public class DataBuilder {
 		DataHash[2] = Data.Predicates;
 
 		int counter = 0;
-		for (Enumeration enu = Data.Statements.elements(); enu.hasMoreElements();) {
+		for (Enumeration<?> enu = Data.Statements.elements(); enu.hasMoreElements();) {
 
 			VerbalStatement vStatement = (VerbalStatement) enu.nextElement();
 
@@ -500,13 +500,14 @@ public class DataBuilder {
 
 			ConstructedStatement cStatement = new ConstructedStatement(vStatement);
 
-			Connected[0] = new Hashtable(1);
+			Connected[0] = new Hashtable<Object, Object>(1);
 
 			Connected[0].put(cStatement.Subject + cStatement.Modifier + cStatement.Predicate, cStatement);
 
 			for (int index = 1; index < IterationsNr + 1; index++) {
 
-				Connected[index] = new Hashtable(Data.Predicates.size() * Data.Modifiers.size() * Data.Concepts.size());
+				Connected[index] = new Hashtable<Object, Object>(
+						Data.Predicates.size() * Data.Modifiers.size() * Data.Concepts.size());
 
 				OneStepLinking(index, DataHash, Connected);
 
@@ -560,17 +561,17 @@ public class DataBuilder {
 		// Avoid elaborating statements at iteration i that were
 		// generated at iteration i-1
 		for (int i = 0; i < index; i++) {
-			Loop[i] = new Hashtable(Connected[i]);
+			Loop[i] = new Hashtable<Object, Object>(Connected[i]);
 		}
 
 		for (int i = 0; i < index; i++) {
 
-			for (Enumeration e = Loop[i].elements(); e.hasMoreElements();) {
+			for (Enumeration<?> e = Loop[i].elements(); e.hasMoreElements();) {
 
 				ConstructedStatement theStatement = (ConstructedStatement) e.nextElement();
 				ConstructedStatement aStatement;
 
-				for (Enumeration dataenum = DataHash[index - 1].elements(); dataenum.hasMoreElements();) {
+				for (Enumeration<?> dataenum = DataHash[index - 1].elements(); dataenum.hasMoreElements();) {
 
 					String[] aEntity = (String[]) dataenum.nextElement();
 
@@ -646,14 +647,14 @@ public class DataBuilder {
 			int j = Data.Modifiers.size() * Data.Modifiers.size();
 			int z = Data.Predicates.size() * Data.Predicates.size();
 
-			Data.Relations = new Hashtable(i + j + z + 1);
+			Data.Relations = new Hashtable<String, RelationDescription>(i + j + z + 1);
 		}
 		String[] Entity1, Entity2;
 
-		for (Enumeration e = Data.Concepts.elements(); e.hasMoreElements();) {
+		for (Enumeration<?> e = Data.Concepts.elements(); e.hasMoreElements();) {
 			Entity1 = (String[]) e.nextElement();
 
-			for (Enumeration ee = Data.Concepts.elements(); ee.hasMoreElements();) {
+			for (Enumeration<?> ee = Data.Concepts.elements(); ee.hasMoreElements();) {
 				Entity2 = (String[]) ee.nextElement();
 
 				if (!Entity1[0].equals(Entity2[0])) {
@@ -664,10 +665,10 @@ public class DataBuilder {
 			}
 		}
 
-		for (Enumeration e = Data.Modifiers.elements(); e.hasMoreElements();) {
+		for (Enumeration<?> e = Data.Modifiers.elements(); e.hasMoreElements();) {
 			Entity1 = (String[]) e.nextElement();
 
-			for (Enumeration ee = Data.Modifiers.elements(); ee.hasMoreElements();) {
+			for (Enumeration<?> ee = Data.Modifiers.elements(); ee.hasMoreElements();) {
 				Entity2 = (String[]) ee.nextElement();
 
 				if (!Entity1[0].equals(Entity2[0])) {
@@ -678,10 +679,10 @@ public class DataBuilder {
 			}
 		}
 
-		for (Enumeration e = Data.Predicates.elements(); e.hasMoreElements();) {
+		for (Enumeration<?> e = Data.Predicates.elements(); e.hasMoreElements();) {
 			Entity1 = (String[]) e.nextElement();
 
-			for (Enumeration ee = Data.Predicates.elements(); ee.hasMoreElements();) {
+			for (Enumeration<?> ee = Data.Predicates.elements(); ee.hasMoreElements();) {
 				Entity2 = (String[]) ee.nextElement();
 
 				if (!Entity1[0].equals(Entity2[0])) {
@@ -719,24 +720,26 @@ public class DataBuilder {
 				+ "{Conc1} VoxPopuli:partDescription {Des1}, "
 				+ "{Conc2} rdf:type {VoxPopuli:RhetoricalStatementPart}, " + "{Conc2} VoxPopuli:partDescription {Des2} "
 				+ "where " + "X=VoxPopuli:generalization or " + "X=VoxPopuli:specialization or "
-				+ "X=VoxPopuli:opposite or " + "X=VoxPopuli:similar " + "using namespace " + Namespaces;
+				+ "X=VoxPopuli:opposite or " + "X=VoxPopuli:similar";
 
 		P.PrintLn(P.Query, "Query: " + queryString);
 
 		try {
 
-			QueryResultsTable Results = theRepository.data.Client.performTableQuery(QueryLanguage.SERQL, queryString);
+			List<BindingSet> Results = theRepository.executeQuery(queryString);
+			Iterator<BindingSet> i = Results.iterator();
 
-			int results = Results.getRowCount();
+			int results = Results.size();
 
-			Data.Relations = new Hashtable(results + 1);
+			Data.Relations = new Hashtable<String, RelationDescription>(results + 1);
 
-			for (int j = 0; j < results; j++) {
+			while (i.hasNext()) {
+				BindingSet solution = i.next();
 
 				RelationDescription a = new RelationDescription("NotUsed", RhetActStrings[SELF],
-						Results.getValue(j, 0).toString(), Results.getValue(j, 1).toString(),
-						Results.getValue(j, 2).toString(), Results.getValue(j, 3).toString(),
-						Results.getValue(j, 4).toString());
+						solution.getValue("Conc1").toString(), solution.getValue("Des1").toString(),
+						solution.getValue("Conc2").toString(), solution.getValue("Des2").toString(),
+						solution.getValue("X").toString());
 				Data.Relations.put(a.FromPartId + a.ToPartId, a);
 			}
 
@@ -759,7 +762,7 @@ public class DataBuilder {
 
 		// This loop links all related statements together
 		int counter = 0;
-		for (Enumeration e = Data.Statements.elements(); result && e.hasMoreElements();) {
+		for (Enumeration<?> e = Data.Statements.elements(); result && e.hasMoreElements();) {
 			VerbalStatement aStatement = (VerbalStatement) e.nextElement();
 
 			P.Print(P.StatementStat, counter + SEPARATOR);
@@ -822,7 +825,7 @@ public class DataBuilder {
 		P.Print(P.StatementStat, "Hit Score" + SEPARATOR);
 		P.PrintLn(P.StatementStat, "Miss Score");
 
-		for (Enumeration e = Data.Relations.elements(); e.hasMoreElements();) {
+		for (Enumeration<?> e = Data.Relations.elements(); e.hasMoreElements();) {
 			count++;
 
 			RelationDescription aRelDes = (RelationDescription) e.nextElement();
@@ -840,9 +843,9 @@ public class DataBuilder {
 	private boolean ConnectStatements(VerbalStatement theStatement) throws Exception {
 
 		// Initialize the hash table
-		Hashtable Hashtables[] = new Hashtable[IterationsNr + 1];
+		Hashtable<String, ConstructedStatement> Hashtables[] = new Hashtable[IterationsNr + 1];
 		for (int i = 0; i < IterationsNr + 1; i++) {
-			Hashtables[i] = new Hashtable();
+			Hashtables[i] = new Hashtable<String, ConstructedStatement>();
 		}
 
 		// Construct the first statement
@@ -871,7 +874,7 @@ public class DataBuilder {
 		int size = 0; // we will have at least one statement
 		for (int i = 0; i < IterationsNr + 1; i++) {
 			size = size + Hashtables[i].size();
-			PrintConnectedStatement(Hashtables[i], false);
+			PrintConnectedStatement(Hashtables[i]);
 		}
 
 		P.PrintLn(P.StatementLog, "Length constructed statements " + size);
@@ -885,7 +888,7 @@ public class DataBuilder {
 		if (theStatement.ConnectedStatements != null) {
 			P.PrintLn(P.StatementLog, "Length connected statements: " + theStatement.ConnectedStatements.size());
 			P.PrintLn(P.StatementStat, theStatement.ConnectedStatements.size() + "");
-			PrintConnectedStatement(theStatement.ConnectedStatements, true);
+			PrintConnectedLink(theStatement.ConnectedStatements);
 		} else {
 			P.PrintLn(P.StatementLog, "ZERO Length of connected statements ");
 			P.PrintLn(P.StatementStat, "0");
@@ -926,7 +929,7 @@ public class DataBuilder {
 			// which should be the fastest method (or the easiest) instead of
 			// looking in
 			// the hash table of all statements
-			for (Enumeration e = StatementsHashArray[i].elements(); e.hasMoreElements();) {
+			for (Enumeration<?> e = StatementsHashArray[i].elements(); e.hasMoreElements();) {
 
 				ConstructedStatement aConstructedStatement = (ConstructedStatement) e.nextElement();
 
@@ -938,16 +941,15 @@ public class DataBuilder {
 				String queryString = "select Id  " + "from " + "{Id} rdf:type {VoxPopuli:VerbalStatement} "
 						+ ", {Id} VoxPopuli:subject  {<" + aConstructedStatement.Subject + ">}"
 						+ ", {Id} VoxPopuli:modifier {<" + aConstructedStatement.Modifier + ">}"
-						+ ", {Id} VoxPopuli:predicate {<" + aConstructedStatement.Predicate + ">}" + " using namespace "
-						+ Namespaces;
+						+ ", {Id} VoxPopuli:predicate {<" + aConstructedStatement.Predicate + ">}";
 
 				P.PrintLn(P.Query, "Query: " + queryString);
 
-				QueryResultsTable Results = null;
 				try {
 
-					Results = theRepository.data.Client.performTableQuery(QueryLanguage.SERQL, queryString);
-					int results = Results.getRowCount();
+					List<BindingSet> Results = theRepository.executeQuery(queryString);
+
+					int results = Results.size();
 
 					if (results == 0) {
 						// Here we calculate the penalty for the relations for
@@ -966,16 +968,20 @@ public class DataBuilder {
 							Data.Relations.put(b.FromPartId + b.ToPartId, b);
 						}
 					} else {
-						for (int j = 0; j < results; j++) {
+						Iterator<BindingSet> it = Results.iterator();
+
+						while (it.hasNext()) {
+							BindingSet solution = it.next();
+
 							// Apparently such a statement exists, so it MUST be
 							// in the hash table
 							// VerbStatementToLink will be a fully filled in
 							// statement
 							VerbStatementToLink = null;
 							if ((VerbStatementToLink = (VerbalStatement) Data.Statements
-									.get(Results.getValue(j, 0).toString())) == null) {
+									.get(solution.getValue("Id").toString())) == null) {
 								throw new Exception(
-										"Missing statement in Hash Table " + Results.getValue(j, 0).toString());
+										"Missing statement in Hash Table " + solution.getValue("Id").toString());
 							}
 							// only link if the statements are not the same
 							if (!VerbStatementToLink.Id.equals(theStatement.Id)) {
@@ -998,7 +1004,7 @@ public class DataBuilder {
 								}
 								// Allocate the related statements structure
 								if (theStatement.ConnectedStatements == null) {
-									theStatement.ConnectedStatements = new Hashtable();
+									theStatement.ConnectedStatements = new Hashtable<String, Link>();
 								}
 
 								// We increase the counter even if the statement
@@ -1047,12 +1053,12 @@ public class DataBuilder {
 		return true;
 	}
 
-	private void OneStepStatementManipulation(Hashtable INStats, Hashtable OUTStats, Hashtable ExisStats)
+	private void OneStepStatementManipulation(Hashtable<String, ConstructedStatement> INStats,
+			Hashtable<String, ConstructedStatement> OUTStats, Hashtable<String, ConstructedStatement> ExisStats)
 			throws Exception {
 		// This function implements the basic logic of supporting a statement
 		// and produces a list (hash table) of possible pro statements
 
-		QueryResultsTable Results;
 		String Relation;
 		boolean result = true;
 		int oldsize = 0;
@@ -1084,7 +1090,7 @@ public class DataBuilder {
 			String Message = RhetActStrings[action].Name + " ";
 
 			try {
-				for (Enumeration e = INStats.elements(); e.hasMoreElements();) {
+				for (Enumeration<?> e = INStats.elements(); e.hasMoreElements();) {
 
 					ConstructedStatement theStatement = (ConstructedStatement) e.nextElement();
 					ConstructedStatement aStatement;
@@ -1092,23 +1098,22 @@ public class DataBuilder {
 					if (!theStatement.Subject.equals("")) {
 						String queryString = "select Subject, SubjectDescription " + "from " + "{<"
 								+ theStatement.Subject + ">} " + Relation + " {Subject}; " + Relation
-								+ " {Subject} VoxPopuli:partDescription {SubjectDescription} " + "using namespace "
-								+ Namespaces;
+								+ " {Subject} VoxPopuli:partDescription {SubjectDescription}";
 
 						P.PrintLn(P.Query, "Query: " + queryString);
 
-						Results = theRepository.data.Client.performTableQuery(QueryLanguage.SERQL, queryString);
+						List<BindingSet> Results = theRepository.executeQuery(queryString);
+						Iterator<BindingSet> it = Results.iterator();
 
-						int limit = Results.getRowCount();
-
-						for (int j = 0; j < limit; j++) {
+						while (it.hasNext()) {
+							BindingSet solution = it.next();
 
 							aStatement = new ConstructedStatement(theStatement);
 
-							aStatement.Subject = new String(
-									Results.getValue(j, 0) != null ? Results.getValue(j, 0).toString() : "");
-							aStatement.SubjectDescription = new String(
-									Results.getValue(j, 1) != null ? Results.getValue(j, 1).toString() : "");
+							aStatement.Subject = solution.getValue("Subject") != null
+									? solution.getValue("Subject").toString() : "";
+							aStatement.SubjectDescription = solution.getValue("SubjectDescription") != null
+									? solution.getValue("SubjectDescription").toString() : "";
 
 							// Here we add the new link because every statement
 							// in the IN list
@@ -1153,22 +1158,21 @@ public class DataBuilder {
 
 						String queryString = "select Modifier, ModifierDescription " + "from " + "{<"
 								+ theStatement.Modifier + ">} " + Relation + " {Modifier}; " + Relation
-								+ " {Modifier} VoxPopuli:partDescription {ModifierDescription} " + "using namespace "
-								+ Namespaces;
+								+ " {Modifier} VoxPopuli:partDescription {ModifierDescription}";
 
 						P.PrintLn(P.Query, "Query: " + queryString);
 
-						Results = theRepository.data.Client.performTableQuery(QueryLanguage.SERQL, queryString);
+						List<BindingSet> Results = theRepository.executeQuery(queryString);
+						Iterator<BindingSet> it = Results.iterator();
 
-						int limit = Results.getRowCount();
+						while (it.hasNext()) {
+							BindingSet solution = it.next();
 
-						for (int j = 0; j < limit; j++) {
-
-							if (Results.getValue(j, 0) != null) {
+							if (solution.getValue("Modifier") != null) {
 								aStatement = new ConstructedStatement(theStatement);
 
-								aStatement.Modifier = new String(Results.getValue(j, 0).toString());
-								aStatement.ModifierDescription = new String(Results.getValue(j, 1).toString());
+								aStatement.Modifier = solution.getValue("Modifier").toString();
+								aStatement.ModifierDescription = solution.getValue("ModifierDescription").toString();
 
 								// Here we add the new link because every
 								// statement in the IN list
@@ -1202,22 +1206,21 @@ public class DataBuilder {
 
 						String queryString = "select Predicate, PredicateDescription " + "from " + "{<"
 								+ theStatement.Predicate + ">} " + Relation + " {Predicate}; " + Relation
-								+ " {Predicate} VoxPopuli:partDescription {PredicateDescription} " + "using namespace "
-								+ Namespaces;
+								+ " {Predicate} VoxPopuli:partDescription {PredicateDescription}";
 
 						P.PrintLn(P.Query, "Query: " + queryString);
 
-						Results = theRepository.data.Client.performTableQuery(QueryLanguage.SERQL, queryString);
+						List<BindingSet> Results = theRepository.executeQuery(queryString);
+						Iterator<BindingSet> it = Results.iterator();
 
-						int limit = Results.getRowCount();
-
-						for (int j = 0; j < limit; j++) {
+						while (it.hasNext()) {
+							BindingSet solution = it.next();
 							aStatement = new ConstructedStatement(theStatement);
 
-							aStatement.Predicate = new String(
-									Results.getValue(j, 0) != null ? Results.getValue(j, 0).toString() : "");
-							aStatement.PredicateDescription = new String(
-									Results.getValue(j, 1) != null ? Results.getValue(j, 1).toString() : "");
+							aStatement.Predicate = solution.getValue("Predicate") != null
+									? solution.getValue("Predicate").toString() : "";
+							aStatement.PredicateDescription = solution.getValue("PredicateDescription") != null
+									? solution.getValue("PredicateDescription").toString() : "";
 
 							// Here we add the new link because every statement
 							// in the IN list
@@ -1338,8 +1341,6 @@ public class DataBuilder {
 
 	private void ReadVideoSegments() throws Exception {
 
-		QueryResultsTable Results;
-
 		// Read media related information
 		String queryString = "select Src, BeginFrame, EndFrame, MediaDescription, Language, Quality, "
 				+ "StartFraming, EndFraming, Gaze, Motion, Time, Location, Place, Subject, X " + "from "
@@ -1349,29 +1350,25 @@ public class DataBuilder {
 				+ "[VoxPopuli:hasStartFraming {StartFraming}]; " + "[VoxPopuli:hasEndFraming {EndFraming}]; "
 				+ "[VoxPopuli:hasGaze {Gaze}]; " + "[VoxPopuli:hasMotion {Motion}]; " + "[VoxPopuli:atTime {Time}]; "
 				+ "[VoxPopuli:hasLocation {Location}]; " + "[VoxPopuli:takesPlace {Place}]; "
-				+ "[VoxPopuli:hasSubject {Subject}]; " + "VoxPopuli:quality {Quality} " +
-
-				"using namespace " + Namespaces;
+				+ "[VoxPopuli:hasSubject {Subject}]; " + "VoxPopuli:quality {Quality}";
 
 		P.PrintLn(P.Query, "Query: " + queryString);
 
-		Results = theRepository.data.Client.performTableQuery(QueryLanguage.SERQL, queryString);
+		List<BindingSet> Results = theRepository.executeQuery(queryString);
+		Iterator<BindingSet> it = Results.iterator();
 
-		int l = Results.getRowCount();
+		while (it.hasNext()) {
+			BindingSet solution = it.next();
 
-		if (l == 0) {
-			return;
-		}
-
-		for (int i = 0; i < l; i++) {
-			VideoSegment theVideoSegment = new VideoSegment(Results.getValue(i, 14), (String) null, (String) null,
-					Results.getValue(i, 1), Results.getValue(i, 2), Results.getValue(i, 0), Results.getValue(i, 3),
-					Results.getValue(i, 4), Results.getValue(i, 5), Results.getValue(i, 13), Results.getValue(i, 6),
-					Results.getValue(i, 7), Results.getValue(i, 8), Results.getValue(i, 9), Results.getValue(i, 11),
-					Results.getValue(i, 12), Results.getValue(i, 10));
+			VideoSegment theVideoSegment = new VideoSegment(solution.getValue("X"), (String) null, (String) null,
+					solution.getValue("BeginFrame"), solution.getValue("EndFrame"), solution.getValue("Src"),
+					solution.getValue("MediaDescription"), solution.getValue("Language"), solution.getValue("Quality"),
+					solution.getValue("Subject"), solution.getValue("StartFraming"), solution.getValue("EndFraming"),
+					solution.getValue("Gaze"), solution.getValue("Motion"), solution.getValue("Location"),
+					solution.getValue("Place"), solution.getValue("Time"));
 
 			if (Data.Videos == null) {
-				Data.Videos = new Hashtable();
+				Data.Videos = new Hashtable<String, VideoSegment>();
 			}
 			Data.Videos.put(theVideoSegment.Id, theVideoSegment);
 
@@ -1381,39 +1378,40 @@ public class DataBuilder {
 
 	private String[] ReadMediaID(String Id) {
 
-		QueryResultsTable Results;
 		String ResultList[] = null;
 
 		// Read media related information
-		String queryString = "select X " + "from " + "{<" + Id + ">} VoxPopuli:hasMedia {X} " + "using namespace "
-				+ Namespaces;
+		String queryString = "select X " + "from " + "{<" + Id + ">} VoxPopuli:hasMedia {X}";
 
 		P.PrintLn(P.Query, "Query: " + queryString);
 
 		try {
-			Results = theRepository.data.Client.performTableQuery(QueryLanguage.SERQL, queryString);
+			List<BindingSet> Results = theRepository.executeQuery(queryString);
+			Iterator<BindingSet> it = Results.iterator();
 
-			int l = Results.getRowCount();
+			int l = Results.size();
 
 			if (l == 0) {
 				return null;
 			}
+			String theMedias[] = new String[Results.size()];
+			String theOrderedMedias[] = new String[Results.size()];
 
-			String theMedias[] = new String[l];
-			String theOrderedMedias[] = new String[l];
+			int ii = 0;
+			while (it.hasNext()) {
+				BindingSet solution = it.next();
 
-			for (int i = 0; i < l; i++) {
-				theMedias[i] = new String(Results.getValue(i, 0).toString());
-				Segment theSeg = (Segment) Data.Videos.get(theMedias[i]);
+				theMedias[ii] = new String(solution.getValue("X").toString());
+				Segment theSeg = (Segment) Data.Videos.get(theMedias[ii]);
 				if (theSeg instanceof VideoSegment) {
 					VideoSegment theVideo = (VideoSegment) theSeg;
-					theOrderedMedias[i] = new String(theVideo.FileName + theVideo.BeginFrame + theVideo.EndFrame);
+					theOrderedMedias[ii] = new String(theVideo.FileName + theVideo.BeginFrame + theVideo.EndFrame);
 				} else {
-					theOrderedMedias[i] = new String(Util.SMALLSTRING);
+					theOrderedMedias[ii] = new String(Util.SMALLSTRING);
 				}
 			}
-			Util u = new Util();
-			int[] order = u.Order(theOrderedMedias, true);
+
+			int[] order = Util.Order(theOrderedMedias, true);
 			ResultList = new String[l];
 
 			for (int i = 0; i < l; i++) {
@@ -1421,9 +1419,6 @@ public class DataBuilder {
 			}
 
 		} catch (MalformedQueryException e) {
-			P.PrintLn(P.Err, "Error in Query " + e.toString());
-			ResultList = null;
-		} catch (AccessDeniedException e) {
 			P.PrintLn(P.Err, "Error in Query " + e.toString());
 			ResultList = null;
 		} catch (Exception e) {
@@ -1437,36 +1432,30 @@ public class DataBuilder {
 
 	private void ReadAudioSegments() throws Exception {
 
-		QueryResultsTable Results;
-
 		// Read media related information
 		String queryString = "select Src, BeginFrame, EndFrame, MediaDescription, Language, Quality, "
 				+ "Time, Location, Place, Subject, X " + "from " + "{X} serql:directType {VoxPopuli:Audio}, "
 				+ "{X} MediaClipping:beginFrame {BeginFrame}; " + "MediaClipping:endFrame {EndFrame}; "
 				+ "[VoxPopuli:mediaDescription {MediaDescription}]; " + "BasicMedia:src {Src}; "
 				+ "VoxPopuli:language {Language}; " + "VoxPopuli:atTime {Time}; " + "VoxPopuli:hasLocation {Location}; "
-				+ "VoxPopuli:takesPlace {Place}; " + "VoxPopuli:hasSubject {Subject}; " + "VoxPopuli:quality {Quality} "
-				+ "using namespace " + Namespaces;
+				+ "VoxPopuli:takesPlace {Place}; " + "VoxPopuli:hasSubject {Subject}; " + "VoxPopuli:quality {Quality}";
 
 		P.PrintLn(P.Query, "Query: " + queryString);
 
-		Results = theRepository.data.Client.performTableQuery(QueryLanguage.SERQL, queryString);
+		List<BindingSet> Results = theRepository.executeQuery(queryString);
+		Iterator<BindingSet> it = Results.iterator();
 
-		int l = Results.getRowCount();
-
-		if (l == 0) {
-			return;
-		}
-
-		for (int i = 0; i < l; i++) {
-			AudioSegment theAudioSegment = new AudioSegment(Results.getValue(i, 10), null, null, Results.getValue(i, 1),
-					Results.getValue(i, 2), Results.getValue(i, 0), Results.getValue(i, 3), Results.getValue(i, 4),
-					Results.getValue(i, 5), Results.getValue(i, 9), Results.getValue(i, 7), Results.getValue(i, 8),
-					Results.getValue(i, 6));
+		while (it.hasNext()) {
+			BindingSet solution = it.next();
+			AudioSegment theAudioSegment = new AudioSegment(solution.getValue("X"), null, null,
+					solution.getValue("BeginFrame"), solution.getValue("EndFrame"), solution.getValue("Src"),
+					solution.getValue("MediaDescription"), solution.getValue("Language"), solution.getValue("Quality"),
+					solution.getValue("Subject"), solution.getValue("Location"), solution.getValue("Place"),
+					solution.getValue("Time"));
 
 			AudioSegment a;
 			if (Data.Audios == null) {
-				Data.Audios = new Hashtable();
+				Data.Audios = new Hashtable<String, AudioSegment>();
 			}
 			Data.Audios.put(theAudioSegment.Id, theAudioSegment);
 
@@ -1476,33 +1465,29 @@ public class DataBuilder {
 
 	private void ReadStillSegments() throws Exception {
 
-		QueryResultsTable Results;
-
 		// Read media related information
 		String queryString = "select Src, MediaDescription, Language, Quality, " + "Time, Location, Place, Subject, X "
 				+ "from " + "{X} serql:directType {VoxPopuli:Image}, " + "{X} BasicMedia:src {Src}; "
 				+ "[VoxPopuli:mediaDescription {MediaDescription}]; " + "VoxPopuli:language {Language}; "
 				+ "[VoxPopuli:atTime {Time}]; " + "[VoxPopuli:hasLocation {Location}]; "
 				+ "[VoxPopuli:takesPlace {Place}]; " + "[VoxPopuli:hasSubject {Subject}]; "
-				+ "VoxPopuli:quality {Quality} " + "using namespace " + Namespaces;
+				+ "VoxPopuli:quality {Quality}";
 
 		P.PrintLn(P.Query, "Query: " + queryString);
 
-		Results = theRepository.data.Client.performTableQuery(QueryLanguage.SERQL, queryString);
+		List<BindingSet> Results = theRepository.executeQuery(queryString);
+		Iterator<BindingSet> it = Results.iterator();
 
-		int l = Results.getRowCount();
+		while (it.hasNext()) {
+			BindingSet solution = it.next();
 
-		if (l == 0) {
-			return;
-		}
-
-		for (int i = 0; i < l; i++) {
-			StillSegment theStillSegment = new StillSegment(Results.getValue(i, 8), null, null, Results.getValue(i, 0),
-					Results.getValue(i, 1), Results.getValue(i, 2), Results.getValue(i, 3), Results.getValue(i, 7),
-					Results.getValue(i, 5), Results.getValue(i, 6), Results.getValue(i, 4));
+			StillSegment theStillSegment = new StillSegment(solution.getValue("X"), null, null,
+					solution.getValue("Src"), solution.getValue("MediaDescription"), solution.getValue("Language"),
+					solution.getValue("Quality"), solution.getValue("Subject"), solution.getValue("Location"),
+					solution.getValue("Place"), solution.getValue("Time"));
 
 			if (Data.Images == null) {
-				Data.Images = new Hashtable();
+				Data.Images = new Hashtable<String, StillSegment>();
 			}
 			Data.Images.put(theStillSegment.Id, theStillSegment);
 
@@ -1513,33 +1498,28 @@ public class DataBuilder {
 
 	private void ReadTextSegments() throws Exception {
 
-		QueryResultsTable Results;
-
 		// Read media related information
 		String queryString = "select Src, MediaDescription, Language, Quality, Subject, X " + "from "
 				+ "{X} serql:directType {VoxPopuli:Text}, " + "{X} BasicMedia:src {Src}; "
 				+ "[VoxPopuli:mediaDescription {MediaDescription}]; " + "VoxPopuli:language {Language}; "
-				+ "VoxPopuli:hasSubject {Subject}; " + "VoxPopuli:quality {Quality} " + "using namespace " + Namespaces;
+				+ "VoxPopuli:hasSubject {Subject}; " + "VoxPopuli:quality {Quality}";
 
 		P.PrintLn(P.Query, "Query: " + queryString);
 
-		Results = theRepository.data.Client.performTableQuery(QueryLanguage.SERQL, queryString);
+		List<BindingSet> Results = theRepository.executeQuery(queryString);
+		Iterator<BindingSet> it = Results.iterator();
 
-		int l = Results.getRowCount();
+		while (it.hasNext()) {
+			BindingSet solution = it.next();
 
-		if (l == 0) {
-			return;
-		}
-
-		for (int i = 0; i < l; i++) {
-
-			TextSegment theTextSegment = new TextSegment(Results.getValue(i, 5), null, null, Results.getValue(i, 0),
-					Results.getValue(i, 1), Results.getValue(i, 2), Results.getValue(i, 3), Results.getValue(i, 4)
+			TextSegment theTextSegment = new TextSegment(solution.getValue("X"), null, null, solution.getValue("Src"),
+					solution.getValue("MediaDescription"), solution.getValue("Language"), solution.getValue("Quality"),
+					solution.getValue("Subject")
 
 			);
 
 			if (Data.Texts == null) {
-				Data.Texts = new Hashtable();
+				Data.Texts = new Hashtable<String, TextSegment>();
 			}
 			Data.Texts.put(theTextSegment.Id, theTextSegment);
 
@@ -1557,36 +1537,37 @@ public class DataBuilder {
 		// recursively, once with "rhetoricalForm" and with
 		// "nestedRhetoricalForm"
 		String queryString = "select Rhetoric  " + "from " + "{<" + Id + ">} " + "VoxPopuli:" + Relation
-				+ " {Rhetoric} " + "using namespace " + Namespaces;
+				+ " {Rhetoric}";
 
 		P.PrintLn(P.Query, "Query: " + queryString);
 
-		QueryResultsTable Results = theRepository.data.Client.performTableQuery(QueryLanguage.SERQL, queryString);
+		List<BindingSet> Results = theRepository.executeQuery(queryString);
 
-		int l = Results.getRowCount();
+		int l = Results.size();
 
 		if (l != 0) {
 			Arguments = new Argument[l];
 
 			// There can be more Toulmin structures in one interview
 			// Different nodes belong to each structure
+
 			for (int i = 0; i < l; i++) {
 
 				Arguments[i] = new Argument();
-				queryString = "select Role from " + "{<" + Results.getValue(i, 0).toString() + ">} "
-						+ "VoxPopuli:toulminRole {Role} " + "using namespace " + Namespaces;
+
+				queryString = "select Role from " + "{<" + Results.get(i).getValue("Rhetoric").toString() + ">} "
+						+ "VoxPopuli:toulminRole {Role}";
 
 				P.PrintLn(P.Query, "Query: " + queryString);
 
-				QueryResultsTable RoleResults = theRepository.data.Client.performTableQuery(QueryLanguage.SERQL,
-						queryString);
+				List<BindingSet> RoleResults = theRepository.executeQuery(queryString);
 
-				int ll = RoleResults.getRowCount();
+				int ll = RoleResults.size();
 
 				if (ll == 1) {
 
 					Arguments[i].ToulminType = null;
-					String Temp = RoleResults.getValue(0, 0).toString();
+					String Temp = RoleResults.get(0).getValue("Role").toString();
 					Temp = new String(Temp.substring(Temp.lastIndexOf('#') + 1));
 					for (int j = 0; j < ToulminStrings.length; j++) {
 						if (Temp.equals(ToulminStrings[j].Name)) {
@@ -1601,11 +1582,11 @@ public class DataBuilder {
 					throw new Exception("Missing Toulmin Type in Nested Argument");
 				}
 
-				Arguments[i].Nodes = ReadToulminData(Results.getValue(i, 0).toString(), position);
+				Arguments[i].Nodes = ReadToulminData(Results.get(i).getValue("Rhetoric").toString(), position);
 
 				// Node can also be nested Toulmin structures
-				Arguments[i].Arguments = ReadRhetoric(Results.getValue(i, 0).toString(), "nestedRhetoricalForm",
-						position);
+				Arguments[i].Arguments = ReadRhetoric(Results.get(i).getValue("Rhetoric").toString(),
+						"nestedRhetoricalForm", position);
 			}
 		}
 
@@ -1617,13 +1598,13 @@ public class DataBuilder {
 		ToulminNode[] Nodes = null;
 
 		String queryString = "select Node, NodeType " + "from " + "{<" + Id + ">} " + "VoxPopuli:toulminType {Node}, "
-				+ "{Node} serql:directType {NodeType} " + "using namespace " + Namespaces;
+				+ "{Node} serql:directType {NodeType}";
 
 		P.PrintLn(P.Query, "Query: " + queryString);
 
-		QueryResultsTable NodeResults = theRepository.data.Client.performTableQuery(QueryLanguage.SERQL, queryString);
+		List<BindingSet> NodeResults = theRepository.executeQuery(queryString);
 
-		int l = NodeResults.getRowCount();
+		int l = NodeResults.size();
 
 		// If there is something we read the node
 		if (l != 0) {
@@ -1634,7 +1615,7 @@ public class DataBuilder {
 
 				Nodes[i] = new ToulminNode();
 				Nodes[i].ToulminType = null;
-				String Temp = new String(NodeResults.getValue(i, 1).toString());
+				String Temp = new String(NodeResults.get(i).getValue("NodeType").toString());
 				Temp = new String(Temp.substring(Temp.lastIndexOf('#') + 1));
 				for (int j = 0; j < ToulminStrings.length; j++) {
 					if (Temp.equals(ToulminStrings[j].Name)) {
@@ -1648,14 +1629,13 @@ public class DataBuilder {
 				Nodes[i].theInterview = Data.InterviewsArray[position];
 
 				// Read the statements per node
-				queryString = "select Statements  " + "from " + "{<" + NodeResults.getValue(i, 0).toString() + ">} "
-						+ "VoxPopuli:statements {Statements} " + "using namespace " + Namespaces;
+				queryString = "select Statements  " + "from " + "{<" + NodeResults.get(i).getValue("Node").toString()
+						+ ">} " + "VoxPopuli:statements {Statements}";
 
 				P.PrintLn(P.Query, "Query: " + queryString);
-				QueryResultsTable StatementsResults = theRepository.Client.performTableQuery(QueryLanguage.SERQL,
-						queryString);
+				List<BindingSet> StatementsResults = theRepository.executeQuery(queryString);
 
-				int ll = StatementsResults.getRowCount();
+				int ll = StatementsResults.size();
 
 				// There must be statement in a Toulmin Node
 				if (ll == 0) {
@@ -1665,7 +1645,7 @@ public class DataBuilder {
 				Nodes[i].theStatementIDs = new String[ll];
 
 				for (int ii = 0; ii < ll; ii++) {
-					Nodes[i].theStatementIDs[ii] = new String(StatementsResults.getValue(ii, 0).toString());
+					Nodes[i].theStatementIDs[ii] = StatementsResults.get(ii).getValue("Statements").toString();
 
 					VerbalStatement a;
 					if ((a = (VerbalStatement) Data.Statements.get(Nodes[i].theStatementIDs[ii])) != null) {
@@ -1686,21 +1666,22 @@ public class DataBuilder {
 				// Read the relation between statements (OR or AND) and the
 				// type of link to the rest of the Toulmin structure
 				queryString = "select StatementRel, LogicType  " + "from " + "{<"
-						+ NodeResults.getValue(i, 0).toString() + ">} " + "VoxPopuli:stmRelation {StatementRel}; "
-						+ "VoxPopuli:logicType {LogicType} " + "using namespace " + Namespaces;
+						+ NodeResults.get(i).getValue("Node").toString() + ">} "
+						+ "VoxPopuli:stmRelation {StatementRel}; " + "VoxPopuli:logicType {LogicType}";
 
 				P.PrintLn(P.Query, "Query: " + queryString);
-				QueryResultsTable NodeDataResults = theRepository.data.Client.performTableQuery(QueryLanguage.SERQL,
-						queryString);
 
-				if (NodeDataResults.getRowCount() != 0) {
-					if (NodeDataResults.getValue(0, 0) != null) {
-						Nodes[i].StatementsinAND = NodeDataResults.getValue(0, 0).toString().equals("AND");
+				List<BindingSet> NodeDataResults = theRepository.executeQuery(queryString);
+
+				if (NodeDataResults.size() != 0) {
+					if (NodeDataResults.get(0).getValue("StatementRel") != null) {
+						Nodes[i].StatementsinAND = NodeDataResults.get(0).getValue("StatementRel").toString()
+								.equals("AND");
 					} else {
 						Nodes[i].StatementsinAND = false;
 					}
-					if (NodeDataResults.getValue(0, 1) != null) {
-						Nodes[i].LogicType = new String(NodeDataResults.getValue(0, 1).toString());
+					if (NodeDataResults.get(0).getValue("LogicType") != null) {
+						Nodes[i].LogicType = new String(NodeDataResults.get(0).getValue("LogicType").toString());
 					} else {
 						Nodes[i].LogicType = new String("");
 					}
@@ -1724,39 +1705,43 @@ public class DataBuilder {
 				+ "VoxPopuli:description {Description}; " + "[VoxPopuli:hasAge {HasAge}]; "
 				+ "[VoxPopuli:hasEducation {HasEducation}]; " + "[VoxPopuli:hasJob {HasJob}]; "
 				+ "[VoxPopuli:hasOrigin {HasOrigin}]; " + "[VoxPopuli:hasRace {HasRace}]; "
-				+ "[VoxPopuli:hasReligion {HasReligion}]; " + "[VoxPopuli:hasGender {HasGender}] " + "using namespace "
-				+ Namespaces;
+				+ "[VoxPopuli:hasReligion {HasReligion}]; " + "[VoxPopuli:hasGender {HasGender}]";
 
 		P.PrintLn(P.Query, "Query: " + queryString);
 
 		try {
-			QueryResultsTable Results = theRepository.Client.performTableQuery(QueryLanguage.SERQL, queryString);
 
-			int count = Results.getRowCount();
+			List<BindingSet> Results = theRepository.executeQuery(queryString);
 
-			Data.Interviewees = new Hashtable(count);
+			int count = Results.size();
+
+			Data.Interviewees = new Hashtable<String, Person>(count);
 
 			for (int i = 0; i < count; i++) {
 
-				Person thePerson = new Person(Results.getValue(i, 0).toString(),
-						(Results.getValue(i, 1) != null ? Results.getValue(i, 1).toString() : null),
-						(Results.getValue(i, 2) != null ? Results.getValue(i, 2).toString() : null),
-						(Results.getValue(i, 3) != null ? Results.getValue(i, 3).toString() : null),
-						(Results.getValue(i, 4) != null ? Results.getValue(i, 4).toString() : null),
-						(Results.getValue(i, 5) != null ? Results.getValue(i, 5).toString() : null),
-						(Results.getValue(i, 6) != null ? Results.getValue(i, 6).toString() : null),
-						(Results.getValue(i, 7) != null ? Results.getValue(i, 7).toString() : null),
-						(Results.getValue(i, 8) != null ? Results.getValue(i, 8).toString() : null));
+				Person thePerson = new Person(Results.get(i).getValue("Interviewee").toString(),
+						(Results.get(i).getValue("Description") != null
+								? Results.get(i).getValue("Description").toString() : null),
+						(Results.get(i).getValue("HasAge") != null ? Results.get(i).getValue("HasAge").toString()
+								: null),
+						(Results.get(i).getValue("HasEducation") != null
+								? Results.get(i).getValue("HasEducation").toString() : null),
+						(Results.get(i).getValue("HasJob") != null ? Results.get(i).getValue("HasJob").toString()
+								: null),
+						(Results.get(i).getValue("HasOrigin") != null ? Results.get(i).getValue("HasOrigin").toString()
+								: null),
+						(Results.get(i).getValue("HasRace") != null ? Results.get(i).getValue("HasRace").toString()
+								: null),
+						(Results.get(i).getValue("HasReligion") != null
+								? Results.get(i).getValue("HasReligion").toString() : null),
+						(Results.get(i).getValue("HasGender") != null ? Results.get(i).getValue("HasGender").toString()
+								: null));
 
 				Data.Interviewees.put(thePerson.Id, thePerson);
 
 			}
 		} catch (MalformedQueryException e) {
 			P.PrintLn(P.Err, "Error in Query " + e.toString());
-		} catch (AccessDeniedException e) {
-			P.PrintLn(P.Err, "Error in Query " + e.toString());
-		} catch (IOException e) {
-			P.PrintLn(P.Err, "Error retrieving Topics " + e.toString());
 		}
 
 		return;
@@ -1769,84 +1754,84 @@ public class DataBuilder {
 		try {
 
 			String queryString = "select ID, UserType " + "from " + "{ID} serql:directType {VoxPopuli:UserModel}; "
-					+ "VoxPopuli:userType {UserType} " + "using namespace " + Namespaces;
+					+ "VoxPopuli:userType {UserType}";
 
 			P.PrintLn(P.Query, "Query: " + queryString);
 
-			QueryResultsTable Results = theRepository.data.Client.performTableQuery(QueryLanguage.SERQL, queryString);
+			List<BindingSet> Results = theRepository.executeQuery(queryString);
 
-			int count = Results.getRowCount();
+			int count = Results.size();
 
 			Data.UserModelsArray = new UserModel[count];
 
 			for (int i = 0; i < count; i++) {
-				UserModel aUserModel = new UserModel(Results.getValue(i, 0).toString(),
-						(Results.getValue(i, 1) != null) ? Results.getValue(i, 1).toString() : null);
+				UserModel aUserModel = new UserModel(Results.get(0).getValue("ID").toString(),
+						(Results.get(i).getValue("UserType") != null) ? Results.get(i).getValue("UserType").toString()
+								: null);
 
 				queryString = "select Factor " + "from " + "{<" + aUserModel.Id
-						+ ">} serql:directType {VoxPopuli:UserModel}; " + "VoxPopuli:excludedFactor {Factor} "
-						+ "using namespace " + Namespaces;
+						+ ">} serql:directType {VoxPopuli:UserModel}; " + "VoxPopuli:excludedFactor {Factor}";
 
 				P.PrintLn(P.Query, "Query: " + queryString);
 
-				QueryResultsTable FactorResults = theRepository.data.Client.performTableQuery(QueryLanguage.SERQL,
-						queryString);
+				List<BindingSet> FactorResults = theRepository.executeQuery(queryString);
 
-				for (int j = 0; j < FactorResults.getRowCount(); j++) {
+				for (int j = 0; j < FactorResults.size(); j++) {
 
-					aUserModel.AddFactor(UserModel.ExcludedFactorsTable, FactorResults.getValue(j, 0).toString());
+					aUserModel.AddFactor(UserModel.ExcludedFactorsTable,
+							FactorResults.get(j).getValue("Factor").toString());
 				}
 
 				queryString = "select Factor " + "from " + "{<" + aUserModel.Id
-						+ ">} serql:directType {VoxPopuli:UserModel}; " + "VoxPopuli:importantFactor {Factor} "
-						+ "using namespace " + Namespaces;
+						+ ">} serql:directType {VoxPopuli:UserModel}; " + "VoxPopuli:importantFactor {Factor}";
 
 				P.PrintLn(P.Query, "Query: " + queryString);
 
-				FactorResults = theRepository.data.Client.performTableQuery(QueryLanguage.SERQL, queryString);
+				FactorResults = theRepository.executeQuery(queryString);
 
-				for (int j = 0; j < FactorResults.getRowCount(); j++) {
+				for (int j = 0; j < FactorResults.size(); j++) {
 
-					aUserModel.AddFactor(UserModel.ImportantFactorsTable, FactorResults.getValue(j, 0).toString());
+					aUserModel.AddFactor(UserModel.ImportantFactorsTable,
+							FactorResults.get(j).getValue("Factor").toString());
 				}
 
 				queryString = "select Factor " + "from " + "{<" + aUserModel.Id
-						+ ">} serql:directType {VoxPopuli:UserModel}; " + "VoxPopuli:veryImportantFactor {Factor} "
-						+ "using namespace " + Namespaces;
+						+ ">} serql:directType {VoxPopuli:UserModel}; " + "VoxPopuli:veryImportantFactor {Factor}";
 
 				P.PrintLn(P.Query, "Query: " + queryString);
 
-				FactorResults = theRepository.data.Client.performTableQuery(QueryLanguage.SERQL, queryString);
+				FactorResults = theRepository.executeQuery(queryString);
 
-				for (int j = 0; j < FactorResults.getRowCount(); j++) {
+				for (int j = 0; j < FactorResults.size(); j++) {
 
-					aUserModel.AddFactor(UserModel.VeryImportantFactorsTable, FactorResults.getValue(j, 0).toString());
+					aUserModel.AddFactor(UserModel.VeryImportantFactorsTable,
+							FactorResults.get(j).getValue("Factor").toString());
 				}
 
 				queryString = "select Factor " + "from " + "{<" + aUserModel.Id
-						+ ">} serql:directType {VoxPopuli:UserModel}; " + "VoxPopuli:negativeReaction {Factor} "
-						+ "using namespace " + Namespaces;
+						+ ">} serql:directType {VoxPopuli:UserModel}; " + "VoxPopuli:negativeReaction {Factor}";
 
 				P.PrintLn(P.Query, "Query: " + queryString);
 
-				FactorResults = theRepository.data.Client.performTableQuery(QueryLanguage.SERQL, queryString);
+				FactorResults = theRepository.executeQuery(queryString);
 
-				for (int j = 0; j < FactorResults.getRowCount(); j++) {
+				for (int j = 0; j < FactorResults.size(); j++) {
 
-					aUserModel.AddFactor(UserModel.NegativeReactionTable, FactorResults.getValue(j, 0).toString());
+					aUserModel.AddFactor(UserModel.NegativeReactionTable,
+							FactorResults.get(j).getValue("Factor").toString());
 				}
 
 				queryString = "select Factor " + "from " + "{<" + aUserModel.Id
-						+ ">} serql:directType {VoxPopuli:UserModel}; " + "VoxPopuli:positiveReaction {Factor} "
-						+ "using namespace " + Namespaces;
+						+ ">} serql:directType {VoxPopuli:UserModel}; " + "VoxPopuli:positiveReaction {Factor}";
 
 				P.PrintLn(P.Query, "Query: " + queryString);
 
-				FactorResults = theRepository.data.Client.performTableQuery(QueryLanguage.SERQL, queryString);
+				FactorResults = theRepository.executeQuery(queryString);
 
-				for (int j = 0; j < FactorResults.getRowCount(); j++) {
+				for (int j = 0; j < FactorResults.size(); j++) {
 
-					aUserModel.AddFactor(UserModel.PositiveReactionTable, FactorResults.getValue(j, 0).toString());
+					aUserModel.AddFactor(UserModel.PositiveReactionTable,
+							FactorResults.get(j).getValue("Factor").toString());
 				}
 
 				Data.UserModelsArray[i] = aUserModel;
@@ -1855,10 +1840,6 @@ public class DataBuilder {
 
 		} catch (MalformedQueryException e) {
 			P.PrintLn(P.Err, "Error in Query " + e.toString());
-		} catch (AccessDeniedException e) {
-			P.PrintLn(P.Err, "Error in Query " + e.toString());
-		} catch (IOException e) {
-			P.PrintLn(P.Err, "Error retrieving Topics " + e.toString());
 		}
 
 		return;
@@ -1868,41 +1849,38 @@ public class DataBuilder {
 
 		String queryString = "select Question, Description, Order " + "from "
 				+ "{Question} serql:directType {VoxPopuli:Question}; " + "VoxPopuli:text {Description}; "
-				+ "[VoxPopuli:order {Order}] " + "using namespace " + Namespaces;
+				+ "[VoxPopuli:order {Order}]";
 
 		P.PrintLn(P.Query, "Query: " + queryString);
 
 		try {
-			QueryResultsTable Results = theRepository.data.Client.performTableQuery(QueryLanguage.SERQL, queryString);
 
-			int count = Results.getRowCount();
+			List<BindingSet> Results = theRepository.executeQuery(queryString);
+
+			int count = Results.size();
 
 			Data.QuestionsArray = new Question[count];
 
 			int[] indexes = new int[count];
-			Util u = new Util();
 
 			for (int i = 0; i < count; i++) {
 
-				indexes[i] = (Results.getValue(i, 2) != null ? u.StrToInt(Results.getValue(i, 2).toString()) : -1);
+				indexes[i] = (Results.get(i).getValue("Order") != null
+						? Util.StrToInt(Results.get(i).getValue("Order").toString()) : -1);
 			}
 
 			int[] indexorder = new int[count];
-			indexorder = u.Order(indexes, true);
+			indexorder = Util.Order(indexes, true);
 
 			for (int i = 0; i < count; i++) {
 
-				Data.QuestionsArray[i] = new Question(Results.getValue(indexorder[i], 0).toString(),
-						(Results.getValue(indexorder[i], 1) != null ? Results.getValue(indexorder[i], 1).toString()
-								: null));
+				Data.QuestionsArray[i] = new Question(Results.get(indexorder[i]).getValue("Question").toString(),
+						(Results.get(indexorder[i]).getValue("Description") != null
+								? Results.get(indexorder[i]).getValue("Description").toString() : null));
 			}
 
 		} catch (MalformedQueryException e) {
 			P.PrintLn(P.Err, "Error in Query " + e.toString());
-		} catch (AccessDeniedException e) {
-			P.PrintLn(P.Err, "Error in Query " + e.toString());
-		} catch (IOException e) {
-			P.PrintLn(P.Err, "Error retrieving Topics " + e.toString());
 		}
 
 		return;
@@ -1913,34 +1891,31 @@ public class DataBuilder {
 		String queryString = "select Opinion, ContrTopic, Description2, Position, Description1 " + "from "
 				+ "{Opinion} serql:directType {VoxPopuli:Opinion}, "
 				+ "{Opinion} VoxPopuli:position {Position} VoxPopuli:posDescription {Description1}, "
-				+ "{Opinion} VoxPopuli:topic {ContrTopic} VoxPopuli:contrTopicDescription {Description2} "
-				+ "using namespace " + Namespaces;
+				+ "{Opinion} VoxPopuli:topic {ContrTopic} VoxPopuli:contrTopicDescription {Description2}";
 
 		P.PrintLn(P.Query, "Query: " + queryString);
 
 		try {
-			QueryResultsTable Results = theRepository.data.Client.performTableQuery(QueryLanguage.SERQL, queryString);
+			List<BindingSet> Results = theRepository.executeQuery(queryString);
 
-			int count = Results.getRowCount();
+			int count = Results.size();
 
 			Data.OpinionsArray = new Opinion[count];
 
 			for (int i = 0; i < count; i++) {
 
-				String Description = new String(
-						(Results.getValue(i, 2) != null ? Results.getValue(i, 2).toString() : null) + " - "
-								+ (Results.getValue(i, 4) != null ? Results.getValue(i, 4).toString() : null));
+				String Description = (Results.get(i).getValue("Description2") != null
+						? Results.get(i).getValue("Description2").toString() : null) + " - "
+						+ (Results.get(i).getValue("Description1") != null
+								? Results.get(i).getValue("Description1").toString() : null);
 
-				Data.OpinionsArray[i] = new Opinion(Results.getValue(i, 0).toString(), Description,
-						Results.getValue(i, 3).toString(), Results.getValue(i, 1).toString());
+				Data.OpinionsArray[i] = new Opinion(Results.get(i).getValue("Opinion").toString(), Description,
+						Results.get(i).getValue("Position").toString(),
+						Results.get(i).getValue("ContrTopic").toString());
 
 			}
 		} catch (MalformedQueryException e) {
 			P.PrintLn(P.Err, "Error in Query " + e.toString());
-		} catch (AccessDeniedException e) {
-			P.PrintLn(P.Err, "Error in Query " + e.toString());
-		} catch (IOException e) {
-			P.PrintLn(P.Err, "Error retrieving Topics " + e.toString());
 		}
 
 		return;
@@ -1949,30 +1924,26 @@ public class DataBuilder {
 	private void ReadTopics() throws Exception {
 
 		String queryString = "select Topic, Description " + "from "
-				+ "{Topic} serql:directType {VoxPopuli:ControversialTopic}; " + "VoxPopuli:description {Description} "
-				+ "using namespace " + Namespaces;
+				+ "{Topic} serql:directType {VoxPopuli:ControversialTopic}; " + "VoxPopuli:description {Description}";
 
 		P.PrintLn(P.Query, "Query: " + queryString);
 
 		try {
-			QueryResultsTable Results = theRepository.data.Client.performTableQuery(QueryLanguage.SERQL, queryString);
+			List<BindingSet> Results = theRepository.executeQuery(queryString);
 
-			int count = Results.getRowCount();
+			int count = Results.size();
 
 			Data.TopicsArray = new Topic[count];
 
 			for (int i = 0; i < count; i++) {
 
-				Data.TopicsArray[i] = new Topic(Results.getValue(i, 0).toString(),
-						(Results.getValue(i, 1) != null ? Results.getValue(i, 1).toString() : null));
+				Data.TopicsArray[i] = new Topic(Results.get(i).getValue("Topic").toString(),
+						(Results.get(i).getValue("Description") != null
+								? Results.get(i).getValue("Description").toString() : null));
 
 			}
 		} catch (MalformedQueryException e) {
 			P.PrintLn(P.Err, "Error in Query " + e.toString());
-		} catch (AccessDeniedException e) {
-			P.PrintLn(P.Err, "Error in Query " + e.toString());
-		} catch (IOException e) {
-			P.PrintLn(P.Err, "Error retrieving Topics " + e.toString());
 		}
 
 		return;
@@ -1980,34 +1951,30 @@ public class DataBuilder {
 
 	private void ReadConcepts() throws Exception {
 
-		String queryString = new String("select Conc1, Des1 " + "from " + "{Conc1} rdf:type {VoxPopuli:Concept}, "
-				+ "{Conc1} VoxPopuli:partDescription {Des1} " + "using namespace " + Namespaces);
+		String queryString = "select Conc1, Des1 " + "from " + "{Conc1} rdf:type {VoxPopuli:Concept}, "
+				+ "{Conc1} VoxPopuli:partDescription {Des1}";
 
 		P.PrintLn(P.Query, "Query: " + queryString);
 
 		try {
-			QueryResultsTable Results = theRepository.data.Client.performTableQuery(QueryLanguage.SERQL, queryString);
+			List<BindingSet> Results = theRepository.executeQuery(queryString);
 
-			int count = Results.getRowCount();
+			int count = Results.size();
 
-			Data.Concepts = new Hashtable(count);
+			Data.Concepts = new Hashtable<String, String[]>(count);
 
 			for (int i = 0; i < count; i++) {
 
 				String[] Entity = new String[2];
 
-				Entity[0] = new String(Results.getValue(i, 0).toString());
-				Entity[1] = new String(Results.getValue(i, 1).toString());
+				Entity[0] = new String(Results.get(i).getValue("Conc1").toString());
+				Entity[1] = new String(Results.get(i).getValue("Des1").toString());
 
 				Data.Concepts.put(Entity[0], Entity);
 
 			}
 		} catch (MalformedQueryException e) {
 			P.PrintLn(P.Err, "Error in Query " + e.toString());
-		} catch (AccessDeniedException e) {
-			P.PrintLn(P.Err, "Error in Query " + e.toString());
-		} catch (IOException e) {
-			P.PrintLn(P.Err, "Error retrieving Concepts " + e.toString());
 		}
 
 		return;
@@ -2015,34 +1982,30 @@ public class DataBuilder {
 
 	private void ReadModifiers() throws Exception {
 
-		String queryString = new String("select Conc1, Des1 " + "from " + "{Conc1} rdf:type {VoxPopuli:Modifier}, "
-				+ "{Conc1} VoxPopuli:partDescription {Des1} " + "using namespace " + Namespaces);
+		String queryString = "select Conc1, Des1 " + "from " + "{Conc1} rdf:type {VoxPopuli:Modifier}, "
+				+ "{Conc1} VoxPopuli:partDescription {Des1}";
 
 		P.PrintLn(P.Query, "Query: " + queryString);
 
 		try {
-			QueryResultsTable Results = theRepository.data.Client.performTableQuery(QueryLanguage.SERQL, queryString);
+			List<BindingSet> Results = theRepository.executeQuery(queryString);
 
-			int count = Results.getRowCount();
+			int count = Results.size();
 
-			Data.Modifiers = new Hashtable(count);
+			Data.Modifiers = new Hashtable<String, String[]>(count);
 
 			for (int i = 0; i < count; i++) {
 
 				String[] Entity = new String[2];
 
-				Entity[0] = new String(Results.getValue(i, 0).toString());
-				Entity[1] = new String(Results.getValue(i, 1).toString());
+				Entity[0] = new String(Results.get(i).getValue("Conc1").toString());
+				Entity[1] = new String(Results.get(i).getValue("Des1").toString());
 
 				Data.Modifiers.put(Entity[0], Entity);
 
 			}
 		} catch (MalformedQueryException e) {
 			P.PrintLn(P.Err, "Error in Query " + e.toString());
-		} catch (AccessDeniedException e) {
-			P.PrintLn(P.Err, "Error in Query " + e.toString());
-		} catch (IOException e) {
-			P.PrintLn(P.Err, "Error retrieving Modifiers " + e.toString());
 		}
 
 		return;
@@ -2050,34 +2013,30 @@ public class DataBuilder {
 
 	private void ReadPredicates() throws Exception {
 
-		String queryString = new String("select Conc1, Des1 " + "from " + "{Conc1} rdf:type {VoxPopuli:Predicate}, "
-				+ "{Conc1} VoxPopuli:partDescription {Des1} " + "using namespace " + Namespaces);
+		String queryString = "select Conc1, Des1 " + "from " + "{Conc1} rdf:type {VoxPopuli:Predicate}, "
+				+ "{Conc1} VoxPopuli:partDescription {Des1}";
 
 		P.PrintLn(P.Query, "Query: " + queryString);
 
 		try {
-			QueryResultsTable Results = theRepository.data.Client.performTableQuery(QueryLanguage.SERQL, queryString);
+			List<BindingSet> Results = theRepository.executeQuery(queryString);
 
-			int count = Results.getRowCount();
+			int count = Results.size();
 
-			Data.Predicates = new Hashtable(count);
+			Data.Predicates = new Hashtable<String, String[]>(count);
 
 			for (int i = 0; i < count; i++) {
 
 				String[] Entity = new String[2];
 
-				Entity[0] = new String(Results.getValue(i, 0).toString());
-				Entity[1] = new String(Results.getValue(i, 1).toString());
+				Entity[0] = new String(Results.get(i).getValue("Conc1").toString());
+				Entity[1] = new String(Results.get(i).getValue("Des1").toString());
 
 				Data.Predicates.put(Entity[0], Entity);
 
 			}
 		} catch (MalformedQueryException e) {
 			P.PrintLn(P.Err, "Error in Query " + e.toString());
-		} catch (AccessDeniedException e) {
-			P.PrintLn(P.Err, "Error in Query " + e.toString());
-		} catch (IOException e) {
-			P.PrintLn(P.Err, "Error retrieving Predicates " + e.toString());
 		}
 
 		return;
@@ -2112,7 +2071,7 @@ public class DataBuilder {
 	 * 
 	 */
 
-	private boolean PrintConnectedStatement(Hashtable StatementsArray, boolean key) {
+	private boolean PrintConnectedStatement(Hashtable<String, ConstructedStatement> StatementsArray) {
 
 		// The key is used to understand if the array contains the statements
 		// or the keys to them
@@ -2122,38 +2081,51 @@ public class DataBuilder {
 		if (StatementsArray == null) {
 			return false;
 		}
-		for (Enumeration e = StatementsArray.elements(); e.hasMoreElements();) {
+		for (Enumeration<ConstructedStatement> e = StatementsArray.elements(); e.hasMoreElements();) {
 
-			if (key == true) {
-				Link a = (Link) e.nextElement();
+			ConstructedStatement cStatement = (ConstructedStatement) e.nextElement();
 
-				VerbalStatement vStatement = (VerbalStatement) Data.Statements.get(a.StatementId);
-				if (a.LinkType != null) {
-					Msg = a.LinkType.PrintLinkList();
-				}
-
-				P.PrintLn(P.StatementLog,
-						"Linked Statement: " + vStatement.SubjectDescription + " " + vStatement.ModifierDescription
-								+ " " + vStatement.PredicateDescription
-								+ " " /*
-										 * + vStatement.ObjectDescription
-										 */ + Msg);
-
-			} else {
-
-				ConstructedStatement cStatement = (ConstructedStatement) e.nextElement();
-
-				if (cStatement.LinkType != null) {
-					Msg = cStatement.LinkType.PrintLinkList();
-				}
-				P.PrintLn(P.StatementLog,
-						"Constructed Statement: " + cStatement.SubjectDescription + " " + cStatement.ModifierDescription
-								+ " " + cStatement.PredicateDescription
-								+ " " /*
-										 * + cStatement.ObjectDescription
-										 */ + Msg);
-
+			if (cStatement.LinkType != null) {
+				Msg = cStatement.LinkType.PrintLinkList();
 			}
+			P.PrintLn(P.StatementLog,
+					"Constructed Statement: " + cStatement.SubjectDescription + " " + cStatement.ModifierDescription
+							+ " " + cStatement.PredicateDescription
+							+ " " /*
+									 * + cStatement.ObjectDescription
+									 */ + Msg);
+
+		}
+
+		return true;
+	}
+
+	private boolean PrintConnectedLink(Hashtable<String, Link> StatementsArray) {
+
+		// The key is used to understand if the array contains the statements
+		// or the keys to them
+
+		String Msg = "";
+
+		if (StatementsArray == null) {
+			return false;
+		}
+		for (Enumeration<Link> e = StatementsArray.elements(); e.hasMoreElements();) {
+
+			Link a = (Link) e.nextElement();
+
+			VerbalStatement vStatement = (VerbalStatement) Data.Statements.get(a.StatementId);
+			if (a.LinkType != null) {
+				Msg = a.LinkType.PrintLinkList();
+			}
+
+			P.PrintLn(P.StatementLog,
+					"Linked Statement: " + vStatement.SubjectDescription + " " + vStatement.ModifierDescription + " "
+							+ vStatement.PredicateDescription
+							+ " " /*
+									 * + vStatement.ObjectDescription
+									 */ + Msg);
+
 		}
 		return true;
 	}
@@ -2163,8 +2135,6 @@ public class DataBuilder {
 	// -the links are reciprocal (either transitive or class-subclass like)
 	// -there are no paths between concepts that should not be linked
 	public boolean CheckConcepts(boolean UseAssociation) throws Exception {
-
-		QueryResultsTable Results;
 
 		boolean result = true;
 
@@ -2182,19 +2152,22 @@ public class DataBuilder {
 					+ "(X=VoxPopuli:generalization or " + "X=VoxPopuli:specialization or " + "X=VoxPopuli:opposite or "
 					+ "X=VoxPopuli:similar) " + "and " + "(Y=VoxPopuli:generalization or "
 					+ "Y=VoxPopuli:specialization or " + "Y=VoxPopuli:opposite or " + "Y=VoxPopuli:similar) and "
-					+ "X!=Y " + "using namespace " + Namespaces;
+					+ "X!=Y";
 
 			P.PrintLn(P.Query, "Query: " + queryConcept);
 
 			P.PrintLn(P.Locator, "Checking concepts linked by more then one relation ");
 
-			Results = theRepository.data.Client.performTableQuery(QueryLanguage.SERQL, queryConcept);
+			List<BindingSet> Results = theRepository.executeQuery(queryConcept);
 
-			if (Results.getRowCount() > 0) {
+			if (Results.size() > 0) {
 				P.PrintLn(P.ResultOut, "There are concepts linked by more then one relation ");
-				for (int j = 0; j < Results.getRowCount(); j++) {
-					P.PrintLn(P.ResultOut, "Concept: " + Results.getValue(j, 0).toString() + " Relation: "
-							+ Results.getValue(j, 1).toString() + " Concept: " + Results.getValue(j, 2).toString());
+				for (int j = 0; j < Results.size(); j++) {
+					P.PrintLn(P.ResultOut,
+							"Concept: " + Results.get(j).getValue("U1").toString() + " Relation: "
+									+ Results.get(j).getValue("X").toString() + " and Relation: "
+									+ Results.get(j).getValue("Y").toString() + " to Concept: "
+									+ Results.get(j).getValue("U2").toString());
 				}
 				result = false;
 			}
@@ -2202,17 +2175,17 @@ public class DataBuilder {
 			// We read all the concepts
 			queryConcept = "select Concept, ConceptDescription " + "from "
 					+ "{Concept} rdf:type {VoxPopuli:RhetoricalStatementPart}, "
-					+ "{Concept} VoxPopuli:partDescription {ConceptDescription} " + "using namespace " + Namespaces;
+					+ "{Concept} VoxPopuli:partDescription {ConceptDescription}";
 
 			P.PrintLn(P.Query, "Query: " + queryConcept);
 
-			Results = theRepository.data.Client.performTableQuery(QueryLanguage.SERQL, queryConcept);
+			Results = theRepository.executeQuery(queryConcept);
 
 			P.PrintLn(P.Locator, "Checking reciprocal links ");
-			for (int i = 0; i < Results.getRowCount(); i++) {
+			for (int i = 0; i < Results.size(); i++) {
 
-				Concept = new String(Results.getValue(i, 0).toString());
-				ConceptDescription = new String(Results.getValue(i, 1).toString());
+				Concept = new String(Results.get(i).getValue("Concept").toString());
+				ConceptDescription = new String(Results.get(i).getValue("ConceptDescription").toString());
 
 				if (!CheckReciprocalLinks(Concept, ConceptDescription)) {
 					result = false;
@@ -2221,25 +2194,23 @@ public class DataBuilder {
 
 			P.PrintLn(P.Locator, "Checking opposite/similar links ");
 
-			for (int i = 0; i < Results.getRowCount(); i++) {
+			for (int i = 0; i < Results.size(); i++) {
 
-				Concept = new String(Results.getValue(i, 0).toString());
-				ConceptDescription = new String(Results.getValue(i, 1).toString());
-				ArrayList Opposite = new ArrayList();
-				ArrayList Visited = new ArrayList();
-				ArrayList VisitedDescription = new ArrayList();
+				Concept = Results.get(i).getValue("Concept").toString();
+				ConceptDescription = Results.get(i).getValue("ConceptDescription").toString();
+				ArrayList<String> Opposite = new ArrayList<String>();
+				ArrayList<String> Visited = new ArrayList<String>();
+				ArrayList<String> VisitedDescription = new ArrayList<String>();
 
-				String queryOpposite = "select Concept " + "from " + "{<" + Concept + ">} VoxPopuli:opposite {Concept} "
-						+ "using namespace " + Namespaces;
+				String queryOpposite = "select Concept " + "from " + "{<" + Concept + ">} VoxPopuli:opposite {Concept}";
 
 				P.PrintLn(P.Query, "Query: " + queryOpposite);
 
-				QueryResultsTable OppositeResults = theRepository.data.Client.performTableQuery(QueryLanguage.SERQL,
-						queryOpposite);
+				List<BindingSet> OppositeResults = theRepository.executeQuery(queryConcept);
 
-				for (int ii = 0; ii < OppositeResults.getRowCount(); ii++) {
-					if (!Opposite.contains(OppositeResults.getValue(ii, 0).toString())) {
-						Opposite.add(OppositeResults.getValue(ii, 0).toString());
+				for (int ii = 0; ii < OppositeResults.size(); ii++) {
+					if (!Opposite.contains(OppositeResults.get(ii).getValue("Concept").toString())) {
+						Opposite.add(OppositeResults.get(ii).getValue("Concept").toString());
 					} else {
 					}
 				}
@@ -2269,8 +2240,8 @@ public class DataBuilder {
 
 	// This function checks that there are no paths between concepts that should
 	// not be linked
-	private boolean CheckConceptLinks(String Concept, String ConceptDescription, ArrayList Opposite, ArrayList Visited,
-			ArrayList VisitedDescription, boolean UseAssociation) throws Exception {
+	private boolean CheckConceptLinks(String Concept, String ConceptDescription, ArrayList<String> Opposite,
+			ArrayList<String> Visited, ArrayList<String> VisitedDescription, boolean UseAssociation) throws Exception {
 
 		if (Visited.contains(Concept)) {
 			return true;
@@ -2281,25 +2252,23 @@ public class DataBuilder {
 
 		String queryRelated = "select Concept, ConceptDescription " + "from " + "{<" + Concept + ">} X {Concept}, "
 				+ "{Concept} VoxPopuli:partDescription {ConceptDescription} " + "where " + "X = VoxPopuli:similar OR "
-				+ (UseAssociation == true ? "X = VoxPopuli:association OR " : "") + "X = VoxPopuli:generalization "
-				+ "using namespace " + Namespaces;
+				+ (UseAssociation == true ? "X = VoxPopuli:association OR " : "") + "X = VoxPopuli:generalization";
 
 		P.PrintLn(P.Query, "Query: " + queryRelated);
 
-		QueryResultsTable RelatedResults = theRepository.data.Client.performTableQuery(QueryLanguage.SERQL,
-				queryRelated);
+		List<BindingSet> RelatedResults = theRepository.executeQuery(queryRelated);
 
-		for (int ii = 0; ii < RelatedResults.getRowCount(); ii++) {
-			String NextConcept = new String(RelatedResults.getValue(ii, 0).toString());
-			String NextConceptDescription = new String(RelatedResults.getValue(ii, 1).toString());
+		for (int ii = 0; ii < RelatedResults.size(); ii++) {
+			String NextConcept = RelatedResults.get(ii).getValue("Concept").toString();
+			String NextConceptDescription = RelatedResults.get(ii).getValue("Concept").toString();
 			if (Opposite.contains(NextConcept)) {
 				// Add the causing concept on top of the list
 				Visited.add(NextConcept);
 				VisitedDescription.add(NextConceptDescription);
 				return false;
 			}
-			ArrayList Temp = new ArrayList(Visited);
-			ArrayList TempDesc = new ArrayList(VisitedDescription);
+			ArrayList<String> Temp = new ArrayList<String>(Visited);
+			ArrayList<String> TempDesc = new ArrayList<String>(VisitedDescription);
 			if (!CheckConceptLinks(NextConcept, NextConceptDescription, Opposite, Temp, TempDesc, UseAssociation)) {
 				Visited.clear();
 				VisitedDescription.clear();
@@ -2325,17 +2294,18 @@ public class DataBuilder {
 
 			String queryRelated = "select RelConcept, RelConceptDescription " + "from " + "{<" + Concept
 					+ ">} VoxPopuli:" + Relation[i] + " {RelConcept}, "
-					+ "{RelConcept} VoxPopuli:partDescription {RelConceptDescription} " + "using namespace "
-					+ Namespaces;
+					+ "{RelConcept} VoxPopuli:partDescription {RelConceptDescription}";
 
 			P.PrintLn(P.Query, "Query: " + queryRelated);
 
-			QueryResultsTable RelatedResults = theRepository.data.Client.performTableQuery(QueryLanguage.SERQL,
-					queryRelated);
+			List<BindingSet> Results = theRepository.executeQuery(queryRelated);
+			Iterator<BindingSet> it = Results.iterator();
 
-			for (int ii = 0; ii < RelatedResults.getRowCount(); ii++) {
-				String RelatedConcept = new String(RelatedResults.getValue(ii, 0).toString());
-				String RelatedConceptDescription = new String(RelatedResults.getValue(ii, 1).toString());
+			while (it.hasNext()) {
+				BindingSet solution = it.next();
+
+				String RelatedConcept = solution.getValue("RelConcept").toString();
+				String RelatedConceptDescription = solution.getValue("RelConceptDescription").toString();
 				String InvRel;
 				if (Relation[i].equals("generalization")) {
 					InvRel = "specialization";
@@ -2344,14 +2314,13 @@ public class DataBuilder {
 				}
 
 				String queryBackRelated = "select X " + "from " + "{<" + RelatedConcept + ">} VoxPopuli:" + InvRel
-						+ " {X} " + "where " + "X = <" + Concept + "> " + "using namespace " + Namespaces;
+						+ " {X} " + "where " + "X = <" + Concept + ">";
 
 				P.PrintLn(P.Query, "Query: " + queryBackRelated);
 
-				QueryResultsTable BackRelatedResults = theRepository.data.Client.performTableQuery(QueryLanguage.SERQL,
-						queryBackRelated);
+				List<BindingSet> Results1 = theRepository.executeQuery(queryBackRelated);
 
-				if (BackRelatedResults.getRowCount() != 1) {
+				if (Results1.size() != 1) {
 
 					P.PrintLn(P.ResultOut, "Concept: " + ConceptDescription + " is not back related by relation: "
 							+ InvRel + " to concept: " + RelatedConceptDescription);

@@ -119,14 +119,24 @@ public class RDFRepository {
 
 		try {
 			RDFRepository a = new RDFRepository(true, "../RDF", "", "ullo");
-			List<BindingSet> b = a.executeQuery(queryString1);
-			Iterator<BindingSet> i = b.iterator();
+			List<BindingSet> Results = a.executeQuery(queryString1);
+			Iterator<BindingSet> i = Results.iterator();
 
+			long dur,maxsec=30,minsec=4;
 			while (i.hasNext()) {
 				BindingSet solution = i.next();
 
-				System.out.println("" + solution.getBindingNames());
-
+				dur = (Util.ConvertToDSec(solution.getValue("Stop").toString())
+						- Util.ConvertToDSec(solution.getValue("Start").toString())) / 10;
+				if ((dur > maxsec) || (dur < minsec)) {
+					System.out.println("Video too " + (dur > maxsec ? "long: " : "short: ") + solution.getValue("X").toString()
+									+ " - " + solution.getValue("Lab").toString() + " dur " + dur + " - "
+									+ (solution.getValue("Y") != null
+											? "Video contained in: " + solution.getValue("Y").toString() + " of type "
+													+ solution.getValue("TypeY").toString()
+															.substring(RDFRepository.VoxPopuliNamespaces.length())
+											: " Video NOT contained anywhere"));
+				}
 			}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block

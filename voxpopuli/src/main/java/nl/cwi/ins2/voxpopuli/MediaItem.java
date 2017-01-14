@@ -19,10 +19,10 @@ import java.util.Hashtable;
 
 public class MediaItem{
 
-  ArrayList VideoSegments;
-  ArrayList AudioSegments;
-  ArrayList StillSegments;
-  ArrayList TextSegments;
+  ArrayList<Segment> VideoSegments;
+  ArrayList<Segment> AudioSegments;
+  ArrayList<Segment> StillSegments;
+  ArrayList<Segment> TextSegments;
 
 //  static final int SCORE = 0;
 //  static final int PROXIMITY = 1;
@@ -82,10 +82,10 @@ public class MediaItem{
 
   MediaItem(){
 
-    this.VideoSegments = new ArrayList();
-    this.AudioSegments = new ArrayList();
-    this.StillSegments = new ArrayList();
-    this.TextSegments = new ArrayList();
+    this.VideoSegments = new ArrayList<Segment>();
+    this.AudioSegments = new ArrayList<Segment>();
+    this.StillSegments = new ArrayList<Segment>();
+    this.TextSegments = new ArrayList<Segment>();
     this.score = 0;
   }
 
@@ -115,7 +115,7 @@ public class MediaItem{
 
     if( ( a = ( VideoSegment )Container.Videos.get( Id ) ) != null ){
       if( VideoSegments == null ){
-        VideoSegments = new ArrayList();
+        VideoSegments = new ArrayList<Segment>();
       }
       if( !VideoSegments.contains( a ) ){
         VideoSegments.add( a );
@@ -123,7 +123,7 @@ public class MediaItem{
 
     } else if( ( b = ( AudioSegment )Container.Audios.get( Id ) ) != null ){
       if( AudioSegments == null ){
-        AudioSegments = new ArrayList();
+        AudioSegments = new ArrayList<Segment>();
       }
       if( !AudioSegments.contains( a ) ){
         AudioSegments.add( a );
@@ -131,7 +131,7 @@ public class MediaItem{
 
     } else if( ( c = ( StillSegment )Container.Images.get( Id ) ) != null ){
       if( StillSegments == null ){
-        StillSegments = new ArrayList();
+        StillSegments = new ArrayList<Segment>();
       }
       if( !StillSegments.contains( a ) ){
         StillSegments.add( a );
@@ -139,7 +139,7 @@ public class MediaItem{
 
     } else if( ( d = ( TextSegment )Container.Texts.get( Id ) ) != null ){
       if( TextSegments == null ){
-        TextSegments = new ArrayList();
+        TextSegments = new ArrayList<Segment>();
       }
       if( !TextSegments.contains( a ) ){
         TextSegments.add( a );
@@ -153,16 +153,16 @@ public class MediaItem{
       throw new Exception( "Object null in MediaItem copy constructor " );
     } else{
       if( a.VideoSegments != null ){
-        VideoSegments = new ArrayList( a.VideoSegments );
+        VideoSegments = new ArrayList<Segment>( a.VideoSegments );
       }
       if( a.AudioSegments != null ){
-        AudioSegments = new ArrayList( a.AudioSegments );
+        AudioSegments = new ArrayList<Segment>( a.AudioSegments );
       }
       if( a.StillSegments != null ){
-        StillSegments = new ArrayList( a.StillSegments );
+        StillSegments = new ArrayList<Segment>( a.StillSegments );
       }
       if( a.TextSegments != null ){
-        TextSegments = new ArrayList( a.TextSegments );
+        TextSegments = new ArrayList<Segment>( a.TextSegments );
       }
       this.score = a.score;
     }
@@ -370,7 +370,7 @@ public class MediaItem{
 
     boolean first = true;
 
-    ArrayList result = new ArrayList();
+    ArrayList<String> result = new ArrayList<String>();
     String ID = null;
 
     first = FindInterviewId( first, this.VideoSegments, result );
@@ -385,11 +385,11 @@ public class MediaItem{
     return null;
   }
 
-  private boolean FindInterviewId( boolean first, ArrayList Items, ArrayList result ) throws Exception{
+  private boolean FindInterviewId( boolean first, ArrayList<Segment> Items, ArrayList<String> result ) throws Exception{
 
     if( Items != null ){
       for( int i = 0; i < Items.size(); i++ ){
-        Segment theSeg = ( Segment )Items.get( i );
+        Segment theSeg = Items.get( i );
         if( first ){
           if( theSeg.IsInterview ){
             for( int j=0; j<theSeg.InterviewId.size(); j++ ){
@@ -418,9 +418,9 @@ public class MediaItem{
     return first;
   }
 
-  public Hashtable getStatementIds() throws Exception{
+  public Hashtable<String, String> getStatementIds() throws Exception{
 
-    Hashtable Temp = null;
+    Hashtable<String, String> Temp = null;
 
     Temp = FindStatementsId( this.VideoSegments, true, Temp );
     Temp = FindStatementsId( this.AudioSegments, false, Temp );
@@ -430,14 +430,14 @@ public class MediaItem{
     return Temp;
   }
 
-  private Hashtable FindStatementsId( ArrayList Items, boolean first, Hashtable IDs ){
+  private Hashtable<String, String> FindStatementsId( ArrayList<Segment> Items, boolean first, Hashtable<String, String> IDs ){
 
-    Hashtable Temp;
+    Hashtable<String, String> Temp;
 
     if( IDs == null ){
-      Temp = new Hashtable();
+      Temp = new Hashtable<String, String>();
     } else{
-      Temp = new Hashtable( IDs );
+      Temp = new Hashtable<String, String>( IDs );
     }
 
     if( Items != null ){
@@ -445,7 +445,7 @@ public class MediaItem{
         Segment aSeg = ( Segment )Items.get( i );
 
         if( aSeg.StatementIds != null ){
-          for( Enumeration ee = aSeg.StatementIds.elements(); ee.hasMoreElements(); ){
+          for( Enumeration<?> ee = aSeg.StatementIds.elements(); ee.hasMoreElements(); ){
             String anID = ( String )ee.nextElement();
             if( anID != null ){
               if( first ){

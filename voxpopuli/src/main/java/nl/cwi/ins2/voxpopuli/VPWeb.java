@@ -5,7 +5,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.Hashtable;
+import java.util.List;
 
+import org.eclipse.rdf4j.query.BindingSet;
 import org.eclipse.rdf4j.query.TupleQuery;
 import org.eclipse.rdf4j.query.TupleQueryResult;
 
@@ -59,11 +61,9 @@ public class VPWeb {
 
 			P.PrintLn(P.Query, "Query: " + queryString);
 
-			TupleQuery query = conn.prepareTupleQuery(queryString);
-			
-			TupleQueryResult Results;
+			List<BindingSet> Results;
 
-			if ((Results = theDataBuilder.PerformQuery(queryString)) == null) {
+			if ((Results = theDataBuilder.getTheRepository().executeQuery(queryString)) == null) {
 				return "";
 			}
 
@@ -71,17 +71,17 @@ public class VPWeb {
 			int count = 0;
 
 			if (Original.equals("on")) {
-				for (int i = 0; i < Results.getRowCount(); i++) {
+				for (int i = 0; i < Results.size(); i++) {
 
 					MediaItem MediaItems = null;
-					P.PrintLn(P.Query, "Query Result: " + Results.getValue(i, 0).toString());
+					P.PrintLn(P.Query, "Query Result: " + Results.get(i).getValue("Interview").toString());
 
 					// FIX ME
 					// MediaItems = theDataBuilder.ReadMedia( Results.getValue(
 					// i, 0 ).toString(), null, null, null );
 
-					MediaItems.AddDescription(
-							Results.getValue(i, 2).toString() + "\n" + Results.getValue(i, 1).toString(), true);
+					MediaItems.AddDescription(Results.get(i).getValue("PartDesc").toString() + "\n"
+							+ Results.get(i).getValue("PosDesc").toString(), true);
 					MediaArray.add(MediaItems);
 
 					count++;
@@ -92,12 +92,12 @@ public class VPWeb {
 				// Sem Graph built?
 				theDataBuilder.SetObject(true, true);
 
-				for (int i = 0; i < Results.getRowCount(); i++) {
+				for (int i = 0; i < Results.size(); i++) {
 
-					P.PrintLn(P.Query, "Query Result: " + Results.getValue(i, 0).toString());
+					P.PrintLn(P.Query, "Query Result: " + Results.get(i).getValue("Interview").toString());
 
 					for (int ii = 0; ii < theDataContainer.InterviewsArray.length; ii++) {
-						if (theDataContainer.InterviewsArray[ii].Id.equals(Results.getValue(i, 0).toString())) {
+						if (theDataContainer.InterviewsArray[ii].Id.equals(Results.get(i).getValue("Interview").toString())) {
 							if (theDataContainer.InterviewsArray[ii].Arguments != null) {
 								for (int iii = 0; iii < theDataContainer.InterviewsArray[ii].Arguments.length; iii++) {
 									Argument Voices = new Argument(theDataContainer.InterviewsArray[ii].Arguments[iii]);
@@ -232,7 +232,7 @@ public class VPWeb {
 			Interviewees = new String[2][size];
 
 			int index = 0;
-			for (Enumeration e = theDataContainer.Interviewees.elements(); e.hasMoreElements();) {
+			for (Enumeration<Person> e = theDataContainer.Interviewees.elements(); e.hasMoreElements();) {
 
 				Person theInterviewee = (Person) e.nextElement();
 				Interviewees[0][index] = new String(theInterviewee.Id);
@@ -245,7 +245,7 @@ public class VPWeb {
 
 			if (Opinions == null) {
 
-				Hashtable TempInterviewees = new Hashtable();
+				Hashtable<String,String[]> TempInterviewees = new Hashtable();
 
 				for (int i = 0; i < theDataContainer.InterviewsArray.length; i++) {
 					for (int j = 0; j < Questions.length; j++) {
@@ -260,7 +260,7 @@ public class VPWeb {
 				int size = TempInterviewees.size();
 				Interviewees = new String[2][size];
 				int index = 0;
-				for (Enumeration e = TempInterviewees.elements(); e.hasMoreElements();) {
+				for (Enumeration<String[]> e = TempInterviewees.elements(); e.hasMoreElements();) {
 					String[] a = (String[]) e.nextElement();
 
 					Interviewees[0][index] = new String(a[0]);
@@ -268,7 +268,7 @@ public class VPWeb {
 					index++;
 				}
 			} else if (Questions == null) {
-				Hashtable TempInterviewees = new Hashtable();
+				Hashtable<String,String[]> TempInterviewees = new Hashtable<String, String[]>();
 
 				for (int i = 0; i < theDataContainer.InterviewsArray.length; i++) {
 					for (int j = 0; j < Opinions.length; j++) {
@@ -283,7 +283,7 @@ public class VPWeb {
 				int size = TempInterviewees.size();
 				Interviewees = new String[2][size];
 				int index = 0;
-				for (Enumeration e = TempInterviewees.elements(); e.hasMoreElements();) {
+				for (Enumeration<String[]> e = TempInterviewees.elements(); e.hasMoreElements();) {
 					String[] a = (String[]) e.nextElement();
 
 					Interviewees[0][index] = new String(a[0]);
@@ -301,7 +301,7 @@ public class VPWeb {
 
 	public String[][] RetrieveSocClass(DataBuilder theDataBuilder) {
 
-		QueryResultsTable Results;
+		List<BindingSet> Results;
 
 		// We read all the questions with Interviewees[]
 		String queryString = "select X, Y " + "from " + "{X} serql:directSubClassOf {VoxPopuli:SocialAnnotation}, "
@@ -309,15 +309,15 @@ public class VPWeb {
 
 		P.PrintLn(P.Query, "Query: " + queryString);
 
-		if ((Results = theDataBuilder.PerformQuery(queryString)) == null) {
+		if ((Results = theDataBuilder.getTheRepository().executeQuery(queryString)) == null) {
 			return null;
 		}
 
-		String[][] theClasses = new String[2][Results.getRowCount()];
+		String[][] theClasses = new String[2][Results.size()];
 
-		for (int i = 0; i < Results.getRowCount(); i++) {
-			theClasses[0][i] = new String(Results.getValue(i, 0).toString());
-			theClasses[1][i] = new String(Results.getValue(i, 1).toString());
+		for (int i = 0; i < Results.size(); i++) {
+			theClasses[0][i] = new String(Results.get(i).getValue("X").toString());
+			theClasses[1][i] = new String(Results.get(i).getValue("Y").toString());
 
 			P.PrintLn(P.Query, "Query Result: " + theClasses[1][i]);
 		}
@@ -327,8 +327,8 @@ public class VPWeb {
 
 	public String[][] RetrieveSubSocClass(DataBuilder theDataBuilder, String Class) {
 
-		TupleQueryResult Results;
-		Class = new String(Class.substring(DataBuilder.VoxPopuliNamespaces.length()));
+		List<BindingSet> Results;
+		Class = new String(Class.substring(RDFRepository.VoxPopuliNamespaces.length()));
 
 		// We read all the questions with Interviewees[]
 		String queryString = "select X, Y " + "from " + "{X} serql:directSubClassOf {VoxPopuli:" + Class + "}, "
@@ -336,15 +336,15 @@ public class VPWeb {
 
 		P.PrintLn(P.Query, "Query: " + queryString);
 
-		if ((Results = theDataBuilder.PerformQuery(queryString)) == null) {
+		if ((Results = theDataBuilder.getTheRepository().executeQuery(queryString)) == null) {
 			return null;
 		}
 
-		String[][] theSubClasses = new String[2][Results.getRowCount()];
+		String[][] theSubClasses = new String[2][Results.size()];
 
-		for (int i = 0; i < Results.getRowCount(); i++) {
-			theSubClasses[0][i] = new String(Results.getValue(i, 0).toString());
-			theSubClasses[1][i] = new String(Results.getValue(i, 1).toString());
+		for (int i = 0; i < Results.size(); i++) {
+			theSubClasses[0][i] = new String(Results.get(i).getValue("X").toString());
+			theSubClasses[1][i] = new String(Results.get(i).getValue("Y").toString());
 
 			P.PrintLn(P.Query, "Query Result: " + theSubClasses[1][i]);
 		}
@@ -354,22 +354,22 @@ public class VPWeb {
 
 	public String[][] RetrieveConcepts(DataBuilder theDataBuilder) {
 
-		QueryResultsTable Results;
+		List<BindingSet> Results;
 
 		// We read all the questions with Interviewees[]
 		String queryString = "select X, Y " + "from " + "{X} rdf:type {VoxPopuli:Concept}, " + "{X} rdfs:label {Y} ";
 
 		P.PrintLn(P.Query, "Query: " + queryString);
 
-		if ((Results = theDataBuilder.PerformQuery(queryString)) == null) {
+		if ((Results = theDataBuilder.getTheRepository().executeQuery(queryString)) == null) {
 			return null;
 		}
 
-		String[][] theConcepts = new String[2][Results.getRowCount()];
+		String[][] theConcepts = new String[2][Results.size()];
 
-		for (int i = 0; i < Results.getRowCount(); i++) {
-			theConcepts[0][i] = new String(Results.getValue(i, 0).toString());
-			theConcepts[1][i] = new String(Results.getValue(i, 1).toString());
+		for (int i = 0; i < Results.size(); i++) {
+			theConcepts[0][i] = new String(Results.get(i).getValue("X").toString());
+			theConcepts[1][i] = new String(Results.get(i).getValue("Y").toString());
 
 			P.PrintLn(P.Query, "Query Result: " + theConcepts[1][i]);
 		}
@@ -631,9 +631,9 @@ public class VPWeb {
 	 * 
 	 * QueryResultsTable Results;
 	 * 
-	 * Results = theDataBuilder.PerformQuery( queryString );
+	 * Results = theDataBuilder.getTheRepository().executeQuery( queryString );
 	 * 
-	 * for( int i = 0; i < Results.getRowCount(); i++ ){
+	 * for( int i = 0; i < Results.size(); i++ ){
 	 * 
 	 * MediaItem MediaItems = null; P.PrintLn( P.Query, "Query Result: " +
 	 * Results.getValue( i, 0 ).toString() );
@@ -689,7 +689,7 @@ public class VPWeb {
 			DataContainer theDataContainer = new DataContainer();
 			Outputs P = new Outputs();
 
-			DataBuilder theDataBuilder = new DataBuilder(local, RDFLocation, repository, domainNS, theDataContainer, P);
+			DataBuilder theDataBuilder = new DataBuilder(local.equals("true"), RDFLocation, repository, domainNS, theDataContainer, P);
 			// This reads all interviews and builds the data structure
 			theDataBuilder.SetObject(true, false);
 
@@ -745,9 +745,6 @@ public class VPWeb {
 					System.out.println("Opinion: " + Opinions[1][i]);
 				}
 
-				if (theDataBuilder.DataOK(local, RDFLocation, repository, domainNS, true)) {
-					System.out.println("Data OK ");
-				}
 			}
 
 		} catch (Exception e) {

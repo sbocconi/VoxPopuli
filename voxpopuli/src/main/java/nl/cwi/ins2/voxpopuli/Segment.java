@@ -18,8 +18,8 @@ import org.eclipse.rdf4j.model.Value;
  */
 public class Segment{
   String Id;
-  Hashtable StatementIds;
-  ArrayList InterviewId;
+  Hashtable<String,String> StatementIds;
+  ArrayList<String> InterviewId;
   String Description;
   String FileName;
   String Subject;
@@ -37,11 +37,11 @@ public class Segment{
       this.Id = new String( Id.toString() );
     }
     if( StatementId != null ){
-      this.StatementIds = new Hashtable();
+      this.StatementIds = new Hashtable<String,String>();
       this.StatementIds.put( StatementId, new String( StatementId ) );
     }
     if( InterviewId != null ){
-      this.InterviewId = new ArrayList();
+      this.InterviewId = new ArrayList<String>();
       this.InterviewId.add(InterviewId);
     }
     if( FileName != null ){
@@ -77,10 +77,10 @@ public class Segment{
       Id = new String( a.Id );
     }
     if( a.StatementIds != null ){
-      StatementIds = new Hashtable( a.StatementIds );
+      StatementIds = new Hashtable<String, String>( a.StatementIds );
     }
     if( a.InterviewId != null ){
-      this.InterviewId = new ArrayList(a.InterviewId);
+      this.InterviewId = new ArrayList<String>(a.InterviewId);
     }
     if( a.FileName != null ){
       FileName = new String( a.FileName );
@@ -115,7 +115,7 @@ public class Segment{
       return;
     }
     if( StatementIds == null ){
-      StatementIds = new Hashtable();
+      StatementIds = new Hashtable<String, String>();
       StatementIds.put( StatementId, new String( StatementId ) );
     } else if( !StatementIds.containsKey( StatementId ) ){
       StatementIds.put( StatementId, new String( StatementId ) );
@@ -129,7 +129,7 @@ public class Segment{
     }
 
     if( this.InterviewId == null ){
-      this.InterviewId = new ArrayList();
+      this.InterviewId = new ArrayList<String>();
     }
 
     this.InterviewId.add(InterviewId);

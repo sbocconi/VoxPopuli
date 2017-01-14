@@ -24,6 +24,10 @@ public class Util{
 //  final static String BIGSTRING = "~~~~~~";
 
   
+  private Util(){
+	  
+  }
+  
   public static int StrToInt( String s ){
     int n = 0;
 

@@ -2859,9 +2859,9 @@ public class RuleInstance{
           if( item.VideoSegments != null ){
             for( int ii = 0; ii < item.VideoSegments.size(); ii++ ){
               VideoSegment theVideo = ( VideoSegment )item.VideoSegments.get( ii );
-              String Gaze = theVideo.Gaze.substring( DataBuilder.VoxPopuliNamespaces.length() );
-              String StartFraming = theVideo.StartFraming.substring( DataBuilder.VoxPopuliNamespaces.length() );
-              String EndFraming = theVideo.EndFraming.substring( DataBuilder.VoxPopuliNamespaces.length() );
+              String Gaze = theVideo.Gaze.substring( RDFRepository.VoxPopuliNamespaces.length() );
+              String StartFraming = theVideo.StartFraming.substring( RDFRepository.VoxPopuliNamespaces.length() );
+              String EndFraming = theVideo.EndFraming.substring( RDFRepository.VoxPopuliNamespaces.length() );
 
               boolean noddy = false;
               if( StartFraming.equals( "Noddy Shot" ) ){
@@ -3563,7 +3563,7 @@ public class RuleInstance{
     StorySpace = new Hashtable( b.Statements );
     theOutputs = p;
     //theDataBuilder = b;
-    u = new Util();
+   
   }
 
   public Rule FindRule( String Name, String[] A, String[] B ) throws Exception{
