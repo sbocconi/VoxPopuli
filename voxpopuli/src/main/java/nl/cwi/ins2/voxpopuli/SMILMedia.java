@@ -1,6 +1,10 @@
 package nl.cwi.ins2.voxpopuli;
 
 import java.util.ArrayList;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -113,8 +117,6 @@ public class SMILMedia
     //private ArrayList MediaArray = null; // List of Media to show
     private ArrayList SMILMediaArray = null; // List of Media to show
     
-    private Util u;
-    private Outputs P;
     
     private String VideoQuality = "";
     
@@ -132,6 +134,7 @@ public class SMILMedia
     private PrintWriter OutFile = null;
     
     private boolean CaptionToFile;
+	private Logger myLogger;
     
     /*********************
      *  FUNCTIONS *
@@ -143,12 +146,13 @@ public class SMILMedia
             String theTextLocation,
             String Rep, String OutFilename,
             boolean toFile, ByteArrayOutputStream ba,
-            boolean captionToFile, Outputs p ) throws java.io.FileNotFoundException
+            boolean captionToFile) throws java.io.FileNotFoundException
     {
         
-        P = new Outputs();
+    	myLogger = LoggerFactory.getLogger(this.getClass());
+    	
         Repository = new String( Rep );
-        P = p;
+        
         
         CaptionToFile = captionToFile;
         
@@ -237,8 +241,7 @@ public class SMILMedia
         }
         catch( IOException e )
         {
-            P.PrintLn( P.Err, "Error opening file " + e.toString() );
-            e.printStackTrace(P.Err);
+            myLogger.error("Error opening file " + e.toString() );
         }
         return ;
     }
@@ -292,7 +295,7 @@ public class SMILMedia
         long VideoLength = 0;
         long DLength = 0;
         
-        P.PrintLn( P.Locator, "Doing Montage" );
+        myLogger.debug("Doing Montage" );
         
         if( MediaArray == null )
         {
@@ -321,16 +324,16 @@ public class SMILMedia
             {
                 for( int ii = 0; ii < a.AudioSegments.size(); ii++ )
                 {
-                    AudioLength = AudioLength + ( u.ConvertToDSec( ( ( AudioSegment )a.AudioSegments.get( ii ) ).EndFrame ) -
-                            u.ConvertToDSec( ( ( AudioSegment )a.AudioSegments.get( ii ) ).BeginFrame ) );
+                    AudioLength = AudioLength + ( Util.ConvertToDSec( ( ( AudioSegment )a.AudioSegments.get( ii ) ).EndFrame ) -
+                            Util.ConvertToDSec( ( ( AudioSegment )a.AudioSegments.get( ii ) ).BeginFrame ) );
                 }
             }
             if( a.VideoSegments != null )
             {
                 for( int ii = 0; ii < a.VideoSegments.size(); ii++ )
                 {
-                    VideoLength = VideoLength + ( u.ConvertToDSec( ( ( VideoSegment )a.VideoSegments.get( ii ) ).EndFrame ) -
-                            u.ConvertToDSec( ( ( VideoSegment )a.VideoSegments.get( ii ) ).BeginFrame ) );
+                    VideoLength = VideoLength + ( Util.ConvertToDSec( ( ( VideoSegment )a.VideoSegments.get( ii ) ).EndFrame ) -
+                            Util.ConvertToDSec( ( ( VideoSegment )a.VideoSegments.get( ii ) ).BeginFrame ) );
                 }
             }
             DLength = ( AudioLength > VideoLength ? AudioLength : VideoLength );
@@ -346,9 +349,9 @@ public class SMILMedia
                     MediaList.TextSegments[iii] = new SMILMediaElement();
                     MediaList.TextSegments[iii].Type = new String( "text" );
                     MediaList.TextSegments[iii].Priority = 3;
-                    MediaList.TextSegments[iii].Start = new String( u.ConvertToDate( DLength / a.TextSegments.size() * iii ) );
+                    MediaList.TextSegments[iii].Start = new String( Util.ConvertToDate( DLength / a.TextSegments.size() * iii ) );
                     
-                    MediaList.TextSegments[iii].Stop = new String( u.ConvertToDate( DLength / a.TextSegments.size() * ( iii + 1 ) ) );
+                    MediaList.TextSegments[iii].Stop = new String( Util.ConvertToDate( DLength / a.TextSegments.size() * ( iii + 1 ) ) );
                     
                     MediaList.TextSegments[iii].Language = new String( item.Language );
                     MediaList.TextSegments[iii].FileName = new String( TextLocation + item.FileName );
@@ -374,9 +377,9 @@ public class SMILMedia
                     MediaList.StillSegments[iii] = new SMILMediaElement();
                     MediaList.StillSegments[iii].Type = new String( "img" );
                     MediaList.StillSegments[iii].Priority = 2;
-                    MediaList.StillSegments[iii].Start = new String( u.ConvertToDate( DLength / a.StillSegments.size() * iii ) );
+                    MediaList.StillSegments[iii].Start = new String( Util.ConvertToDate( DLength / a.StillSegments.size() * iii ) );
                     
-                    MediaList.StillSegments[iii].Stop = new String( u.ConvertToDate( DLength / a.StillSegments.size() * ( iii + 1 ) ) );
+                    MediaList.StillSegments[iii].Stop = new String( Util.ConvertToDate( DLength / a.StillSegments.size() * ( iii + 1 ) ) );
                     
                     MediaList.StillSegments[iii].Language = new String( item.Language );
                     MediaList.StillSegments[iii].FileName = new String( StillLocation + item.FileName );
@@ -410,10 +413,10 @@ public class SMILMedia
                     {
                         MediaList.AudioSegments[iii].Start = new String( MediaList.AudioSegments[iii - 1].Stop );
                     }
-                    long DStop = u.ConvertToDSec( ( ( AudioSegment )a.AudioSegments.get( iii ) ).EndFrame ) -
-                            u.ConvertToDSec( ( ( AudioSegment )a.AudioSegments.get( iii ) ).BeginFrame ) +
-                            u.ConvertToDSec( MediaList.AudioSegments[iii].Start );
-                    MediaList.AudioSegments[iii].Stop = new String( u.ConvertToDate( DStop ) );
+                    long DStop = Util.ConvertToDSec( ( ( AudioSegment )a.AudioSegments.get( iii ) ).EndFrame ) -
+                            Util.ConvertToDSec( ( ( AudioSegment )a.AudioSegments.get( iii ) ).BeginFrame ) +
+                            Util.ConvertToDSec( MediaList.AudioSegments[iii].Start );
+                    MediaList.AudioSegments[iii].Stop = new String( Util.ConvertToDate( DStop ) );
                     
                     MediaList.AudioSegments[iii].Language = new String( item.Language );
                     MediaList.AudioSegments[iii].FileName = new String( AudioLocation + item.FileName );
@@ -450,11 +453,11 @@ public class SMILMedia
                         MediaList.VideoSegments[iii].Start = new String( MediaList.VideoSegments[iii - 1].Stop );
                     }
                     
-                    long DStop = u.ConvertToDSec( ( ( VideoSegment )a.VideoSegments.get( iii ) ).EndFrame ) -
-                            u.ConvertToDSec( ( ( VideoSegment )a.VideoSegments.get( iii ) ).BeginFrame ) +
-                            u.ConvertToDSec( MediaList.VideoSegments[iii].Start );
+                    long DStop = Util.ConvertToDSec( ( ( VideoSegment )a.VideoSegments.get( iii ) ).EndFrame ) -
+                            Util.ConvertToDSec( ( ( VideoSegment )a.VideoSegments.get( iii ) ).BeginFrame ) +
+                            Util.ConvertToDSec( MediaList.VideoSegments[iii].Start );
                     
-                    MediaList.VideoSegments[iii].Stop = new String( u.ConvertToDate( DStop ) );
+                    MediaList.VideoSegments[iii].Stop = new String( Util.ConvertToDate( DStop ) );
                     
                     MediaList.VideoSegments[iii].Language = new String( item.Language );
                     MediaList.VideoSegments[iii].FileName = new String( VideoLocation + item.FileName );
@@ -492,7 +495,7 @@ public class SMILMedia
             Exception
     {
         
-        P.PrintLn( P.Locator, "Creating SMIL file" );
+        myLogger.debug("Creating SMIL file" );
         
         OutFile.print(
                 "<?xml version=\"1.0\" encoding=\"iso-8859-1\" standalone=\"yes\"?>\n" +
@@ -597,7 +600,7 @@ public class SMILMedia
     private boolean CreateSegmentSequence( boolean Captions, PrintWriter OutFile )
     {
         
-        P.PrintLn( P.Locator, "Creating SMIL sequence" );
+        myLogger.debug("Creating SMIL sequence" );
         
         if( SMILMediaArray == null )
         {
@@ -621,7 +624,7 @@ public class SMILMedia
                 {
                     SMILMediaElement b = a.TextSegments[ii];
                     
-                    String STDuration = u.TimeDifference( b.Stop, b.Start );
+                    String STDuration = Util.TimeDifference( b.Stop, b.Start );
                     OutFile.print( "<par>\n" );
                     if( Captions )
                     {
@@ -639,7 +642,7 @@ public class SMILMedia
                         }
                         catch( UnsupportedEncodingException e )
                         {
-                            P.PrintLn( P.Err, "Error URL encoding string  " + e.toString() );
+                            myLogger.error("Error URL encoding string  " + e.toString() );
                         }
                     }
                     OutFile.print( "<" + b.Type + " region=\"media-region" + b.Priority + "\" src=\"" +
@@ -671,7 +674,7 @@ public class SMILMedia
                 {
                     SMILMediaElement b = a.StillSegments[ii];
                     
-                    String STDuration = u.TimeDifference( b.Stop, b.Start );
+                    String STDuration = Util.TimeDifference( b.Stop, b.Start );
                     
                     OutFile.print( "<par>\n" );
                     if( Captions )
@@ -689,7 +692,7 @@ public class SMILMedia
                         }
                         catch( UnsupportedEncodingException e )
                         {
-                            P.PrintLn( P.Err, "Error URL encoding string  " + e.toString() );
+                            myLogger.error("Error URL encoding string  " + e.toString() );
                         }
                     }
                     OutFile.print( "<" + b.Type + " region=\"media-region" + b.Priority + "\" src=\"" +
@@ -721,7 +724,7 @@ public class SMILMedia
                 {
                     SMILMediaElement b = a.AudioSegments[ii];
                     
-                    String STDuration = u.TimeDifference( b.Stop, b.Start );
+                    String STDuration = Util.TimeDifference( b.Stop, b.Start );
                     
                     OutFile.print( "<par>\n" );
                     if( Captions )
@@ -739,7 +742,7 @@ public class SMILMedia
                         }
                         catch( UnsupportedEncodingException e )
                         {
-                            P.PrintLn( P.Err, "Error URL encoding string  " + e.toString() );
+                            myLogger.error("Error URL encoding string  " + e.toString() );
                         }
                     }
                     OutFile.print( "<" + b.Type + " region=\"media-region" + b.Priority + "\" src=\"" +
@@ -775,7 +778,7 @@ public class SMILMedia
                 {
                     SMILMediaElement b = a.VideoSegments[ii];
                     
-                    String STDuration = u.TimeDifference( b.Stop, b.Start );
+                    String STDuration = Util.TimeDifference( b.Stop, b.Start );
                     
                     OutFile.print( "<par>\n" );
                     if( Captions )
@@ -793,7 +796,7 @@ public class SMILMedia
                         }
                         catch( UnsupportedEncodingException e )
                         {
-                            P.PrintLn( P.Err, "Error URL encoding string  " + e.toString() );
+                            myLogger.error("Error URL encoding string  " + e.toString() );
                         }
                     }
                     OutFile.print( "<" + b.Type + " region=\"media-region" + b.Priority + "\" src=\"" +
@@ -882,7 +885,7 @@ public class SMILMedia
                 // Name of the file
                 String Path = new String( EffTextLocation + RealTextFile + GenerateSuffix( Description, Duration ) + ".rt" );
                 
-                P.PrintLn( P.Debug1, "Path to file " + Path );
+                myLogger.debug("Path to file " + Path );
                 
                 Msg = new String( TextLocation + RealTextFile + GenerateSuffix( Description, Duration ) + ".rt" );
                 
@@ -913,8 +916,7 @@ public class SMILMedia
         }
         catch( IOException e )
         {
-            P.PrintLn( P.Err, "Error opening file " + e.toString() );
-            e.printStackTrace(P.Err);
+            myLogger.error("Error opening file " + e.toString() );
         }
         
         return Msg;

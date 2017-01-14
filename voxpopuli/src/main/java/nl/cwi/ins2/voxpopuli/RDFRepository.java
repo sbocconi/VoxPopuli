@@ -18,6 +18,8 @@ import org.eclipse.rdf4j.repository.sail.SailRepository;
 import org.eclipse.rdf4j.repository.sparql.SPARQLRepository;
 import org.eclipse.rdf4j.rio.RDFFormat;
 import org.eclipse.rdf4j.sail.memory.MemoryStore;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class RDFRepository {
 
@@ -34,10 +36,14 @@ public class RDFRepository {
 	private Repository repo;
 
 	String theNameSpaceString;
+	
+	private Logger myLogger;
 
 	public RDFRepository(boolean isLocal, String RDFLocation, String RepositoryString, String someNameSpaceString)
 			throws IOException {
 
+		myLogger = LoggerFactory.getLogger(this.getClass());
+		
 		theNameSpaceString = someNameSpaceString;
 
 		if (isLocal) {
@@ -54,13 +60,15 @@ public class RDFRepository {
 					}
 				};
 
+				String location = RDFLocation + File.separator + RepositoryString;
 				// Load RDF files
-				File myRDFDir = new File(RDFLocation + RepositoryString);
+				File myRDFDir = new File(location);
 
 				File[] RDFfiles = myRDFDir.listFiles(fileFilter);
 
 				if (RDFfiles == null) {
-					throw new java.io.IOException("No RDF files in " + RDFLocation + RepositoryString);
+					throw new java.io.IOException(
+							"No RDF files in " + location);
 				}
 
 				for (int i = 0; i < RDFfiles.length; i++) {
@@ -74,7 +82,7 @@ public class RDFRepository {
 					}
 				};
 
-				File myRDFSDir = new File(RDFLocation + RepositoryString);
+				File myRDFSDir = new File(location);
 				File[] RDFSfiles = myRDFSDir.listFiles(fileFilter);
 
 				if (RDFSfiles == null) {
@@ -102,7 +110,8 @@ public class RDFRepository {
 		List<BindingSet> results;
 
 		try (RepositoryConnection conn = repo.getConnection()) {
-			TupleQuery tupleQuery = conn.prepareTupleQuery(QueryLanguage.SERQL, query + " using namespace " + FixedNamespaces);
+			TupleQuery tupleQuery = conn.prepareTupleQuery(QueryLanguage.SERQL,
+					query + " using namespace " + FixedNamespaces);
 
 			try (TupleQueryResult result = tupleQuery.evaluate()) {
 				results = QueryResults.asList(result);
@@ -118,24 +127,24 @@ public class RDFRepository {
 				+ "BasicMedia:src {File}, " + "[{Y} VoxPopuli:hasMedia {X}, " + "{Y} serql:directType {TypeY}] ";
 
 		try {
-			RDFRepository a = new RDFRepository(true, "../RDF", "", "ullo");
+			RDFRepository a = new RDFRepository(true, "../RDF", "IWA", "ullo");
 			List<BindingSet> Results = a.executeQuery(queryString1);
 			Iterator<BindingSet> i = Results.iterator();
 
-			long dur,maxsec=30,minsec=4;
+			long dur, maxsec = 30, minsec = 4;
 			while (i.hasNext()) {
 				BindingSet solution = i.next();
 
 				dur = (Util.ConvertToDSec(solution.getValue("Stop").toString())
 						- Util.ConvertToDSec(solution.getValue("Start").toString())) / 10;
 				if ((dur > maxsec) || (dur < minsec)) {
-					System.out.println("Video too " + (dur > maxsec ? "long: " : "short: ") + solution.getValue("X").toString()
-									+ " - " + solution.getValue("Lab").toString() + " dur " + dur + " - "
-									+ (solution.getValue("Y") != null
-											? "Video contained in: " + solution.getValue("Y").toString() + " of type "
-													+ solution.getValue("TypeY").toString()
-															.substring(RDFRepository.VoxPopuliNamespaces.length())
-											: " Video NOT contained anywhere"));
+					System.out.println("Video too " + (dur > maxsec ? "long: " : "short: ")
+							+ solution.getValue("X").toString() + " - " + solution.getValue("Lab").toString() + " dur "
+							+ dur + " - "
+							+ (solution.getValue("Y") != null ? "Video contained in: "
+									+ solution.getValue("Y").toString() + " of type " + solution.getValue("TypeY")
+											.toString().substring(RDFRepository.VoxPopuliNamespaces.length())
+									: " Video NOT contained anywhere"));
 				}
 			}
 		} catch (IOException e) {

@@ -16,6 +16,9 @@ package nl.cwi.ins2.voxpopuli;
 import java.io.File;
 import java.io.FileFilter;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class VPEditor {
 	/*********************
 	 * CONSTANTS *
@@ -30,7 +33,8 @@ public class VPEditor {
 	/*********************
 	 * VARIABLES *
 	 **********************/
-
+	private static Logger myLogger;
+	
 	/*********************
 	 * CLASSES *
 	 **********************/
@@ -46,7 +50,10 @@ public class VPEditor {
 		throw new Exception("Program not called correctly");
 	}
 
+	
 	public VPEditor() {
+		
+		myLogger = LoggerFactory.getLogger(this.getClass());
 
 	}
 
@@ -60,15 +67,12 @@ public class VPEditor {
 
 			final String prefix = args[6];
 
-			Outputs P = new Outputs();
-			P.SetOutputStreams(null, null, null, null, null, null, null, System.out, System.err);
-
 			DataContainer theDataContainer = new DataContainer();
 			DataBuilder theDataBuilder = new DataBuilder(args[0].equals("true"), args[1], args[2], args[3],
-					theDataContainer, P);
+					theDataContainer);
 
 			theDataBuilder.SetObject(true, true);
-			RuleInstance aRuleInstance = new RuleInstance(theDataContainer, P);
+			RuleInstance aRuleInstance = new RuleInstance(theDataContainer);
 
 			StorySpace theStory = new StorySpace(theDataContainer.Videos, theDataContainer.Audios,
 					theDataContainer.Images, theDataContainer.Texts);
@@ -76,7 +80,7 @@ public class VPEditor {
 			int goodness = Util.StrToInt(args[5]);
 
 			try {
-				Scheduler theScheduler = new Scheduler(theStory, P, aRuleInstance);
+				Scheduler theScheduler = new Scheduler(theStory, aRuleInstance);
 
 				// This filter only returns rdf files
 				FileFilter fileFilter = new FileFilter() {
@@ -108,13 +112,13 @@ public class VPEditor {
 				theScheduler.InitGoodness(goodness);
 
 				if (theScheduler.RunScheduler()) {
-					P.PrintLn(P.ResultOut, "Solution found ");
+					myLogger.info("Solution found ");
 				} else {
-					P.PrintLn(P.ResultOut, "Solution NOT found ");
+					myLogger.info("Solution NOT found ");
 				}
 
 				SMILMedia theSMILMedia = new SMILMedia("_100", args[4], null, null, null, args[2], args[7], true, null,
-						true, P);
+						true);
 
 				theSMILMedia.SetSMILURL("url", "two", "videolocation", "", "stilllocation", "textlocation",
 						"repository", "RDFLocation", "domainNS", "" + "local", "44", "VP", "intercut", "quality",

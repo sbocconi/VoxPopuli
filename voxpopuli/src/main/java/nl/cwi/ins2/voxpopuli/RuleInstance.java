@@ -15,16 +15,14 @@ package nl.cwi.ins2.voxpopuli;
 
 import java.util.ArrayList;
 import java.util.Hashtable;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.Enumeration;
 
 public class RuleInstance{
-  public RuleInstance(){
-    try{
-      jbInit();
-    } catch( Exception ex ){
-      ex.printStackTrace();
-    }
-  }
+  
 
   /*********************
    *  CONSTANTS *
@@ -46,14 +44,13 @@ public class RuleInstance{
   Hashtable StorySpace;
 
   DataContainer theDataContainer;
-  Outputs theOutputs;
-  Util u;
+  
   String OutputFilename;
+  private Logger myLogger;
 
   /*********************
    *  FUNCTIONS *
    **********************/
-
 
   /********************* RULES **********************/
 
@@ -2169,12 +2166,12 @@ public class RuleInstance{
           }
         }
 
-        int maxlength = u.min( aStatement.theMediaItem.length, max );
+        int maxlength = Util.min( aStatement.theMediaItem.length, max );
 
         // Order the segments
         boolean first = true;
 
-        int[] min = u.Order( distance, true );
+        int[] min = Util.Order( distance, true );
         for( int i = 0; i < min.length; i++ ){
           if( ( distance[min[i]] != -1 ) && ( FoundMedia[min[i]] != null ) ){
 
@@ -2205,7 +2202,7 @@ public class RuleInstance{
               if( Statementitem[1] == null ){
                 Statementitem[1] = new MediaItem[maxlength];
               }
-              int length = u.min( maxlength, FoundMedia[min[i]].length );
+              int length = Util.min( maxlength, FoundMedia[min[i]].length );
 
               for( int ii = 0; ii < length; ii++ ){
                 if( Statementitem[1][ii] == null ){
@@ -2340,7 +2337,7 @@ public class RuleInstance{
 
       int size = PlotA.size();
       int outnumber;
-      int min = u.BIGVALUE, max = u.SMALLVALUE;
+      int min = Util.BIGVALUE, max = Util.SMALLVALUE;
       double values[] = new double[size];
 
       for( int i = 0; i < size; i++ ){
@@ -2397,7 +2394,7 @@ public class RuleInstance{
 
       int size = PlotA.size();
       double outnumber;
-      double min = u.BIGVALUE, max = u.SMALLVALUE;
+      double min = Util.BIGVALUE, max = Util.SMALLVALUE;
       double values[] = new double[size];
 
       for( int i = 0; i < size; i++ ){
@@ -2484,7 +2481,7 @@ public class RuleInstance{
 
       int size = PlotA.size();
       double outnumber;
-      double min = u.BIGVALUE, max = u.SMALLVALUE;
+      double min = Util.BIGVALUE, max = Util.SMALLVALUE;
       double values[] = new double[size];
 
       for( int i = 0; i < size; i++ ){
@@ -2572,7 +2569,7 @@ public class RuleInstance{
       double proximity;
 
       int size = PlotA.size();
-      double min = u.BIGVALUE, max = u.SMALLVALUE;
+      double min = Util.BIGVALUE, max = Util.SMALLVALUE;
 
       double values[] = new double[size];
 
@@ -2649,7 +2646,7 @@ public class RuleInstance{
       }
 
       int size = PlotA.size();
-      double min = u.BIGVALUE, max = u.SMALLVALUE;
+      double min = Util.BIGVALUE, max = Util.SMALLVALUE;
 
       double values[] = new double[size];
 
@@ -2714,8 +2711,8 @@ public class RuleInstance{
 
             Segment theSeg = ( Segment )Loop[j].get( i );
 
-            score = score + (u.ConvertToDSec( ( ( VideoSegment )theSeg ).EndFrame) -
-                             u.ConvertToDSec( ( ( VideoSegment )theSeg ).BeginFrame )
+            score = score + (Util.ConvertToDSec( ( ( VideoSegment )theSeg ).EndFrame) -
+                             Util.ConvertToDSec( ( ( VideoSegment )theSeg ).BeginFrame )
                 );
           }
         }
@@ -2742,9 +2739,9 @@ public class RuleInstance{
         scores[i] = ItemB.score;
       }
       if( Direction.equals( "ASC" ) ){
-        order = u.Order( scores, true );
+        order = Util.Order( scores, true );
       } else if( Direction.equals( "DES" ) ){
-        order = u.Order( scores, false );
+        order = Util.Order( scores, false );
       }
 
       ArrayList TempPlotA = new ArrayList( PlotA );
@@ -3081,37 +3078,37 @@ public class RuleInstance{
     if( Strategy.equals( "attack" ) ){
       switch( ToulminType.index ){
         case DataBuilder.CLAIM:
-          if( u.even( attack ) ){
+          if( Util.even( attack ) ){
             return 100;
           }
           break;
         case DataBuilder.BACKING:
-          if( u.even( attack ) ){
+          if( Util.even( attack ) ){
             return 100;
           }
           break;
         case DataBuilder.CONCESSION:
-          if( !u.even( attack ) ){
+          if( !Util.even( attack ) ){
             return 100;
           }
           break;
         case DataBuilder.CONDITION:
-          if( !u.even( attack ) ){
+          if( !Util.even( attack ) ){
             return 100;
           }
           break;
         case DataBuilder.DATA:
-          if( u.even( attack ) ){
+          if( Util.even( attack ) ){
             return 100;
           }
           break;
         case DataBuilder.WARRANT:
-          if( u.even( attack ) ){
+          if( Util.even( attack ) ){
             return 100;
           }
           break;
         case DataBuilder.EXAMPLE:
-          if( u.even( attack ) ){
+          if( Util.even( attack ) ){
             return 100;
           }
           break;
@@ -3121,37 +3118,37 @@ public class RuleInstance{
     } else if( Strategy.equals( "support" ) ){
       switch( ToulminType.index ){
         case DataBuilder.CLAIM:
-          if( !u.even( attack ) ){
+          if( !Util.even( attack ) ){
             return 100;
           }
           break;
         case DataBuilder.BACKING:
-          if( !u.even( attack ) ){
+          if( !Util.even( attack ) ){
             return 100;
           }
           break;
         case DataBuilder.CONCESSION:
-          if( u.even( attack ) ){
+          if( Util.even( attack ) ){
             return 100;
           }
           break;
         case DataBuilder.CONDITION:
-          if( u.even( attack ) ){
+          if( Util.even( attack ) ){
             return 100;
           }
           break;
         case DataBuilder.DATA:
-          if( !u.even( attack ) ){
+          if( !Util.even( attack ) ){
             return 100;
           }
           break;
         case DataBuilder.WARRANT:
-          if( !u.even( attack ) ){
+          if( !Util.even( attack ) ){
             return 100;
           }
           break;
         case DataBuilder.EXAMPLE:
-          if( !u.even( attack ) ){
+          if( !Util.even( attack ) ){
             return 100;
           }
           break;
@@ -3207,7 +3204,7 @@ public class RuleInstance{
         if( length > max ){
           max = length;
           // New max found, reset the MaxChain hashtable
-          theOutputs.PrintLn( theOutputs.Debug2, "Length of the chain " + max );
+          myLogger.debug("Length of the chain " + max );
           MaxChain = new ArrayList( local );
         }
       }
@@ -3229,7 +3226,7 @@ public class RuleInstance{
 
     // We select the longest chain of statements, not very logical
     // but it gives an idea of how many connected statements there are
-    theOutputs.PrintLn( theOutputs.Locator, "Calculating Longest Path " );
+    myLogger.debug("Calculating Longest Path " );
     int max = 0;
     ArrayList current = new ArrayList();
     ArrayList maxchain = null;
@@ -3241,7 +3238,7 @@ public class RuleInstance{
       }
       if( i > max ){
         max = i;
-        theOutputs.PrintLn( theOutputs.Debug1, "Length of the chain " + i );
+        myLogger.debug("Length of the chain " + i );
         maxchain = new ArrayList( current );
       }
       // reset the iterative hash table for a new iteration
@@ -3392,7 +3389,7 @@ public class RuleInstance{
                                  SMILMedia theSMILMedia ) throws
       Exception{
 
-    theOutputs.PrintLn( theOutputs.Locator, "Calculating Multiple Voices " + filename );
+    myLogger.debug("Calculating Multiple Voices " + filename );
 
     int ReplacedRoles = 0, max = 0, index[] = {
         -1, -1};
@@ -3458,7 +3455,7 @@ public class RuleInstance{
 
     ArrayList ChainStatements = new ArrayList();
 
-    theOutputs.PrintLn( theOutputs.Locator, "Ordering Arguments" );
+    myLogger.debug("Ordering Arguments" );
 
     if( MultipleVoices == null ){
       return result;
@@ -3558,10 +3555,10 @@ public class RuleInstance{
 
 
 
-  public RuleInstance( DataContainer b, Outputs p ){
+  public RuleInstance( DataContainer b){
     theDataContainer = b;
     StorySpace = new Hashtable( b.Statements );
-    theOutputs = p;
+    myLogger = LoggerFactory.getLogger(this.getClass());
     //theDataBuilder = b;
    
   }

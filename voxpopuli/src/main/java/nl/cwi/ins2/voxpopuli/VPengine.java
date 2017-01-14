@@ -33,22 +33,15 @@ public class VPengine {
 			}
 
 			DataContainer theDataContainer = new DataContainer();
-			Outputs theOutputs = new Outputs();
 
 			DataBuilder theDataBuilder = new DataBuilder(args[0].equals("true"), args[1], args[2], args[3],
-					theDataContainer, theOutputs);
+					theDataContainer);
 
 			if (args[5].equals("V")) {
-				theOutputs.SetOutputStreams(null, null, null, null, null, null, null, System.out, null);
 				theDataBuilder.TestVideo(Util.StrToInt(args[6]), Util.StrToInt(args[7]));
 
 			} else {
-				PrintStream Stat = new PrintStream(new FileOutputStream("a.csv"));
-				// setting the debug streams
-				theOutputs.SetOutputStreams(null, null, null, null, System.out, Stat, null, null, null);
-				// theOutputs.SetOutputStreams( null, null, null, null, null,
-				// Stat, null, null, null );
-
+		
 				/*
 				 * String UserType = new String( "Pacifist" );
 				 * 
@@ -95,7 +88,7 @@ public class VPengine {
 					} else {
 
 						// Now we create the rules
-						RuleInstance theRuleInstance = new RuleInstance(theDataContainer, theOutputs);
+						RuleInstance theRuleInstance = new RuleInstance(theDataContainer);
 
 						String theArgumentation;
 						boolean keep = true;
@@ -127,7 +120,7 @@ public class VPengine {
 												+ (BoolArr[ii] == true ? "K" : "NK") + "_"
 												+ (BoolArr[iii] == true ? "N" : "S");
 										SMILMedia theSMILMedia = new SMILMedia("_20", args[4], null, null, null,
-												args[2], filename, true, null, true, theOutputs);
+												args[2], filename, true, null, true);
 										theRuleInstance.Multiplevoices(ArgArr[i], BoolArr[ii], BoolArr[iii], orig,
 												filename, theSMILMedia);
 
@@ -175,7 +168,7 @@ public class VPengine {
 
 								filename = args[6] + "_" + args[5] + "_" + args[8] + "_" + args[9] + "_" + args[10];
 								SMILMedia theSMILMedia = new SMILMedia("_20", args[4], null, null, null, args[2],
-										filename, true, null, true, theOutputs);
+										filename, true, null, true);
 								theRuleInstance.Multiplevoices(theArgumentation, keep, NodeOn, orig, filename,
 										theSMILMedia);
 

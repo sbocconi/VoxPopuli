@@ -16,6 +16,8 @@ import org.eclipse.rdf4j.query.QueryEvaluationException;
 import org.eclipse.rdf4j.query.QueryLanguage;
 import org.eclipse.rdf4j.query.TupleQuery;
 import org.eclipse.rdf4j.query.TupleQueryResult;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class DataBuilder {
 
@@ -76,7 +78,6 @@ public class DataBuilder {
 	 * VARIABLES *
 	 **********************/
 
-	Outputs P; // used to print
 	private DataContainer Data; // all data for the repository
 
 	private RDFRepository theRepository;
@@ -84,6 +85,7 @@ public class DataBuilder {
 	private boolean DataBuilt;
 	private boolean SemGraphBuilt;
 
+	private Logger myLogger;
 	/*********************
 	 * FUNCTIONS
 	 * 
@@ -92,11 +94,9 @@ public class DataBuilder {
 	 **********************/
 
 	public DataBuilder(boolean local, String RDFLocation, String RepositoryString, String theNameSpaceString,
-			DataContainer a, Outputs p) throws Exception {
+			DataContainer a) throws Exception {
 
-		(new Outputs()).PrintTemp(System.err, "Object " + this.hashCode() + " created ");
-
-		P = p;
+		myLogger = LoggerFactory.getLogger(DataBuilder.class);
 
 		Data = a;
 
@@ -157,19 +157,19 @@ public class DataBuilder {
 	}
 
 	protected void finalize() throws Throwable {
-		(new Outputs()).PrintTemp(System.err, "Object " + this.hashCode() + " finalized ");
+		myLogger.info("Object " + this.hashCode() + " finalized ");
 	}
 
 	public boolean PrintStatements() {
 
 		for (Enumeration<VerbalStatement> e = Data.Statements.elements(); e.hasMoreElements();) {
 			VerbalStatement aStatement = (VerbalStatement) e.nextElement();
-			P.Print(P.StatementLog, "Statement " + aStatement.Id + " " + aStatement.SubjectDescription + " "
+			myLogger.debug("Statement " + aStatement.Id + " " + aStatement.SubjectDescription + " "
 					+ aStatement.ModifierDescription + " " + aStatement.PredicateDescription);
 			if (aStatement.ConnectedStatements != null) {
 				PrintConnectedLink(aStatement.ConnectedStatements);
 			} else {
-				P.PrintLn(P.StatementLog, "\tNo Link ");
+				myLogger.debug("\tNo Link ");
 			}
 		}
 		return true;
@@ -187,7 +187,7 @@ public class DataBuilder {
 				+ "MediaClipping:beginFrame {Start}; " + "MediaClipping:endFrame {Stop}; " + "rdfs:label {Lab}; "
 				+ "BasicMedia:src {File}, " + "[{Y} VoxPopuli:hasMedia {X}, " + "{Y} serql:directType {TypeY}]";
 
-		P.PrintLn(P.Query, "Query: " + queryString1);
+		myLogger.debug("Query: " + queryString1);
 		try {
 
 			List<BindingSet> Results1 = theRepository.executeQuery(queryString1);
@@ -199,7 +199,7 @@ public class DataBuilder {
 				dur = (Util.ConvertToDSec(solution.getValue("Stop").toString())
 						- Util.ConvertToDSec(solution.getValue("Start").toString())) / 10;
 				if ((dur > maxsec) || (dur < minsec)) {
-					P.PrintLn(P.ResultOut,
+					myLogger.warn(
 							"Video too " + (dur > maxsec ? "long: " : "short: ") + solution.getValue("X").toString()
 									+ " - " + solution.getValue("Lab").toString() + " dur " + dur + " - "
 									+ (solution.getValue("Y") != null
@@ -212,21 +212,21 @@ public class DataBuilder {
 			String queryString2 = "select Orp, Lab, Y from " + "{Orp} rdf:type {VoxPopuli:Video}, "
 					+ "{Orp} rdfs:label {Lab}, " + "[{Y} VoxPopuli:hasMedia {Orp}] " + "where " + "Y = null";
 
-			P.PrintLn(P.Query, "Query: " + queryString2);
+			myLogger.debug("Query: " + queryString2);
 
 			Results1 = theRepository.executeQuery(queryString1);
 			i = Results1.iterator();
 
 			while (i.hasNext()) {
 				BindingSet solution = i.next();
-				P.PrintLn(P.ResultOut, "Video not contained anywhere: " + solution.getValue("Orp").toString() + " - "
+				myLogger.warn( "Video not contained anywhere: " + solution.getValue("Orp").toString() + " - "
 						+ solution.getValue("Lab").toString());
 			}
 
 		} catch (MalformedQueryException e) {
-			P.PrintLn(P.Err, "Error in Query " + e.toString());
+			myLogger.error("Error in Query " + e.toString());
 		} catch (QueryEvaluationException e) {
-			P.PrintLn(P.Err, "Error in Query " + e.toString());
+			myLogger.error("Error in Query " + e.toString());
 		}
 
 		return result;
@@ -272,7 +272,7 @@ public class DataBuilder {
 			return true;
 		}
 
-		P.PrintLn(P.Locator, "Reading Data");
+		myLogger.debug("Reading Data");
 
 		boolean result = true;
 
@@ -308,7 +308,7 @@ public class DataBuilder {
 					"VoxPopuli:hasQuestion {Question}; " + "VoxPopuli:partecipant {Interviewee}, "
 					+ "{Question} VoxPopuli:text {QuestionText}, " + "[{Interview} VoxPopuli:opinion {Opinion}]";
 
-			P.PrintLn(P.Query, "Query: " + queryString);
+			myLogger.debug("Query: " + queryString);
 
 			List<BindingSet> Results = theRepository.executeQuery(queryString);
 
@@ -330,7 +330,7 @@ public class DataBuilder {
 
 				aSelectedInterview.theInterviewee = solution.getValue("Interviewee").toString();
 
-				P.PrintLn(P.Query, "Query Result: " + aSelectedInterview.Id + " " + aSelectedInterview.OpinionId + " "
+				myLogger.debug("Query Result: " + aSelectedInterview.Id + " " + aSelectedInterview.OpinionId + " "
 						+ aSelectedInterview.theInterviewee);
 
 				Data.InterviewsArray[ii] = aSelectedInterview;
@@ -348,16 +348,16 @@ public class DataBuilder {
 			}
 
 		} catch (MalformedQueryException e) {
-			P.PrintLn(P.Err, "Error in Query " + e.toString());
+			myLogger.error("Error in Query " + e.toString());
 			result = false;
 		} catch (AccessDeniedException e) {
-			P.PrintLn(P.Err, "Error in Query " + e.toString());
+			myLogger.error("Error in Query " + e.toString());
 			result = false;
 		} catch (IOException e) {
-			P.PrintLn(P.Err, "Error retrieving Interviews " + e.toString());
+			myLogger.error("Error retrieving Interviews " + e.toString());
 			result = false;
 		} catch (Exception e) {
-			P.PrintLn(P.Err, "Error in reading Interviews data " + e.toString());
+			myLogger.error("Error in reading Interviews data " + e.toString());
 			e.printStackTrace();
 			result = false;
 		}
@@ -384,7 +384,7 @@ public class DataBuilder {
 				+ "[VoxPopuli:predicate {Predicate} VoxPopuli:partDescription {PredicateDescription}], "
 				+ "{Interviewee} VoxPopuli:description {Description}";
 
-		P.PrintLn(P.Query, "Query: " + queryString);
+		myLogger.debug("Query: " + queryString);
 
 		try {
 			List<BindingSet> Results = theRepository.executeQuery(queryString);
@@ -434,7 +434,7 @@ public class DataBuilder {
 				 * + aStatement.Claimer.Description;
 				 */
 
-				P.PrintLn(P.Query, "Query Result: " + Temp);
+				myLogger.debug("Query Result: " + Temp);
 
 				// Read the segments
 				aStatement.theMediaItem = ReadMediaID(aStatement.Id);
@@ -444,7 +444,7 @@ public class DataBuilder {
 				Data.Statements.put(aStatement.Id, aStatement);
 			}
 		} catch (MalformedQueryException e) {
-			P.PrintLn(P.Err, "Error in Query " + e.toString());
+			myLogger.error("Error in Query " + e.toString());
 		}
 
 		return;
@@ -473,14 +473,14 @@ public class DataBuilder {
 
 		// Link the statements
 		if (!LinksEvaluation()) {
-			P.PrintLn(P.Err, "Link Evaluation failed ");
+			myLogger.error("Link Evaluation failed ");
 		}
 
 	}
 
 	private void NetworkStatements() throws Exception {
 
-		P.PrintLn(P.Locator, "Network Statements ");
+		myLogger.debug("Network Statements ");
 
 		Hashtable[] Connected = new Hashtable[IterationsNr + 1];
 
@@ -494,8 +494,8 @@ public class DataBuilder {
 
 			VerbalStatement vStatement = (VerbalStatement) enu.nextElement();
 
-			P.Print(P.StatementStat, counter + SEPARATOR);
-			P.Print(P.StatementStat, vStatement.SubjectDescription + " " + vStatement.ModifierDescription + " "
+			myLogger.debug(counter + SEPARATOR);
+			myLogger.debug(vStatement.SubjectDescription + " " + vStatement.ModifierDescription + " "
 					+ vStatement.PredicateDescription + SEPARATOR);
 
 			ConstructedStatement cStatement = new ConstructedStatement(vStatement);
@@ -515,7 +515,7 @@ public class DataBuilder {
 
 			// Print increment in Stat file
 			for (int index = 1; index < IterationsNr + 1; index++) {
-				P.Print(P.StatementStat, (Connected[index].size() - Connected[index - 1].size()) + SEPARATOR);
+				myLogger.debug((Connected[index].size() - Connected[index - 1].size()) + SEPARATOR);
 			}
 			// Add the self relation
 			// This is done otherwise all relations chains have self has the
@@ -533,18 +533,18 @@ public class DataBuilder {
 				size = size + Connected[i].size();
 			}
 
-			P.Print(P.StatementStat, size + SEPARATOR);
+			myLogger.debug(size + SEPARATOR);
 
 			if (!LinkStatements(vStatement, Connected)) {
 				throw new Exception("Error linking Statements ");
 			}
 
 			if (vStatement.ConnectedStatements != null) {
-				P.PrintLn(P.StatementLog, "Length connected statements: " + vStatement.ConnectedStatements.size());
-				P.PrintLn(P.StatementStat, vStatement.ConnectedStatements.size() + "");
+				myLogger.debug("Length connected statements: " + vStatement.ConnectedStatements.size());
+				myLogger.debug(vStatement.ConnectedStatements.size() + "");
 			} else {
-				P.PrintLn(P.StatementLog, "ZERO Length of connected statements ");
-				P.PrintLn(P.StatementStat, "0");
+				myLogger.debug("ZERO Length of connected statements ");
+				myLogger.debug("0");
 			}
 
 			counter++;
@@ -640,7 +640,7 @@ public class DataBuilder {
 
 	private void CreateRelations() throws Exception {
 
-		P.PrintLn(P.Locator, "Creating Relations");
+		myLogger.debug("Creating Relations");
 
 		if (Data.Relations == null) {
 			int i = Data.Concepts.size() * Data.Concepts.size();
@@ -712,7 +712,7 @@ public class DataBuilder {
 			return false;
 		}
 
-		P.PrintLn(P.Locator, "Process Statements");
+		myLogger.debug("Process Statements");
 
 		// Read all relations
 		String queryString = "select Conc1, Des1, Conc2, Des2, X " + "from " + "{Conc1} X {Conc2}, "
@@ -722,7 +722,7 @@ public class DataBuilder {
 				+ "where " + "X=VoxPopuli:generalization or " + "X=VoxPopuli:specialization or "
 				+ "X=VoxPopuli:opposite or " + "X=VoxPopuli:similar";
 
-		P.PrintLn(P.Query, "Query: " + queryString);
+		myLogger.debug("Query: " + queryString);
 
 		try {
 
@@ -765,19 +765,19 @@ public class DataBuilder {
 		for (Enumeration<?> e = Data.Statements.elements(); result && e.hasMoreElements();) {
 			VerbalStatement aStatement = (VerbalStatement) e.nextElement();
 
-			P.Print(P.StatementStat, counter + SEPARATOR);
-			P.Print(P.StatementStat, aStatement.SubjectDescription + " " + aStatement.ModifierDescription + " "
+			myLogger.debug(counter + SEPARATOR);
+			myLogger.debug(aStatement.SubjectDescription + " " + aStatement.ModifierDescription + " "
 					+ aStatement.PredicateDescription + SEPARATOR);
 
-			P.PrintLn(P.Locator, "Processing Statement " + counter++);
+			myLogger.debug("Processing Statement " + counter++);
 
 			result = ConnectStatements(aStatement);
 		}
 
-		P.PrintLn(P.Locator, "Evaluating links ");
+		myLogger.debug("Evaluating links ");
 
 		if (!LinksEvaluation()) {
-			P.PrintLn(P.Err, "Link Evaluation failed ");
+			myLogger.error("Link Evaluation failed ");
 		}
 
 		return result;
@@ -785,26 +785,26 @@ public class DataBuilder {
 
 	private void PrintHeader() {
 		// Build statistics for linked statements
-		P.Print(P.StatementStat, "Stat Nr" + SEPARATOR);
-		P.Print(P.StatementStat, "Stat" + SEPARATOR);
+		myLogger.debug("Stat Nr" + SEPARATOR);
+		myLogger.debug("Stat" + SEPARATOR);
 		for (int j = 0; j < IterationsNr; j++) {
 
 			for (int i = 0; i < ConnectActions.length; i++) {
-				P.Print(P.StatementStat, ConnectActions[i].Name + (j + 1) + SEPARATOR);
+				myLogger.debug(ConnectActions[i].Name + (j + 1) + SEPARATOR);
 			}
 		}
-		P.Print(P.StatementStat, "Tot Gen" + SEPARATOR);
+		myLogger.debug("Tot Gen" + SEPARATOR);
 
 		// We take into account also the original statement
-		P.Print(P.StatementStat, "SELF " + SEPARATOR);
-		P.Print(P.StatementStat, "Red SELF " + SEPARATOR);
+		myLogger.debug("SELF " + SEPARATOR);
+		myLogger.debug("Red SELF " + SEPARATOR);
 
 		for (int i = 1; i < IterationsNr + 1; i++) {
-			P.Print(P.StatementStat, "LL = " + i + SEPARATOR);
-			P.Print(P.StatementStat, "Red LL = " + i + SEPARATOR);
+			myLogger.debug("LL = " + i + SEPARATOR);
+			myLogger.debug("Red LL = " + i + SEPARATOR);
 		}
 
-		P.PrintLn(P.StatementStat, "Tot Retr");
+		myLogger.debug("Tot Retr");
 
 	}
 
@@ -816,14 +816,13 @@ public class DataBuilder {
 			return false;
 		}
 
-		P.PrintLn(P.StatementStat);
-		P.Print(P.StatementStat, "From" + SEPARATOR);
-		P.Print(P.StatementStat, "Rel" + SEPARATOR);
-		P.Print(P.StatementStat, "To" + SEPARATOR);
-		P.Print(P.StatementStat, "Pos Score" + SEPARATOR);
-		P.Print(P.StatementStat, "Neg Score" + SEPARATOR);
-		P.Print(P.StatementStat, "Hit Score" + SEPARATOR);
-		P.PrintLn(P.StatementStat, "Miss Score");
+		myLogger.debug("From" + SEPARATOR);
+		myLogger.debug("Rel" + SEPARATOR);
+		myLogger.debug("To" + SEPARATOR);
+		myLogger.debug("Pos Score" + SEPARATOR);
+		myLogger.debug("Neg Score" + SEPARATOR);
+		myLogger.debug("Hit Score" + SEPARATOR);
+		myLogger.debug("Miss Score");
 
 		for (Enumeration<?> e = Data.Relations.elements(); e.hasMoreElements();) {
 			count++;
@@ -833,7 +832,7 @@ public class DataBuilder {
 					+ aRelDes.PSharedscore + SEPARATOR + aRelDes.NSharedscore + SEPARATOR + aRelDes.HITscore + SEPARATOR
 					+ aRelDes.MISSscore;
 
-			P.PrintLn(P.StatementStat, msg);
+			myLogger.debug(msg);
 
 		}
 
@@ -877,8 +876,8 @@ public class DataBuilder {
 			PrintConnectedStatement(Hashtables[i]);
 		}
 
-		P.PrintLn(P.StatementLog, "Length constructed statements " + size);
-		P.Print(P.StatementStat, size + SEPARATOR);
+		myLogger.debug("Length constructed statements " + size);
+		myLogger.debug(size + SEPARATOR);
 
 		// Link the statements
 		if (!LinkStatements(theStatement, Hashtables)) {
@@ -886,12 +885,12 @@ public class DataBuilder {
 		}
 
 		if (theStatement.ConnectedStatements != null) {
-			P.PrintLn(P.StatementLog, "Length connected statements: " + theStatement.ConnectedStatements.size());
-			P.PrintLn(P.StatementStat, theStatement.ConnectedStatements.size() + "");
+			myLogger.debug("Length connected statements: " + theStatement.ConnectedStatements.size());
+			myLogger.debug(theStatement.ConnectedStatements.size() + "");
 			PrintConnectedLink(theStatement.ConnectedStatements);
 		} else {
-			P.PrintLn(P.StatementLog, "ZERO Length of connected statements ");
-			P.PrintLn(P.StatementStat, "0");
+			myLogger.debug("ZERO Length of connected statements ");
+			myLogger.debug("0");
 		}
 
 		return true;
@@ -943,7 +942,7 @@ public class DataBuilder {
 						+ ", {Id} VoxPopuli:modifier {<" + aConstructedStatement.Modifier + ">}"
 						+ ", {Id} VoxPopuli:predicate {<" + aConstructedStatement.Predicate + ">}";
 
-				P.PrintLn(P.Query, "Query: " + queryString);
+				myLogger.debug("Query: " + queryString);
 
 				try {
 
@@ -1019,7 +1018,7 @@ public class DataBuilder {
 
 								if (!theStatement.ConnectedStatements.containsKey(VerbStatementToLink.Id)) {
 
-									P.PrintLn(P.StatementLog,
+									myLogger.debug(
 											"Linking " + theStatement.Id + " to " + VerbStatementToLink.Id + " with "
 													+ aConstructedStatement.LinkType.PrintLinkList());
 									Link a = new Link();
@@ -1046,8 +1045,8 @@ public class DataBuilder {
 			}
 		}
 		for (int i = 0; i < LinkLength.length; i++) {
-			P.Print(P.StatementStat, LinkLength[i] + SEPARATOR);
-			P.Print(P.StatementStat, RedundLinkLength[i] - LinkLength[i] + SEPARATOR);
+			myLogger.debug(LinkLength[i] + SEPARATOR);
+			myLogger.debug(RedundLinkLength[i] - LinkLength[i] + SEPARATOR);
 		}
 
 		return true;
@@ -1100,7 +1099,7 @@ public class DataBuilder {
 								+ theStatement.Subject + ">} " + Relation + " {Subject}; " + Relation
 								+ " {Subject} VoxPopuli:partDescription {SubjectDescription}";
 
-						P.PrintLn(P.Query, "Query: " + queryString);
+						myLogger.debug("Query: " + queryString);
 
 						List<BindingSet> Results = theRepository.executeQuery(queryString);
 						Iterator<BindingSet> it = Results.iterator();
@@ -1128,7 +1127,7 @@ public class DataBuilder {
 								throw new Exception("Link not present ");
 							}
 
-							P.PrintLn(P.Log1, "Constructing " + Message + "Subject: " + aStatement.SubjectDescription
+							myLogger.debug("Constructing " + Message + "Subject: " + aStatement.SubjectDescription
 									+ " " + aStatement.ModifierDescription + " "
 									+ aStatement.PredicateDescription /*
 																		 * + " "
@@ -1160,7 +1159,7 @@ public class DataBuilder {
 								+ theStatement.Modifier + ">} " + Relation + " {Modifier}; " + Relation
 								+ " {Modifier} VoxPopuli:partDescription {ModifierDescription}";
 
-						P.PrintLn(P.Query, "Query: " + queryString);
+						myLogger.debug("Query: " + queryString);
 
 						List<BindingSet> Results = theRepository.executeQuery(queryString);
 						Iterator<BindingSet> it = Results.iterator();
@@ -1208,7 +1207,7 @@ public class DataBuilder {
 								+ theStatement.Predicate + ">} " + Relation + " {Predicate}; " + Relation
 								+ " {Predicate} VoxPopuli:partDescription {PredicateDescription}";
 
-						P.PrintLn(P.Query, "Query: " + queryString);
+						myLogger.debug("Query: " + queryString);
 
 						List<BindingSet> Results = theRepository.executeQuery(queryString);
 						Iterator<BindingSet> it = Results.iterator();
@@ -1236,7 +1235,7 @@ public class DataBuilder {
 								throw new Exception("Link not present ");
 							}
 
-							P.PrintLn(P.Log1, "Constructing " + Message + "Predicate: " + aStatement.SubjectDescription
+							myLogger.debug("Constructing " + Message + "Predicate: " + aStatement.SubjectDescription
 									+ " " + aStatement.ModifierDescription + " "
 									+ aStatement.PredicateDescription /*
 																		 * + " "
@@ -1266,7 +1265,7 @@ public class DataBuilder {
 					 * " {Object} <VoxPopuli:partDescription> {ObjectDescription} "
 					 * + "using namespace " + Namespaces;
 					 * 
-					 * P.PrintLn(P.Query, "Query: " + queryString );
+					 * myLogger.debug("Query: " + queryString );
 					 * 
 					 * Results = theRepository.Client.performTableQuery(
 					 * QueryLanguage.SERQL, queryString );
@@ -1303,23 +1302,23 @@ public class DataBuilder {
 				}
 			} catch (MalformedQueryException e) {
 				result = false;
-				P.PrintLn(P.Err, "Error in Query " + e.toString());
+				myLogger.error("Error in Query " + e.toString());
 			} catch (AccessDeniedException e) {
 				result = false;
-				P.PrintLn(P.Err, "Error in Query " + e.toString());
+				myLogger.error("Error in Query " + e.toString());
 			} catch (Exception e) {
 				result = false;
-				P.PrintLn(P.Err, "Error in manipulationg the statements " + e.toString());
+				myLogger.error("Error in manipulationg the statements " + e.toString());
 			}
 			if (!result) {
 				throw new Exception("Error expanding Statements with " + ConnectActions[i].Name);
 			}
 			int size = OUTStats.size();
-			P.Print(P.StatementStat, size - oldsize + SEPARATOR);
+			myLogger.debug(size - oldsize + SEPARATOR);
 			if (size - oldsize > 0) {
-				P.PrintLn(P.StatementLog, "Increase with " + ConnectActions[i].Name + " of " + (size - oldsize));
+				myLogger.debug("Increase with " + ConnectActions[i].Name + " of " + (size - oldsize));
 			} else {
-				P.PrintLn(P.StatementLog, "No Increase with " + ConnectActions[i].Name);
+				myLogger.debug("No Increase with " + ConnectActions[i].Name);
 			}
 			oldsize = size;
 		}
@@ -1352,7 +1351,7 @@ public class DataBuilder {
 				+ "[VoxPopuli:hasLocation {Location}]; " + "[VoxPopuli:takesPlace {Place}]; "
 				+ "[VoxPopuli:hasSubject {Subject}]; " + "VoxPopuli:quality {Quality}";
 
-		P.PrintLn(P.Query, "Query: " + queryString);
+		myLogger.debug("Query: " + queryString);
 
 		List<BindingSet> Results = theRepository.executeQuery(queryString);
 		Iterator<BindingSet> it = Results.iterator();
@@ -1383,7 +1382,7 @@ public class DataBuilder {
 		// Read media related information
 		String queryString = "select X " + "from " + "{<" + Id + ">} VoxPopuli:hasMedia {X}";
 
-		P.PrintLn(P.Query, "Query: " + queryString);
+		myLogger.debug("Query: " + queryString);
 
 		try {
 			List<BindingSet> Results = theRepository.executeQuery(queryString);
@@ -1419,10 +1418,10 @@ public class DataBuilder {
 			}
 
 		} catch (MalformedQueryException e) {
-			P.PrintLn(P.Err, "Error in Query " + e.toString());
+			myLogger.error("Error in Query " + e.toString());
 			ResultList = null;
 		} catch (Exception e) {
-			P.PrintLn(P.Err, "Error in manipulationg the statements " + e.toString());
+			myLogger.error("Error in manipulationg the statements " + e.toString());
 			ResultList = null;
 		}
 
@@ -1440,7 +1439,7 @@ public class DataBuilder {
 				+ "VoxPopuli:language {Language}; " + "VoxPopuli:atTime {Time}; " + "VoxPopuli:hasLocation {Location}; "
 				+ "VoxPopuli:takesPlace {Place}; " + "VoxPopuli:hasSubject {Subject}; " + "VoxPopuli:quality {Quality}";
 
-		P.PrintLn(P.Query, "Query: " + queryString);
+		myLogger.debug("Query: " + queryString);
 
 		List<BindingSet> Results = theRepository.executeQuery(queryString);
 		Iterator<BindingSet> it = Results.iterator();
@@ -1473,7 +1472,7 @@ public class DataBuilder {
 				+ "[VoxPopuli:takesPlace {Place}]; " + "[VoxPopuli:hasSubject {Subject}]; "
 				+ "VoxPopuli:quality {Quality}";
 
-		P.PrintLn(P.Query, "Query: " + queryString);
+		myLogger.debug("Query: " + queryString);
 
 		List<BindingSet> Results = theRepository.executeQuery(queryString);
 		Iterator<BindingSet> it = Results.iterator();
@@ -1504,7 +1503,7 @@ public class DataBuilder {
 				+ "[VoxPopuli:mediaDescription {MediaDescription}]; " + "VoxPopuli:language {Language}; "
 				+ "VoxPopuli:hasSubject {Subject}; " + "VoxPopuli:quality {Quality}";
 
-		P.PrintLn(P.Query, "Query: " + queryString);
+		myLogger.debug("Query: " + queryString);
 
 		List<BindingSet> Results = theRepository.executeQuery(queryString);
 		Iterator<BindingSet> it = Results.iterator();
@@ -1539,7 +1538,7 @@ public class DataBuilder {
 		String queryString = "select Rhetoric  " + "from " + "{<" + Id + ">} " + "VoxPopuli:" + Relation
 				+ " {Rhetoric}";
 
-		P.PrintLn(P.Query, "Query: " + queryString);
+		myLogger.debug("Query: " + queryString);
 
 		List<BindingSet> Results = theRepository.executeQuery(queryString);
 
@@ -1558,7 +1557,7 @@ public class DataBuilder {
 				queryString = "select Role from " + "{<" + Results.get(i).getValue("Rhetoric").toString() + ">} "
 						+ "VoxPopuli:toulminRole {Role}";
 
-				P.PrintLn(P.Query, "Query: " + queryString);
+				myLogger.debug("Query: " + queryString);
 
 				List<BindingSet> RoleResults = theRepository.executeQuery(queryString);
 
@@ -1600,7 +1599,7 @@ public class DataBuilder {
 		String queryString = "select Node, NodeType " + "from " + "{<" + Id + ">} " + "VoxPopuli:toulminType {Node}, "
 				+ "{Node} serql:directType {NodeType}";
 
-		P.PrintLn(P.Query, "Query: " + queryString);
+		myLogger.debug("Query: " + queryString);
 
 		List<BindingSet> NodeResults = theRepository.executeQuery(queryString);
 
@@ -1632,7 +1631,7 @@ public class DataBuilder {
 				queryString = "select Statements  " + "from " + "{<" + NodeResults.get(i).getValue("Node").toString()
 						+ ">} " + "VoxPopuli:statements {Statements}";
 
-				P.PrintLn(P.Query, "Query: " + queryString);
+				myLogger.debug("Query: " + queryString);
 				List<BindingSet> StatementsResults = theRepository.executeQuery(queryString);
 
 				int ll = StatementsResults.size();
@@ -1669,7 +1668,7 @@ public class DataBuilder {
 						+ NodeResults.get(i).getValue("Node").toString() + ">} "
 						+ "VoxPopuli:stmRelation {StatementRel}; " + "VoxPopuli:logicType {LogicType}";
 
-				P.PrintLn(P.Query, "Query: " + queryString);
+				myLogger.debug("Query: " + queryString);
 
 				List<BindingSet> NodeDataResults = theRepository.executeQuery(queryString);
 
@@ -1707,7 +1706,7 @@ public class DataBuilder {
 				+ "[VoxPopuli:hasOrigin {HasOrigin}]; " + "[VoxPopuli:hasRace {HasRace}]; "
 				+ "[VoxPopuli:hasReligion {HasReligion}]; " + "[VoxPopuli:hasGender {HasGender}]";
 
-		P.PrintLn(P.Query, "Query: " + queryString);
+		myLogger.debug("Query: " + queryString);
 
 		try {
 
@@ -1741,7 +1740,7 @@ public class DataBuilder {
 
 			}
 		} catch (MalformedQueryException e) {
-			P.PrintLn(P.Err, "Error in Query " + e.toString());
+			myLogger.error("Error in Query " + e.toString());
 		}
 
 		return;
@@ -1756,7 +1755,7 @@ public class DataBuilder {
 			String queryString = "select ID, UserType " + "from " + "{ID} serql:directType {VoxPopuli:UserModel}; "
 					+ "VoxPopuli:userType {UserType}";
 
-			P.PrintLn(P.Query, "Query: " + queryString);
+			myLogger.debug("Query: " + queryString);
 
 			List<BindingSet> Results = theRepository.executeQuery(queryString);
 
@@ -1772,7 +1771,7 @@ public class DataBuilder {
 				queryString = "select Factor " + "from " + "{<" + aUserModel.Id
 						+ ">} serql:directType {VoxPopuli:UserModel}; " + "VoxPopuli:excludedFactor {Factor}";
 
-				P.PrintLn(P.Query, "Query: " + queryString);
+				myLogger.debug("Query: " + queryString);
 
 				List<BindingSet> FactorResults = theRepository.executeQuery(queryString);
 
@@ -1785,7 +1784,7 @@ public class DataBuilder {
 				queryString = "select Factor " + "from " + "{<" + aUserModel.Id
 						+ ">} serql:directType {VoxPopuli:UserModel}; " + "VoxPopuli:importantFactor {Factor}";
 
-				P.PrintLn(P.Query, "Query: " + queryString);
+				myLogger.debug("Query: " + queryString);
 
 				FactorResults = theRepository.executeQuery(queryString);
 
@@ -1798,7 +1797,7 @@ public class DataBuilder {
 				queryString = "select Factor " + "from " + "{<" + aUserModel.Id
 						+ ">} serql:directType {VoxPopuli:UserModel}; " + "VoxPopuli:veryImportantFactor {Factor}";
 
-				P.PrintLn(P.Query, "Query: " + queryString);
+				myLogger.debug("Query: " + queryString);
 
 				FactorResults = theRepository.executeQuery(queryString);
 
@@ -1811,7 +1810,7 @@ public class DataBuilder {
 				queryString = "select Factor " + "from " + "{<" + aUserModel.Id
 						+ ">} serql:directType {VoxPopuli:UserModel}; " + "VoxPopuli:negativeReaction {Factor}";
 
-				P.PrintLn(P.Query, "Query: " + queryString);
+				myLogger.debug("Query: " + queryString);
 
 				FactorResults = theRepository.executeQuery(queryString);
 
@@ -1824,7 +1823,7 @@ public class DataBuilder {
 				queryString = "select Factor " + "from " + "{<" + aUserModel.Id
 						+ ">} serql:directType {VoxPopuli:UserModel}; " + "VoxPopuli:positiveReaction {Factor}";
 
-				P.PrintLn(P.Query, "Query: " + queryString);
+				myLogger.debug("Query: " + queryString);
 
 				FactorResults = theRepository.executeQuery(queryString);
 
@@ -1839,7 +1838,7 @@ public class DataBuilder {
 			}
 
 		} catch (MalformedQueryException e) {
-			P.PrintLn(P.Err, "Error in Query " + e.toString());
+			myLogger.error("Error in Query " + e.toString());
 		}
 
 		return;
@@ -1851,7 +1850,7 @@ public class DataBuilder {
 				+ "{Question} serql:directType {VoxPopuli:Question}; " + "VoxPopuli:text {Description}; "
 				+ "[VoxPopuli:order {Order}]";
 
-		P.PrintLn(P.Query, "Query: " + queryString);
+		myLogger.debug("Query: " + queryString);
 
 		try {
 
@@ -1880,7 +1879,7 @@ public class DataBuilder {
 			}
 
 		} catch (MalformedQueryException e) {
-			P.PrintLn(P.Err, "Error in Query " + e.toString());
+			myLogger.error("Error in Query " + e.toString());
 		}
 
 		return;
@@ -1893,7 +1892,7 @@ public class DataBuilder {
 				+ "{Opinion} VoxPopuli:position {Position} VoxPopuli:posDescription {Description1}, "
 				+ "{Opinion} VoxPopuli:topic {ContrTopic} VoxPopuli:contrTopicDescription {Description2}";
 
-		P.PrintLn(P.Query, "Query: " + queryString);
+		myLogger.debug("Query: " + queryString);
 
 		try {
 			List<BindingSet> Results = theRepository.executeQuery(queryString);
@@ -1915,7 +1914,7 @@ public class DataBuilder {
 
 			}
 		} catch (MalformedQueryException e) {
-			P.PrintLn(P.Err, "Error in Query " + e.toString());
+			myLogger.error("Error in Query " + e.toString());
 		}
 
 		return;
@@ -1926,7 +1925,7 @@ public class DataBuilder {
 		String queryString = "select Topic, Description " + "from "
 				+ "{Topic} serql:directType {VoxPopuli:ControversialTopic}; " + "VoxPopuli:description {Description}";
 
-		P.PrintLn(P.Query, "Query: " + queryString);
+		myLogger.debug("Query: " + queryString);
 
 		try {
 			List<BindingSet> Results = theRepository.executeQuery(queryString);
@@ -1943,7 +1942,7 @@ public class DataBuilder {
 
 			}
 		} catch (MalformedQueryException e) {
-			P.PrintLn(P.Err, "Error in Query " + e.toString());
+			myLogger.error("Error in Query " + e.toString());
 		}
 
 		return;
@@ -1954,7 +1953,7 @@ public class DataBuilder {
 		String queryString = "select Conc1, Des1 " + "from " + "{Conc1} rdf:type {VoxPopuli:Concept}, "
 				+ "{Conc1} VoxPopuli:partDescription {Des1}";
 
-		P.PrintLn(P.Query, "Query: " + queryString);
+		myLogger.debug("Query: " + queryString);
 
 		try {
 			List<BindingSet> Results = theRepository.executeQuery(queryString);
@@ -1974,7 +1973,7 @@ public class DataBuilder {
 
 			}
 		} catch (MalformedQueryException e) {
-			P.PrintLn(P.Err, "Error in Query " + e.toString());
+			myLogger.error("Error in Query " + e.toString());
 		}
 
 		return;
@@ -1985,7 +1984,7 @@ public class DataBuilder {
 		String queryString = "select Conc1, Des1 " + "from " + "{Conc1} rdf:type {VoxPopuli:Modifier}, "
 				+ "{Conc1} VoxPopuli:partDescription {Des1}";
 
-		P.PrintLn(P.Query, "Query: " + queryString);
+		myLogger.debug("Query: " + queryString);
 
 		try {
 			List<BindingSet> Results = theRepository.executeQuery(queryString);
@@ -2005,7 +2004,7 @@ public class DataBuilder {
 
 			}
 		} catch (MalformedQueryException e) {
-			P.PrintLn(P.Err, "Error in Query " + e.toString());
+			myLogger.error("Error in Query " + e.toString());
 		}
 
 		return;
@@ -2016,7 +2015,7 @@ public class DataBuilder {
 		String queryString = "select Conc1, Des1 " + "from " + "{Conc1} rdf:type {VoxPopuli:Predicate}, "
 				+ "{Conc1} VoxPopuli:partDescription {Des1}";
 
-		P.PrintLn(P.Query, "Query: " + queryString);
+		myLogger.debug("Query: " + queryString);
 
 		try {
 			List<BindingSet> Results = theRepository.executeQuery(queryString);
@@ -2036,7 +2035,7 @@ public class DataBuilder {
 
 			}
 		} catch (MalformedQueryException e) {
-			P.PrintLn(P.Err, "Error in Query " + e.toString());
+			myLogger.error("Error in Query " + e.toString());
 		}
 
 		return;
@@ -2088,7 +2087,7 @@ public class DataBuilder {
 			if (cStatement.LinkType != null) {
 				Msg = cStatement.LinkType.PrintLinkList();
 			}
-			P.PrintLn(P.StatementLog,
+			myLogger.debug(
 					"Constructed Statement: " + cStatement.SubjectDescription + " " + cStatement.ModifierDescription
 							+ " " + cStatement.PredicateDescription
 							+ " " /*
@@ -2119,7 +2118,7 @@ public class DataBuilder {
 				Msg = a.LinkType.PrintLinkList();
 			}
 
-			P.PrintLn(P.StatementLog,
+			myLogger.debug(
 					"Linked Statement: " + vStatement.SubjectDescription + " " + vStatement.ModifierDescription + " "
 							+ vStatement.PredicateDescription
 							+ " " /*
@@ -2138,7 +2137,7 @@ public class DataBuilder {
 
 		boolean result = true;
 
-		P.PrintLn(P.Locator, "Checking concepts ");
+		myLogger.debug("Checking concepts ");
 
 		String Concept, ConceptDescription;
 
@@ -2154,16 +2153,16 @@ public class DataBuilder {
 					+ "Y=VoxPopuli:specialization or " + "Y=VoxPopuli:opposite or " + "Y=VoxPopuli:similar) and "
 					+ "X!=Y";
 
-			P.PrintLn(P.Query, "Query: " + queryConcept);
+			myLogger.debug("Query: " + queryConcept);
 
-			P.PrintLn(P.Locator, "Checking concepts linked by more then one relation ");
+			myLogger.debug("Checking concepts linked by more then one relation ");
 
 			List<BindingSet> Results = theRepository.executeQuery(queryConcept);
 
 			if (Results.size() > 0) {
-				P.PrintLn(P.ResultOut, "There are concepts linked by more then one relation ");
+				myLogger.warn( "There are concepts linked by more then one relation ");
 				for (int j = 0; j < Results.size(); j++) {
-					P.PrintLn(P.ResultOut,
+					myLogger.warn(
 							"Concept: " + Results.get(j).getValue("U1").toString() + " Relation: "
 									+ Results.get(j).getValue("X").toString() + " and Relation: "
 									+ Results.get(j).getValue("Y").toString() + " to Concept: "
@@ -2177,11 +2176,11 @@ public class DataBuilder {
 					+ "{Concept} rdf:type {VoxPopuli:RhetoricalStatementPart}, "
 					+ "{Concept} VoxPopuli:partDescription {ConceptDescription}";
 
-			P.PrintLn(P.Query, "Query: " + queryConcept);
+			myLogger.debug("Query: " + queryConcept);
 
 			Results = theRepository.executeQuery(queryConcept);
 
-			P.PrintLn(P.Locator, "Checking reciprocal links ");
+			myLogger.debug("Checking reciprocal links ");
 			for (int i = 0; i < Results.size(); i++) {
 
 				Concept = new String(Results.get(i).getValue("Concept").toString());
@@ -2192,7 +2191,7 @@ public class DataBuilder {
 				}
 			}
 
-			P.PrintLn(P.Locator, "Checking opposite/similar links ");
+			myLogger.debug("Checking opposite/similar links ");
 
 			for (int i = 0; i < Results.size(); i++) {
 
@@ -2204,7 +2203,7 @@ public class DataBuilder {
 
 				String queryOpposite = "select Concept " + "from " + "{<" + Concept + ">} VoxPopuli:opposite {Concept}";
 
-				P.PrintLn(P.Query, "Query: " + queryOpposite);
+				myLogger.debug("Query: " + queryOpposite);
 
 				List<BindingSet> OppositeResults = theRepository.executeQuery(queryConcept);
 
@@ -2214,25 +2213,25 @@ public class DataBuilder {
 					} else {
 					}
 				}
-				P.PrintLn(P.Locator, "Checking opposite/similar links for concept " + Concept);
+				myLogger.debug("Checking opposite/similar links for concept " + Concept);
 
 				if (!CheckConceptLinks(Concept, ConceptDescription, Opposite, Visited, VisitedDescription,
 						UseAssociation)) {
 					result = false;
 					int size = VisitedDescription.size();
-					P.PrintLn(P.ResultOut, "Concept linked to Opposite: " + ConceptDescription);
-					P.PrintLn(P.ResultOut, "Opposite Concept: " + VisitedDescription.get(size - 1));
+					myLogger.warn( "Concept linked to Opposite: " + ConceptDescription);
+					myLogger.warn( "Opposite Concept: " + VisitedDescription.get(size - 1));
 					for (int j = 1; j < size - 1; j++) {
-						P.PrintLn(P.ResultOut, "Linking Concept: " + VisitedDescription.get(j));
+						myLogger.warn( "Linking Concept: " + VisitedDescription.get(j));
 					}
 				}
 			}
 		} catch (MalformedQueryException e) {
-			P.PrintLn(P.Err, "Error in Query " + e.toString());
+			myLogger.error("Error in Query " + e.toString());
 		} catch (AccessDeniedException e) {
-			P.PrintLn(P.Err, "Error in Query " + e.toString());
+			myLogger.error("Error in Query " + e.toString());
 		} catch (IOException e) {
-			P.PrintLn(P.Err, "Error retrieving Topics " + e.toString());
+			myLogger.error("Error retrieving Topics " + e.toString());
 		}
 
 		return result;
@@ -2254,7 +2253,7 @@ public class DataBuilder {
 				+ "{Concept} VoxPopuli:partDescription {ConceptDescription} " + "where " + "X = VoxPopuli:similar OR "
 				+ (UseAssociation == true ? "X = VoxPopuli:association OR " : "") + "X = VoxPopuli:generalization";
 
-		P.PrintLn(P.Query, "Query: " + queryRelated);
+		myLogger.debug("Query: " + queryRelated);
 
 		List<BindingSet> RelatedResults = theRepository.executeQuery(queryRelated);
 
@@ -2296,7 +2295,7 @@ public class DataBuilder {
 					+ ">} VoxPopuli:" + Relation[i] + " {RelConcept}, "
 					+ "{RelConcept} VoxPopuli:partDescription {RelConceptDescription}";
 
-			P.PrintLn(P.Query, "Query: " + queryRelated);
+			myLogger.debug("Query: " + queryRelated);
 
 			List<BindingSet> Results = theRepository.executeQuery(queryRelated);
 			Iterator<BindingSet> it = Results.iterator();
@@ -2316,13 +2315,13 @@ public class DataBuilder {
 				String queryBackRelated = "select X " + "from " + "{<" + RelatedConcept + ">} VoxPopuli:" + InvRel
 						+ " {X} " + "where " + "X = <" + Concept + ">";
 
-				P.PrintLn(P.Query, "Query: " + queryBackRelated);
+				myLogger.debug("Query: " + queryBackRelated);
 
 				List<BindingSet> Results1 = theRepository.executeQuery(queryBackRelated);
 
 				if (Results1.size() != 1) {
 
-					P.PrintLn(P.ResultOut, "Concept: " + ConceptDescription + " is not back related by relation: "
+					myLogger.warn( "Concept: " + ConceptDescription + " is not back related by relation: "
 							+ InvRel + " to concept: " + RelatedConceptDescription);
 					result = false;
 				}

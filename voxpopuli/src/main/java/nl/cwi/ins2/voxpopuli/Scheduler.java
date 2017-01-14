@@ -2,6 +2,9 @@ package nl.cwi.ins2.voxpopuli;
 
 import java.util.ArrayList;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 /**
  * <p>Title: Vox Populi</p>
  *
@@ -43,8 +46,8 @@ public class Scheduler{
 
   StorySpace theStorySpace;
   RuleInstance theRuleInstance;
+  private Logger myLogger;
 
-  Outputs P;
 
   /*********************
    *  CLASSES *
@@ -54,10 +57,10 @@ public class Scheduler{
   /*********************
    *  FUNCTIONS *
    **********************/
-  public Scheduler(StorySpace a, Outputs p, RuleInstance aRuleInstance) throws Exception{
+  public Scheduler(StorySpace a, RuleInstance aRuleInstance) throws Exception{
     theStorySpace = a;
-    P = p;
     theRuleInstance = aRuleInstance;
+	myLogger = LoggerFactory.getLogger(this.getClass());
   }
 
   public void InitGoodness( int thr ) throws Exception{
@@ -143,7 +146,7 @@ public class Scheduler{
 
   public boolean GoodBadness(){
     int local = CalculateScore();
-    P.PrintLn(P.ResultOut, "Local Score " + local + " Target " + Threshold);
+    myLogger.info("Local Score " + local + " Target " + Threshold);
     if( local >= Threshold ){
       return true;
     }

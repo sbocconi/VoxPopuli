@@ -10,13 +10,16 @@ import java.util.List;
 import org.eclipse.rdf4j.query.BindingSet;
 import org.eclipse.rdf4j.query.TupleQuery;
 import org.eclipse.rdf4j.query.TupleQueryResult;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 //CLASS TO TEST THE WEB INTERFACE
 
 public class VPWeb {
 
-	Outputs P;
 
+	private Logger myLogger;
+	
 	ArrayList<MediaItem> MediaArray;
 
 	// This function builds the argument pro or against the selected
@@ -25,7 +28,7 @@ public class VPWeb {
 			DataBuilder theDataBuilder, String[] Opinions, String[] Interviewees, String Original, String Strategy,
 			String Captions) {
 
-		P.PrintLn(P.Locator, "Creating a Rhetoric ");
+		myLogger.debug("Creating a Rhetoric ");
 
 		// For the moment I assume that if no (or more than one) opinion(s)
 		// or interviewee(s) are selected, no sequence is generated.
@@ -39,11 +42,11 @@ public class VPWeb {
 			MediaArray = new ArrayList<MediaItem>();
 		} else {
 			MediaArray.clear();
-			P.PrintLn(P.Log1, "MediaArray cleared");
+			myLogger.debug("MediaArray cleared");
 		}
 
-		P.PrintLn(P.Debug1, "Captions: " + Captions);
-		P.PrintLn(P.Debug1, "Original: " + Original);
+		myLogger.debug("Captions: " + Captions);
+		myLogger.debug("Original: " + Original);
 
 		try {
 
@@ -59,7 +62,7 @@ public class VPWeb {
 					+ Interviewees[0] + ">} VoxPopuli:description {PartDesc}, " + "{<" + Opinions[0]
 					+ ">} rdfs:label {PosDesc} ";
 
-			P.PrintLn(P.Query, "Query: " + queryString);
+			myLogger.debug("Query: " + queryString);
 
 			List<BindingSet> Results;
 
@@ -74,7 +77,7 @@ public class VPWeb {
 				for (int i = 0; i < Results.size(); i++) {
 
 					MediaItem MediaItems = null;
-					P.PrintLn(P.Query, "Query Result: " + Results.get(i).getValue("Interview").toString());
+					myLogger.debug("Query Result: " + Results.get(i).getValue("Interview").toString());
 
 					// FIX ME
 					// MediaItems = theDataBuilder.ReadMedia( Results.getValue(
@@ -94,7 +97,7 @@ public class VPWeb {
 
 				for (int i = 0; i < Results.size(); i++) {
 
-					P.PrintLn(P.Query, "Query Result: " + Results.get(i).getValue("Interview").toString());
+					myLogger.debug("Query Result: " + Results.get(i).getValue("Interview").toString());
 
 					for (int ii = 0; ii < theDataContainer.InterviewsArray.length; ii++) {
 						if (theDataContainer.InterviewsArray[ii].Id.equals(Results.get(i).getValue("Interview").toString())) {
@@ -121,9 +124,9 @@ public class VPWeb {
 			}
 
 		} catch (IOException e) {
-			P.PrintLn(P.Err, "Error retrieving Sequences " + e.toString());
+			myLogger.error("Error retrieving Sequences " + e.toString());
 		} catch (Exception e) {
-			P.PrintLn(P.Err, "Error retrieving Media " + e.toString());
+			myLogger.error("Error retrieving Media " + e.toString());
 		}
 
 		return null;
@@ -307,7 +310,7 @@ public class VPWeb {
 		String queryString = "select X, Y " + "from " + "{X} serql:directSubClassOf {VoxPopuli:SocialAnnotation}, "
 				+ "{X} rdfs:label {Y} ";
 
-		P.PrintLn(P.Query, "Query: " + queryString);
+		myLogger.debug("Query: " + queryString);
 
 		if ((Results = theDataBuilder.getTheRepository().executeQuery(queryString)) == null) {
 			return null;
@@ -319,7 +322,7 @@ public class VPWeb {
 			theClasses[0][i] = new String(Results.get(i).getValue("X").toString());
 			theClasses[1][i] = new String(Results.get(i).getValue("Y").toString());
 
-			P.PrintLn(P.Query, "Query Result: " + theClasses[1][i]);
+			myLogger.debug("Query Result: " + theClasses[1][i]);
 		}
 
 		return theClasses;
@@ -334,7 +337,7 @@ public class VPWeb {
 		String queryString = "select X, Y " + "from " + "{X} serql:directSubClassOf {VoxPopuli:" + Class + "}, "
 				+ "{X} rdfs:label {Y} ";
 
-		P.PrintLn(P.Query, "Query: " + queryString);
+		myLogger.debug("Query: " + queryString);
 
 		if ((Results = theDataBuilder.getTheRepository().executeQuery(queryString)) == null) {
 			return null;
@@ -346,7 +349,7 @@ public class VPWeb {
 			theSubClasses[0][i] = new String(Results.get(i).getValue("X").toString());
 			theSubClasses[1][i] = new String(Results.get(i).getValue("Y").toString());
 
-			P.PrintLn(P.Query, "Query Result: " + theSubClasses[1][i]);
+			myLogger.debug("Query Result: " + theSubClasses[1][i]);
 		}
 
 		return theSubClasses;
@@ -359,7 +362,7 @@ public class VPWeb {
 		// We read all the questions with Interviewees[]
 		String queryString = "select X, Y " + "from " + "{X} rdf:type {VoxPopuli:Concept}, " + "{X} rdfs:label {Y} ";
 
-		P.PrintLn(P.Query, "Query: " + queryString);
+		myLogger.debug("Query: " + queryString);
 
 		if ((Results = theDataBuilder.getTheRepository().executeQuery(queryString)) == null) {
 			return null;
@@ -371,7 +374,7 @@ public class VPWeb {
 			theConcepts[0][i] = new String(Results.get(i).getValue("X").toString());
 			theConcepts[1][i] = new String(Results.get(i).getValue("Y").toString());
 
-			P.PrintLn(P.Query, "Query Result: " + theConcepts[1][i]);
+			myLogger.debug("Query Result: " + theConcepts[1][i]);
 		}
 
 		return theConcepts;
@@ -410,17 +413,17 @@ public class VPWeb {
 		msg.append("START_AND\n");
 
 		for (int i = 0; i < Classes[0].length; i++) {
-			P.PrintLn(P.Debug1, "Class: " + Classes[0][i]);
+			myLogger.debug("Class: " + Classes[0][i]);
 			if (parameters1[i] != null) {
 				msg.append("Select" + Classes[1][i]);
 				for (int j = 0; j < parameters1[i].length; j++) {
-					P.PrintLn(P.Debug1, "Selection 1: " + parameters1[i][j]);
+					myLogger.debug("Selection 1: " + parameters1[i][j]);
 					msg.append(" " + parameters1[i][j]);
 				}
 				if (parameters2[i] != null) {
 					msg.append(" , ");
 					for (int j = 0; j < parameters2[i].length; j++) {
-						P.PrintLn(P.Debug1, "Selection 2: " + parameters2[i][j]);
+						myLogger.debug("Selection 2: " + parameters2[i][j]);
 						msg.append(" " + parameters2[i][j]);
 					}
 				}
@@ -428,7 +431,7 @@ public class VPWeb {
 				msg.append("Select" + Classes[1][i]);
 				msg.append(" , ");
 				for (int j = 0; j < parameters2[i].length; j++) {
-					P.PrintLn(P.Debug1, "Selection 2 wo 1: " + parameters2[i][j]);
+					myLogger.debug("Selection 2 wo 1: " + parameters2[i][j]);
 					msg.append(" " + parameters2[i][j]);
 				}
 			}
@@ -441,13 +444,13 @@ public class VPWeb {
 				msg.append(" MAINCHAR , ");
 			}
 			for (int i = 0; i < concepts1.length; i++) {
-				P.PrintLn(P.Debug1, "Concept 1: " + concepts1[i]);
+				myLogger.debug("Concept 1: " + concepts1[i]);
 				msg.append(" " + concepts1[i]);
 			}
 			if (concepts2 != null) {
 				msg.append(" , ");
 				for (int i = 0; i < concepts2.length; i++) {
-					P.PrintLn(P.Debug1, "Concept 2: " + concepts2[i]);
+					myLogger.debug("Concept 2: " + concepts2[i]);
 					msg.append(" " + concepts2[i]);
 				}
 			}
@@ -455,7 +458,7 @@ public class VPWeb {
 			msg.append("SelectConcept ");
 			msg.append(" , ");
 			for (int i = 0; i < concepts2.length; i++) {
-				P.PrintLn(P.Debug1, "Concept 2 wo 1: " + concepts2[i]);
+				myLogger.debug("Concept 2 wo 1: " + concepts2[i]);
 				msg.append(" " + concepts2[i]);
 			}
 		}
@@ -469,7 +472,7 @@ public class VPWeb {
 				}
 
 				for (int i = 0; i < questions.length; i++) {
-					P.PrintLn(P.Debug1, "Question: " + questions[i]);
+					myLogger.debug("Question: " + questions[i]);
 					msg.append(" " + questions[i]);
 				}
 			}
@@ -482,7 +485,7 @@ public class VPWeb {
 				}
 
 				for (int i = 0; i < interviewees.length; i++) {
-					P.PrintLn(P.Debug1, "Interviewee: " + interviewees[i]);
+					myLogger.debug("Interviewee: " + interviewees[i]);
 					msg.append(" " + interviewees[i]);
 				}
 			}
@@ -495,7 +498,7 @@ public class VPWeb {
 				}
 
 				for (int i = 0; i < opinions.length; i++) {
-					P.PrintLn(P.Debug1, "Opinion: " + opinions[i]);
+					myLogger.debug("Opinion: " + opinions[i]);
 					msg.append(" " + opinions[i]);
 				}
 			}
@@ -507,7 +510,7 @@ public class VPWeb {
 			}
 
 			for (int i = 0; i < interviews.length; i++) {
-				P.PrintLn(P.Debug1, "Interview: " + interviews[i]);
+				myLogger.debug("Interview: " + interviews[i]);
 				msg.append(" " + interviews[i]);
 			}
 			msg.append("\n");
@@ -573,7 +576,7 @@ public class VPWeb {
 		if (questions != null) {
 			msg.append("SelectQuestion");
 			for (int i = 0; i < questions.length; i++) {
-				P.PrintLn(P.Debug1, "Question: " + questions[i]);
+				myLogger.debug("Question: " + questions[i]);
 				msg.append(" " + questions[i]);
 			}
 		}
@@ -582,7 +585,7 @@ public class VPWeb {
 		if (partecipants != null) {
 			msg.append("SelectPartecipant");
 			for (int i = 0; i < partecipants.length; i++) {
-				P.PrintLn(P.Debug1, "Partecipant: " + partecipants[i]);
+				myLogger.debug("Partecipant: " + partecipants[i]);
 				msg.append(" " + partecipants[i]);
 			}
 		}
@@ -657,9 +660,9 @@ public class VPWeb {
 	 * 
 	 * return false; }
 	 */
-	public VPWeb(Outputs p) {
+	public VPWeb() {
 
-		P = p;
+		myLogger = LoggerFactory.getLogger(this.getClass());
 	}
 
 	private static void Usage() throws Exception {
@@ -687,18 +690,18 @@ public class VPWeb {
 			String theVideoLocation = args[4];
 
 			DataContainer theDataContainer = new DataContainer();
-			Outputs P = new Outputs();
 
-			DataBuilder theDataBuilder = new DataBuilder(local.equals("true"), RDFLocation, repository, domainNS, theDataContainer, P);
+
+			DataBuilder theDataBuilder = new DataBuilder(local.equals("true"), RDFLocation, repository, domainNS, theDataContainer);
 			// This reads all interviews and builds the data structure
 			theDataBuilder.SetObject(true, false);
 
 			// RuleInstance R = new RuleInstance( theDataContainer, P );
 
 			// setting the debug streams
-			P.SetOutputStreams(null, null, null, null, null, null, null, System.out, System.err);
+			
 
-			VPWeb Webby = new VPWeb(P);
+			VPWeb Webby = new VPWeb();
 
 			if (repository.equals("VJ")) {
 				String[] questions = { "http://www.cwi.nl/~media/ns/VP/VJ.rdf#VJ_Instance_20013" };

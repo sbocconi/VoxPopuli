@@ -9,6 +9,8 @@ import java.util.*;
 import org.eclipse.rdf4j.query.BindingSet;
 import org.eclipse.rdf4j.query.MalformedQueryException;
 import org.eclipse.rdf4j.query.QueryEvaluationException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class VoxPopuli {
 
@@ -655,11 +657,6 @@ public class VoxPopuli {
 			new RhetType("Concession", CONCESSION), new RhetType("Condition", CONDITION), new RhetType("Data", DATA),
 			new RhetType("Warrant", WARRANT), new RhetType("Example", EXAMPLE) };
 
-	static String Namespaces = "VoxPopuli = <!http://www.cwi.nl/~media/ns/IWA/VoxPopuli.rdfs#>, "
-			+ "MediaClipping = <!http://www.w3.org/2001/SMIL20/MediaClipping#>, "
-			+ "BasicMedia = <!http://www.w3.org/2001/SMIL20/BasicMedia#>, "
-			+ "rdfs = <!http://www.w3.org/2000/01/rdf-schema#>, "
-			+ "rdf = <!http://www.w3.org/1999/02/22-rdf-syntax-ns#> ";
 
 	/*********************
 	 * VARIABLES *
@@ -692,16 +689,7 @@ public class VoxPopuli {
 	private Hashtable SegmentImagesArray = null; // List of Segments with Images
 													// to show
 
-	// DEBUG LEVELS
-
-	private PrintStream Query = null;
-	private PrintStream Debug1 = null;
-	private PrintStream Debug2 = null;
-	private PrintStream ResultOut = null;
-	private PrintStream Locator = null;
-	private PrintStream Log1 = null;
-	private PrintStream Log2 = null;
-	private PrintStream Err = null;
+	private static Logger myLogger;
 
 	/*********************
 	 * FUNCTIONS *
@@ -729,40 +717,13 @@ public class VoxPopuli {
 				Usage();
 			}
 
+			myLogger = LoggerFactory.getLogger(VoxPopuli.class);
+
 			VoxPopuli voxpopuli = new VoxPopuli(args[0], args[1], args[2], args[3], args[4]);
 
 			voxpopuli.SetDataStructure();
 
 			// setting the debug streams
-
-			voxpopuli.Query = new PrintStream(new FileOutputStream(new File("/dev/null")));
-			// voxpopuli.Query = System.err;
-
-			// voxpopuli.Debug1 = new PrintStream(new FileOutputStream(new
-			// File("/dev/null")));
-			voxpopuli.Debug1 = System.err;
-
-			voxpopuli.Debug2 = new PrintStream(new FileOutputStream(new File("/dev/null")));
-			// voxpopuli.Debug2 = System.err;
-
-			// voxpopuli.ResultOut = new PrintStream(new FileOutputStream(new
-			// File("/dev/null")));
-			voxpopuli.ResultOut = System.out;
-
-			// voxpopuli.Locator = new PrintStream(new FileOutputStream(new
-			// File("/dev/null")));
-			voxpopuli.Locator = System.err;
-
-			// voxpopuli.Log1 = new PrintStream(new FileOutputStream(new
-			// File("/dev/null")));
-			voxpopuli.Log1 = System.err;
-
-			voxpopuli.Log2 = new PrintStream(new FileOutputStream(new File("/dev/null")));
-			// voxpopuli.Log2 = System.err;
-
-			// voxpopuli.Err = new PrintStream(new FileOutputStream(new
-			// File("/dev/null")));
-			voxpopuli.Err = System.err;
 
 			/*
 			 * // All the controversial topics have been read now and the user
@@ -792,9 +753,9 @@ public class VoxPopuli {
 					throw new Exception("Incorrect option for Check Concepts ");
 				}
 				if (Result == true) {
-					voxpopuli.ResultOut.println("Concepts are OK ");
+					myLogger.info("Concepts are OK ");
 				} else {
-					voxpopuli.ResultOut.println("Concepts are not OK ");
+					myLogger.warn("Concepts are not OK ");
 				}
 			} else {
 
@@ -812,7 +773,7 @@ public class VoxPopuli {
 				// This loop links all related statements together
 				for (int i = 0; i < Array.getLength(voxpopuli.InterviewArray); i++) {
 
-					voxpopuli.Locator.println("Processing Interview " + i);
+					myLogger.debug("Processing Interview " + i);
 					voxpopuli.ProcessInterview(i);
 				}
 
@@ -831,7 +792,7 @@ public class VoxPopuli {
 					boolean[] BoolArr = { true, false };
 
 					filename = args[6] + "_" + args[5] + "_" + "L";
-					voxpopuli.Locator.println("Calculating Longest Path ");
+					myLogger.debug("Calculating Longest Path ");
 					// voxpopuli.LongestPath( filename );
 
 					// Do we have to generate an original file as well?
@@ -848,7 +809,7 @@ public class VoxPopuli {
 								filename = args[6] + "_" + args[5] + "_" + ArgArr[i] + "_"
 										+ (BoolArr[ii] == true ? "K" : "NK") + "_" + (BoolArr[iii] == true ? "N" : "S");
 
-								voxpopuli.Locator.println("Calculating Multiple Voices " + filename);
+								myLogger.debug("Calculating Multiple Voices " + filename);
 								voxpopuli.Multiplevoices(ArgArr[i], BoolArr[ii], BoolArr[iii], orig, filename);
 
 							}
@@ -858,7 +819,7 @@ public class VoxPopuli {
 					if (args[5].equals("L")) {
 						filename = args[6] + "_" + args[5];
 						// Calculate the longest path
-						voxpopuli.Locator.println("Calculating Longest Path ");
+						myLogger.debug("Calculating Longest Path ");
 						// voxpopuli.LongestPath( filename );
 
 					} else if (args[5].equals("M")) {
@@ -894,7 +855,7 @@ public class VoxPopuli {
 						}
 
 						filename = args[6] + "_" + args[5] + "_" + args[8] + "_" + args[9] + "_" + args[10];
-						voxpopuli.Locator.println("Calculating Multiple Voices " + filename);
+						myLogger.debug("Calculating Multiple Voices " + filename);
 						voxpopuli.Multiplevoices(theArgumentation, keep, NodeOn, orig, filename);
 
 					} else {
@@ -912,12 +873,12 @@ public class VoxPopuli {
 
 		for (Enumeration e = Statements.elements(); e.hasMoreElements();) {
 			VerbalStatement aStatement = (VerbalStatement) e.nextElement();
-			Log1.println("Statement " + aStatement.Id + " " + aStatement.SubjectDescription + " "
+			myLogger.debug("Statement " + aStatement.Id + " " + aStatement.SubjectDescription + " "
 					+ aStatement.ModifierDescription + " " + aStatement.PredicateDescription);
 			if (aStatement.ConnectedStatements != null) {
 				PrintConnectedStatement(aStatement.ConnectedStatements, true);
 			} else {
-				Log1.println("\tNo Link ");
+				myLogger.debug("\tNo Link ");
 			}
 		}
 		return true;
@@ -938,7 +899,7 @@ public class VoxPopuli {
 			}
 			if (i > max) {
 				max = i;
-				Debug1.println("Length of the chain " + i);
+				myLogger.debug("Length of the chain " + i);
 				maxchain = new ArrayList(current);
 			}
 			// reset the iterative hash table for a new iteration
@@ -1223,11 +1184,11 @@ public class VoxPopuli {
 	 * finally { out.close(); } }
 	 */
 
-	public VoxPopuli(String ServerString, String RepositoryString, String theNameSpaceString, String local,
-			String RDFDirectory) throws Exception {
+	public VoxPopuli(String local, String RDFDirectory, String RepositoryString, String theNameSpaceString,
+			String ServerString) throws Exception {
 
 		try {
-			theRepository = new RDFRepository(local.equals("true"), ServerString, RepositoryString, theNameSpaceString);
+			theRepository = new RDFRepository(local.equals("true"), RDFDirectory, RepositoryString, theNameSpaceString);
 
 		} catch (Exception e) {
 			throw new Exception("Error in constructing VoxPopuli " + e.toString());
@@ -1378,7 +1339,7 @@ public class VoxPopuli {
 				OutFile = new PrintWriter(System.out);
 			}
 		} catch (IOException e) {
-			Err.print("Error opening file " + e.toString());
+			myLogger.error("Error opening file " + e.toString());
 		}
 
 		OutFile.print("<?xml version=\"1.0\" encoding=\"iso-8859-1\" standalone=\"yes\"?>\n"
@@ -1535,7 +1496,7 @@ public class VoxPopuli {
 
 			DSecs = DSecs + 10 * (Secs + 60 * (Mins + 60 * (Hours)));
 		} catch (StringIndexOutOfBoundsException e) {
-			Err.print("String not long enough: " + TimeString + ",error " + e.toString());
+			myLogger.error("String not long enough: " + TimeString + ",error " + e.toString());
 		}
 
 		return DSecs;
@@ -1558,9 +1519,9 @@ public class VoxPopuli {
 
 		//
 		String queryString = "select ControversialTopic " + "from "
-				+ "{ControversialTopic} <rdf:type> {<VoxPopuli:ControversialTopic>} " + "using namespace " + Namespaces;
+				+ "{ControversialTopic} <rdf:type> {<VoxPopuli:ControversialTopic>}";
 
-		Query.println("Query: " + queryString);
+		myLogger.debug("Query: " + queryString);
 		try {
 			List<BindingSet> Results = theRepository.executeQuery(queryString);
 
@@ -1568,15 +1529,15 @@ public class VoxPopuli {
 
 			for (int i = 0; i < Results.size(); i++) {
 				String Res = new String(Results.get(i).getValue("ControversialTopic").toString());
-				Debug2.println("Query Result: " + Res);
+				myLogger.debug("Query Result: " + Res);
 				ContrTopicArray[i] = new String(Res);
 			}
 
 			result = true;
 		} catch (MalformedQueryException e) {
-			Err.println("Error in Query " + e.toString());
+			myLogger.error("Error in Query " + e.toString());
 		} catch (QueryEvaluationException e) {
-			Err.println("Error in Query " + e.toString());
+			myLogger.error("Error in Query " + e.toString());
 		}
 
 		return result;
@@ -1587,9 +1548,9 @@ public class VoxPopuli {
 
 		// We read all the interview that have the specified topic
 		String queryString = "select Questions, QLabel " + "from " + "{Question} <rdf:type> {<voxpopuli:Question>}, "
-				+ "{Question} <rdfs:label> {QLabel} " + "using namespace " + Namespaces;
+				+ "{Question} <rdfs:label> {QLabel}";
 
-		Query.println("Query: " + queryString);
+		myLogger.debug("Query: " + queryString);
 		try {
 			List<BindingSet> Results = theRepository.executeQuery(queryString);
 
@@ -1599,14 +1560,14 @@ public class VoxPopuli {
 				Question aQuestion = new Question(Results.get(i).getValue("Questions").toString(),
 						Results.get(i).getValue("QLabel").toString());
 				QuestionArray[i] = aQuestion;
-				Query.println("Query Result: " + aQuestion.QuestionId + " " + aQuestion.QuestionText);
+				myLogger.debug("Query Result: " + aQuestion.QuestionId + " " + aQuestion.QuestionText);
 			}
 
 			result = true;
 		} catch (MalformedQueryException e) {
-			Err.println("Error in Query " + e.toString());
+			myLogger.error("Error in Query " + e.toString());
 		} catch (QueryEvaluationException e) {
-			Err.println("Error in Query " + e.toString());
+			myLogger.error("Error in Query " + e.toString());
 		}
 
 		return result;
@@ -1619,9 +1580,9 @@ public class VoxPopuli {
 		String queryString = "select Interview, ProCon, Interviewee, Description " + "from "
 				+ "{Interview} <VoxPopuli:partecipant> {Interviewee}; "
 				+ "<VoxPopuli:opinion> {X} <VoxPopuli:topic> {<!" + Topic + ">}, " + "{X} <serql:directType> {ProCon}, "
-				+ "{Interviewee} <VoxPopuli:description> {Description}, " + "using namespace " + Namespaces;
+				+ "{Interviewee} <VoxPopuli:description> {Description}";
 
-		Query.println("Query: " + queryString);
+		myLogger.debug("Query: " + queryString);
 		try {
 			List<BindingSet> Results = theRepository.executeQuery(queryString);
 
@@ -1635,16 +1596,16 @@ public class VoxPopuli {
 				aSelectedInterview.Interviewee = new Partecipant();
 				aSelectedInterview.Interviewee.Id = Results.get(i).getValue("Interviewee").toString();
 				aSelectedInterview.Interviewee.Description = Results.get(i).getValue("Description").toString();
-				Query.println(
+				myLogger.debug(
 						"Query Result: " + aSelectedInterview.Id + " " + aSelectedInterview.Position + " " + Topic);
 				InterviewArray[i] = aSelectedInterview;
 			}
 
 			result = true;
 		} catch (MalformedQueryException e) {
-			Err.println("Error in Query " + e.toString());
+			myLogger.error("Error in Query " + e.toString());
 		} catch (QueryEvaluationException e) {
-			Err.println("Error in Query " + e.toString());
+			myLogger.error("Error in Query " + e.toString());
 		}
 
 		return result;
@@ -1664,9 +1625,9 @@ public class VoxPopuli {
 				+ "{Interviewee} <VoxPopuli:description> {Description}, "
 				+ "{Question} <VoxPopuli:text> {QuestionText}, "
 				+ "[{Interview} <VoxPopuli:opinion> {X} <VoxPopuli:topic> {Topic}, "
-				+ "{X} <serql:directType> {ProCon}] " + "using namespace " + Namespaces;
+				+ "{X} <serql:directType> {ProCon}]";
 
-		Query.println("Query: " + queryString);
+		myLogger.debug("Query: " + queryString);
 		try {
 			List<BindingSet> Results = theRepository.executeQuery(queryString);
 
@@ -1690,16 +1651,16 @@ public class VoxPopuli {
 				aSelectedInterview.Interviewee.Description = new String(
 						Results.get(i).getValue("Description").toString());
 
-				Query.println("Query Result: " + aSelectedInterview.Id + " " + aSelectedInterview.Position + " "
+				myLogger.debug("Query Result: " + aSelectedInterview.Id + " " + aSelectedInterview.Position + " "
 						+ aSelectedInterview.Topic + " " + aSelectedInterview.Interviewee.Description);
 				InterviewArray[i] = aSelectedInterview;
 			}
 
 			result = true;
 		} catch (MalformedQueryException e) {
-			Err.println("Error in Query " + e.toString());
+			myLogger.error("Error in Query " + e.toString());
 		} catch (QueryEvaluationException e) {
-			Err.println("Error in Query " + e.toString());
+			myLogger.error("Error in Query " + e.toString());
 		}
 
 		return result;
@@ -1759,7 +1720,7 @@ public class VoxPopuli {
 				if (length > max) {
 					max = length;
 					// New max found, reset the MaxChain hashtable
-					Debug2.println("Length of the chain " + max);
+					myLogger.debug("Length of the chain " + max);
 					MaxChain = new ArrayList(local);
 				}
 			}
@@ -1835,9 +1796,9 @@ public class VoxPopuli {
 
 				size = INStatements.size();
 				if (size <= max) {
-					Log2.println("No Increase with " + actions[i].Name);
+					myLogger.debug("No Increase with " + actions[i].Name);
 				} else {
-					Log2.println("Increase with " + actions[i].Name + " of " + (size - max));
+					myLogger.debug("Increase with " + actions[i].Name + " of " + (size - max));
 					max = size;
 				}
 			}
@@ -1849,12 +1810,12 @@ public class VoxPopuli {
 			throw new Exception("Error linking Statements ");
 		}
 
-		Log1.println("Length constructed statements " + INStatements.size());
+		myLogger.debug("Length constructed statements " + INStatements.size());
 		if (theStatement.ConnectedStatements != null) {
-			Log1.println("Length connected statements: " + theStatement.ConnectedStatements.size());
+			myLogger.debug("Length connected statements: " + theStatement.ConnectedStatements.size());
 			PrintConnectedStatement(theStatement.ConnectedStatements, true);
 		} else {
-			Log1.println("ZERO Length of connected statements ");
+			myLogger.debug("ZERO Length of connected statements ");
 			PrintConnectedStatement(INStatements, false);
 		}
 
@@ -1917,9 +1878,9 @@ public class VoxPopuli {
 					 * ", {Id} <VoxPopuli:object> {<!" + aStatement.Object +
 					 * ">}" : ", [{Id} <VoxPopuli:object> {Object}]" ) +
 					 */
-					whereclause + " using namespace " + Namespaces;
+					whereclause;
 
-			Query.println("Query: " + queryString);
+			myLogger.debug("Query: " + queryString);
 
 			try {
 
@@ -1944,7 +1905,7 @@ public class VoxPopuli {
 						if (StatementToLink.ConnectedStatements == null) {
 							StatementToLink.ConnectedStatements = new MyArrayList();
 						}
-						Log2.println("URRA, SI LINKA " + PrintLinkList(aStatement.LinkType) + ": " + theStatement.Id
+						myLogger.debug("URRA, SI LINKA " + PrintLinkList(aStatement.LinkType) + ": " + theStatement.Id
 								+ " " + StatementToLink.Id);
 						// Link the statements, using the Id from the RDF
 						// instance, which
@@ -2027,7 +1988,7 @@ public class VoxPopuli {
 
 						aStatement.LinkType.add(new LinkDescription(null, null, null, null));
 
-						Log2.println("Adding statement to support itself: " + aStatement.SubjectDescription + " "
+						myLogger.debug("Adding statement to support itself: " + aStatement.SubjectDescription + " "
 								+ aStatement.ModifierDescription + " "
 								+ aStatement.PredicateDescription /*
 																	 * + " " +
@@ -2046,10 +2007,9 @@ public class VoxPopuli {
 				if (!theStatement.Subject.equals("")) {
 					String queryString = "select Subject, SubjectDescription " + "from " + "{<!" + theStatement.Subject
 							+ ">} " + Relation + " {Subject}; " + Relation
-							+ " {Subject} <VoxPopuli:partDescription> {SubjectDescription} " + "using namespace "
-							+ Namespaces;
+							+ " {Subject} <VoxPopuli:partDescription> {SubjectDescription}";
 
-					Query.println("Query: " + queryString);
+					myLogger.debug("Query: " + queryString);
 
 					List<BindingSet> Results = theRepository.executeQuery(queryString);
 
@@ -2066,7 +2026,7 @@ public class VoxPopuli {
 						aStatement.SubjectDescription = new String(Results.get(j).getValue("SubjectDescription") != null
 								? Results.get(j).getValue("SubjectDescription").toString() : "");
 
-						Log2.println("Constructing " + Message + "Subject: " + aStatement.SubjectDescription + " "
+						myLogger.debug("Constructing " + Message + "Subject: " + aStatement.SubjectDescription + " "
 								+ aStatement.ModifierDescription + " "
 								+ aStatement.PredicateDescription /*
 																	 * + " " +
@@ -2089,10 +2049,9 @@ public class VoxPopuli {
 
 					String queryString = "select Modifier, ModifierDescription " + "from " + "{<!"
 							+ theStatement.Modifier + ">} " + Relation + " {Modifier}; " + Relation
-							+ " {Modifier} <VoxPopuli:partDescription> {ModifierDescription} " + "using namespace "
-							+ Namespaces;
+							+ " {Modifier} <VoxPopuli:partDescription> {ModifierDescription";
 
-					Query.println("Query: " + queryString);
+					myLogger.debug("Query: " + queryString);
 
 					List<BindingSet> Results = theRepository.executeQuery(queryString);
 
@@ -2121,10 +2080,9 @@ public class VoxPopuli {
 
 					String queryString = "select Predicate, PredicateDescription " + "from " + "{<!"
 							+ theStatement.Predicate + ">} " + Relation + " {Predicate}; " + Relation
-							+ " {Predicate} <VoxPopuli:partDescription> {PredicateDescription} " + "using namespace "
-							+ Namespaces;
+							+ " {Predicate} <VoxPopuli:partDescription> {PredicateDescription}";
 
-					Query.println("Query: " + queryString);
+					myLogger.debug("Query: " + queryString);
 
 					List<BindingSet> Results = theRepository.executeQuery(queryString);
 
@@ -2142,7 +2100,7 @@ public class VoxPopuli {
 								Results.get(j).getValue("PredicateDescription") != null
 										? Results.get(j).getValue("PredicateDescription").toString() : "");
 
-						Log2.println("Constructing " + Message + "Predicate: " + aStatement.SubjectDescription + " "
+						myLogger.debug("Constructing " + Message + "Predicate: " + aStatement.SubjectDescription + " "
 								+ aStatement.ModifierDescription + " "
 								+ aStatement.PredicateDescription /*
 																	 * + " " +
@@ -2165,7 +2123,7 @@ public class VoxPopuli {
 				 * " {Object} <VoxPopuli:partDescription> {ObjectDescription} "
 				 * + "using namespace " + Namespaces;
 				 * 
-				 * Query.println( "Query: " + queryString );
+				 * myLogger.debug( "Query: " + queryString );
 				 * 
 				 * Results = theRepository.Client.performTableQuery(
 				 * QueryLanguage.SERQL, queryString );
@@ -2200,11 +2158,11 @@ public class VoxPopuli {
 			}
 			result = true;
 		} catch (MalformedQueryException e) {
-			Err.println("Error in Query " + e.toString());
+			myLogger.error("Error in Query " + e.toString());
 		} catch (AccessDeniedException e) {
-			Err.println("Error in Query " + e.toString());
+			myLogger.error("Error in Query " + e.toString());
 		} catch (Exception e) {
-			Err.println("Error supporting statements with Logos" + e.toString());
+			myLogger.error("Error supporting statements with Logos" + e.toString());
 		}
 
 		return result;
@@ -2230,10 +2188,9 @@ public class VoxPopuli {
 		String queryString = "select Src, BeginFrame, EndFrame, MediaDescription, Language, Quality " + "from " + "{<!"
 				+ Id + ">} " + "<VoxPopuli:hasMedia> {} <MediaClipping:beginFrame> {BeginFrame}; "
 				+ "<MediaClipping:endFrame> {EndFrame}; " + "[<VoxPopuli:mediaDescription> {MediaDescription}]; "
-				+ "<BasicMedia:src> {Src}; " + "<VoxPopuli:language> {Language}; " + "<VoxPopuli:quality> {Quality} "
-				+ "using namespace " + Namespaces;
+				+ "<BasicMedia:src> {Src}; " + "<VoxPopuli:language> {Language}; " + "<VoxPopuli:quality> {Quality}";
 
-		Query.println("Query: " + queryString);
+		myLogger.debug("Query: " + queryString);
 
 		List<BindingSet> Results = theRepository.executeQuery(queryString);
 
@@ -2270,9 +2227,9 @@ public class VoxPopuli {
 		// recursively, once with "rhetoricalForm" and with
 		// "nestedRhetoricalForm"
 		String queryString = "select Rhetoric  " + "from " + "{<!" + Id + ">} " + "<VoxPopuli:" + Relation
-				+ "> {Rhetoric} " + "using namespace " + Namespaces;
+				+ "> {Rhetoric}";
 
-		Query.println("Query: " + queryString);
+		myLogger.debug("Query: " + queryString);
 
 		List<BindingSet> Results = theRepository.executeQuery(queryString);
 
@@ -2287,9 +2244,9 @@ public class VoxPopuli {
 
 				Arguments[i] = new Argument();
 				queryString = "select Role from " + "{<!" + Results.get(i).getValue("Rhetoric").toString() + ">} "
-						+ "<VoxPopuli:toulminRole> {Role} " + "using namespace " + Namespaces;
+						+ "<VoxPopuli:toulminRole> {Role}";
 
-				Query.println("Query: " + queryString);
+				myLogger.debug("Query: " + queryString);
 
 				List<BindingSet> RoleResults = theRepository.executeQuery(queryString);
 
@@ -2330,10 +2287,9 @@ public class VoxPopuli {
 		ToulminNode[] Nodes = null;
 
 		String queryString = "select Node, NodeType " + "from " + "{<!" + Id + ">} "
-				+ "<VoxPopuli:toulminType> {Node}, " + "{Node} <serql:directType> {NodeType} " + "using namespace "
-				+ Namespaces;
+				+ "<VoxPopuli:toulminType> {Node}, " + "{Node} <serql:directType> {NodeType}";
 
-		Query.println("Query: " + queryString);
+		myLogger.debug("Query: " + queryString);
 
 		List<BindingSet> NodeResults = theRepository.executeQuery(queryString);
 
@@ -2363,9 +2319,9 @@ public class VoxPopuli {
 
 				// Read the statements per node
 				queryString = "select Statements  " + "from " + "{<!" + NodeResults.get(i).getValue("Node").toString()
-						+ ">} " + "<VoxPopuli:statements> {Statements} " + "using namespace " + Namespaces;
+						+ ">} " + "<VoxPopuli:statements> {Statements}";
 
-				Query.println("Query: " + queryString);
+				myLogger.debug("Query: " + queryString);
 
 				List<BindingSet> StatementsResults = theRepository.executeQuery(queryString);
 
@@ -2395,10 +2351,9 @@ public class VoxPopuli {
 				// type of link to the rest of the Toulmin structure
 				queryString = "select StatementRel, LogicType  " + "from " + "{<!"
 						+ NodeResults.get(i).getValue("Node").toString() + ">} "
-						+ "<VoxPopuli:stmRelation> {StatementRel}; " + "<VoxPopuli:logicType> {LogicType} "
-						+ "using namespace " + Namespaces;
+						+ "<VoxPopuli:stmRelation> {StatementRel}; " + "<VoxPopuli:logicType> {LogicType}";
 
-				Query.println("Query: " + queryString);
+				myLogger.debug("Query: " + queryString);
 				List<BindingSet> NodeDataResults = theRepository.executeQuery(queryString);
 
 				if (NodeDataResults.size() != 0) {
@@ -2434,9 +2389,9 @@ public class VoxPopuli {
 				+ "[<VoxPopuli:subject> {Subject} <VoxPopuli:partDescription> {SubjectDescription}]; "
 				+ "[<VoxPopuli:modifier> {Modifier} <VoxPopuli:partDescription> {ModifierDescription}]; "
 				+ "[<VoxPopuli:predicate> {Predicate} <VoxPopuli:partDescription> {PredicateDescription}], "
-				+ "{Interviewee} <VoxPopuli:description> {Description} " + "using namespace " + Namespaces;
+				+ "{Interviewee} <VoxPopuli:description> {Description}";
 
-		Query.println("Query: " + queryString);
+		myLogger.debug("Query: " + queryString);
 
 		try {
 			List<BindingSet> Results = theRepository.executeQuery(queryString);
@@ -2487,16 +2442,16 @@ public class VoxPopuli {
 					 */
 					"T: " + aStatement.ParentNode.ToulminType.Name + " " + "C: " + aStatement.Claimer.Description;
 
-			Query.println("Query Result: " + Temp);
+			myLogger.debug("Query Result: " + Temp);
 
 			// Read the segments
 			aStatement.Segments = ReadMedia(Id, Temp);
 		} catch (MalformedQueryException e) {
-			Err.println("Error in Query " + e.toString());
+			myLogger.error("Error in Query " + e.toString());
 		} catch (AccessDeniedException e) {
-			Err.println("Error in Query " + e.toString());
+			myLogger.error("Error in Query " + e.toString());
 		} catch (IOException e) {
-			Err.println("Error retrieving Topics " + e.toString());
+			myLogger.error("Error retrieving Topics " + e.toString());
 		}
 
 		return aStatement;
@@ -2568,7 +2523,7 @@ public class VoxPopuli {
 				 * AttackedStatement.Object + "> " + "using namespace " +
 				 * Namespaces;
 				 * 
-				 * Query.println( "Query: " + queryString );
+				 * myLogger.debug( "Query: " + queryString );
 				 * 
 				 * Results = theRepository.Client.performTableQuery(
 				 * QueryLanguage.SERQL, queryString );
@@ -2585,9 +2540,9 @@ public class VoxPopuli {
 						+ "<VoxPopuli:userType> {Value}; " + Relation
 						+ " {Point} <VoxPopuli:partDescription> {PointDescription}, " + "{<!"
 						+ AttackedStatement.Subject + ">} <VoxPopuli:association> {Point} " + "where Value = \""
-						+ UserTYpe + "\" " + "using namespace " + Namespaces;
+						+ UserTYpe + "\"";
 
-				Query.println("Query: " + queryString);
+				myLogger.debug("Query: " + queryString);
 
 				List<BindingSet> Results = theRepository.executeQuery(queryString);
 
@@ -2604,7 +2559,7 @@ public class VoxPopuli {
 					aImageConcept.ConceptDescription = new String(Results.get(j).getValue("PointDescription") != null
 							? Results.get(j).getValue("PointDescription").toString() : "");
 
-					Log2.println("Constructing Image " + (((link * attitude) == Negative) ? "Con" : "Pro")
+					myLogger.debug("Constructing Image " + (((link * attitude) == Negative) ? "Con" : "Pro")
 							+ " Concept: " + aImageConcept.ConceptDescription);
 
 					AnswerConceptArray.put("" + index++, aImageConcept);
@@ -2613,11 +2568,11 @@ public class VoxPopuli {
 
 			result = true;
 		} catch (MalformedQueryException e) {
-			Err.println("Error in Query " + e.toString());
+			myLogger.error("Error in Query " + e.toString());
 		} catch (AccessDeniedException e) {
-			Err.println("Error in Query " + e.toString());
+			myLogger.error("Error in Query " + e.toString());
 		} catch (Exception e) {
-			Err.println("Error handling statements with Pathos " + e.toString());
+			myLogger.error("Error handling statements with Pathos " + e.toString());
 		}
 
 		return result;
@@ -2633,10 +2588,9 @@ public class VoxPopuli {
 
 				queryString = "select Factor " + "from " + "{} <rdf:type> {<VoxPopuli:UserModel>}; "
 						+ "<VoxPopuli:userType> {Value};" + "<VoxPopuli:" + Weights[i].RelationName + "> {Factor}, "
-						+ "{<!" + Interviewee + ">} P {Factor} " + "where Value = \"" + UserType + "\" "
-						+ "using namespace " + Namespaces;
+						+ "{<!" + Interviewee + ">} P {Factor} " + "where Value = \"" + UserType + "\"";
 
-				Query.println("Query: " + queryString);
+				myLogger.debug("Query: " + queryString);
 
 				List<BindingSet> Results = theRepository.executeQuery(queryString);
 
@@ -2644,16 +2598,16 @@ public class VoxPopuli {
 			}
 
 		} catch (MalformedQueryException e) {
-			Err.println("Error in Query " + e.toString());
+			myLogger.error("Error in Query " + e.toString());
 		} catch (Exception e) {
-			Err.println("Error retrieving Segments from Statements " + e.toString());
+			myLogger.error("Error retrieving Segments from Statements " + e.toString());
 		}
 
 		return Rating;
 	}
 
 	private boolean SelectImages(String UserType, int NrInterview) {
-		
+
 		String queryString;
 		boolean result = false;
 		VideoSegment aSegment = null;
@@ -2668,10 +2622,10 @@ public class VoxPopuli {
 			queryString = "select BeginFrame, EndFrame, FileName, Description " + "from " + "{<!"
 					+ InterviewArray[NrInterview].Id + ">} " + "<MediaClipping:beginFrame> {BeginFrame}; "
 					+ "<MediaClipping:endFrame> {EndFrame}; " + "<MediaClipping:src> {FileName}; "
-					+ "<VoxPopuli:hasQuestion> {} <rdfs:label> {Description} " + "using namespace " + Namespaces;
+					+ "<VoxPopuli:hasQuestion> {} <rdfs:label> {Description}";
 
-			Query.println("Query: " + queryString);
-			
+			myLogger.debug("Query: " + queryString);
+
 			List<BindingSet> Results = theRepository.executeQuery(queryString);
 
 			aSegment = new VideoSegment();
@@ -2689,9 +2643,9 @@ public class VoxPopuli {
 
 				queryString = "select FileName, Description " + "from " + "{} <VoxPopuli:express>  {<!"
 						+ aImageConcept.Concept + ">}; " + "<MediaClipping:src> {FileName}; "
-						+ "<VoxPopuli:imageDescription> {Description} " + "using namespace " + Namespaces;
+						+ "<VoxPopuli:imageDescription> {Description}";
 
-				Query.println("Query: " + queryString);
+				myLogger.debug("Query: " + queryString);
 
 				Results = theRepository.executeQuery(queryString);
 
@@ -2710,9 +2664,9 @@ public class VoxPopuli {
 			SegmentImagesArray.put("0", aSegment);
 			result = true;
 		} catch (MalformedQueryException e) {
-			Err.println("Error in Query " + e.toString());
+			myLogger.error("Error in Query " + e.toString());
 		} catch (Exception e) {
-			Err.println("Error retrieving Segments from Statements " + e.toString());
+			myLogger.error("Error retrieving Segments from Statements " + e.toString());
 		}
 
 		return result;
@@ -2855,8 +2809,8 @@ public class VoxPopuli {
 					Msg = PrintLinkList(a.LinkType);
 				}
 
-				Log1.println("Linked Statement: " + vStatement.SubjectDescription + " " + vStatement.ModifierDescription
-						+ " " + vStatement.PredicateDescription
+				myLogger.debug("Linked Statement: " + vStatement.SubjectDescription + " "
+						+ vStatement.ModifierDescription + " " + vStatement.PredicateDescription
 						+ " " /*
 								 * + vStatement.ObjectDescription
 								 */ + Msg);
@@ -2866,7 +2820,7 @@ public class VoxPopuli {
 				if (cStatement.LinkType != null) {
 					Msg = PrintLinkList(cStatement.LinkType);
 				}
-				Log1.println("Constructed Statement: " + cStatement.SubjectDescription + " "
+				myLogger.debug("Constructed Statement: " + cStatement.SubjectDescription + " "
 						+ cStatement.ModifierDescription + " " + cStatement.PredicateDescription
 						+ " " /*
 								 * + cStatement.ObjectDescription
@@ -2950,9 +2904,9 @@ public class VoxPopuli {
 		// We read all the concepts
 		String queryConcept = "select Concept, ConceptDescription " + "from "
 				+ "{Concept} <rdf:type> {<VoxPopuli:RhetoricalStatementPart>}, "
-				+ "{Concept} <VoxPopuli:partDescription> {ConceptDescription} " + "using namespace " + Namespaces;
+				+ "{Concept} <VoxPopuli:partDescription> {ConceptDescription}";
 
-		Query.println("Query: " + queryConcept);
+		myLogger.debug("Query: " + queryConcept);
 
 		String Concept, ConceptDescription;
 
@@ -2979,11 +2933,11 @@ public class VoxPopuli {
 				ArrayList VisitedDescription = new ArrayList();
 
 				String queryOpposite = "select Concept " + "from " + "{<!" + Concept
-						+ ">} <VoxPopuli:logicalopposite> {Concept} " + "using namespace " + Namespaces;
+						+ ">} <VoxPopuli:logicalopposite> {Concept}";
 
-				Query.println("Query: " + queryOpposite);
+				myLogger.debug("Query: " + queryOpposite);
 
-				List<BindingSet>  OppositeResults = theRepository.executeQuery(queryOpposite);
+				List<BindingSet> OppositeResults = theRepository.executeQuery(queryOpposite);
 
 				for (int ii = 0; ii < OppositeResults.size(); ii++) {
 					if (!Opposite.contains(OppositeResults.get(ii).getValue("Concept").toString())) {
@@ -2996,19 +2950,19 @@ public class VoxPopuli {
 						UseAssociation)) {
 					result = false;
 					int size = VisitedDescription.size();
-					ResultOut.println("Concept linked to Opposite: " + ConceptDescription);
-					ResultOut.println("Opposite Concept: " + VisitedDescription.get(size - 1));
+					myLogger.debug("Concept linked to Opposite: " + ConceptDescription);
+					myLogger.debug("Opposite Concept: " + VisitedDescription.get(size - 1));
 					for (int j = 1; j < size - 1; j++) {
-						ResultOut.println("Linking Concept: " + VisitedDescription.get(j));
+						myLogger.debug("Linking Concept: " + VisitedDescription.get(j));
 					}
 				}
 			}
 		} catch (MalformedQueryException e) {
-			Err.println("Error in Query " + e.toString());
+			myLogger.error("Error in Query " + e.toString());
 		} catch (AccessDeniedException e) {
-			Err.println("Error in Query " + e.toString());
+			myLogger.error("Error in Query " + e.toString());
 		} catch (IOException e) {
-			Err.println("Error retrieving Topics " + e.toString());
+			myLogger.error("Error retrieving Topics " + e.toString());
 		}
 
 		return result;
@@ -3029,16 +2983,16 @@ public class VoxPopuli {
 		String queryRelated = "select Concept, ConceptDescription " + "from " + "{<!" + Concept + ">} X {Concept}, "
 				+ "{Concept} <VoxPopuli:partDescription> {ConceptDescription} " + "where "
 				+ "X = <VoxPopuli:logicalsimilar> OR "
-				+ (UseAssociation == true ? "X = <VoxPopuli:association> OR " : "") + "X = <VoxPopuli:generalization> "
-				+ "using namespace " + Namespaces;
+				+ (UseAssociation == true ? "X = <VoxPopuli:association> OR " : "") + "X = <VoxPopuli:generalization>";
 
-		Query.println("Query: " + queryRelated);
+		myLogger.debug("Query: " + queryRelated);
 
 		List<BindingSet> RelatedResults = theRepository.executeQuery(queryRelated);
 
 		for (int ii = 0; ii < RelatedResults.size(); ii++) {
 			String NextConcept = new String(RelatedResults.get(ii).getValue("Concept").toString());
-			String NextConceptDescription = new String(RelatedResults.get(ii).getValue("ConceptDescription").toString());
+			String NextConceptDescription = new String(
+					RelatedResults.get(ii).getValue("ConceptDescription").toString());
 			if (Opposite.contains(NextConcept)) {
 				// Add the causing concept on top of the list
 				Visited.add(NextConcept);
@@ -3072,13 +3026,12 @@ public class VoxPopuli {
 
 			String queryRelated = "select RelConcept, RelConceptDescription " + "from " + "{<!" + Concept
 					+ ">} <VoxPopuli:" + Relation[i] + "> {RelConcept}, "
-					+ "{RelConcept} <VoxPopuli:partDescription> {RelConceptDescription} " + "using namespace "
-					+ Namespaces;
+					+ "{RelConcept} <VoxPopuli:partDescription> {RelConceptDescription}";
 
-			Query.println("Query: " + queryRelated);
+			myLogger.debug("Query: " + queryRelated);
 
 			List<BindingSet> RelatedResults = theRepository.executeQuery(queryRelated);
-			
+
 			for (int ii = 0; ii < RelatedResults.size(); ii++) {
 				String RelatedConcept = RelatedResults.get(ii).getValue("RelConcept").toString();
 				String RelatedConceptDescription = RelatedResults.get(ii).getValue("RelConceptDescription").toString();
@@ -3090,15 +3043,15 @@ public class VoxPopuli {
 				}
 
 				String queryBackRelated = "select X " + "from " + "{<!" + RelatedConcept + ">} <VoxPopuli:" + InvRel
-						+ "> {X} " + "where " + "X = <!" + Concept + "> " + "using namespace " + Namespaces;
+						+ "> {X} " + "where " + "X = <!" + Concept + ">";
 
-				Query.println("Query: " + queryBackRelated);
+				myLogger.debug("Query: " + queryBackRelated);
 
-				List<BindingSet>  BackRelatedResults = theRepository.executeQuery(queryBackRelated);
+				List<BindingSet> BackRelatedResults = theRepository.executeQuery(queryBackRelated);
 
 				if (BackRelatedResults.size() != 1) {
 
-					ResultOut.println("Concept: " + ConceptDescription + " is not back related by relation: " + InvRel
+					myLogger.debug("Concept: " + ConceptDescription + " is not back related by relation: " + InvRel
 							+ " to concept: " + RelatedConceptDescription);
 					result = false;
 				}
